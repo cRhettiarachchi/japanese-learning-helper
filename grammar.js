@@ -1,13 +1,14 @@
 'use strict';
-(() => {
+(async () => {
  const key = 'hirogaru-misa-grammar-v1';
  const boxes = [...document.querySelectorAll('input[data-lesson]')];
  const rows = [...document.querySelectorAll('tr[data-topic]')];
  const stages = [...document.querySelectorAll('.stage')];
  const warning = document.querySelector('#storage-warning');
- let done = {};
- try { const saved = JSON.parse(localStorage.getItem(key) || '{}'); if (saved && typeof saved === 'object' && !Array.isArray(saved)) done = saved; }
- catch { warning.hidden = false; }
+ const progress = window.StudyProgress;
+ boxes.forEach(box => box.disabled = true);
+ await progress.ready;
+ boxes.forEach(box => box.disabled = false);
  const update = () => {
   let count = 0;
   boxes.forEach(box => { box.closest('tr').classList.toggle('complete',box.checked); if(box.checked) count++; });
@@ -35,10 +36,9 @@
   document.querySelector('#empty').hidden = shown !== 0;
  };
  boxes.forEach(box => {
-  box.checked = done[box.dataset.lesson] === true;
+  box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.user&&progress.mode!=='local';
   box.addEventListener('change',() => {
-   if (box.checked) done[box.dataset.lesson] = true; else delete done[box.dataset.lesson];
-   try {localStorage.setItem(key,JSON.stringify(done));} catch {warning.hidden = false;}
+   progress.set('grammar', box.dataset.lesson, 'done', box.checked);
    update();filter();
   });
  });
@@ -50,5 +50,6 @@
   clearFilters();location.hash=next.closest('tr').id;next.focus({preventScroll:true});
  });
  document.querySelectorAll('.stages a').forEach(a=>a.addEventListener('click',clearFilters));
+ progress.subscribe(() => { boxes.forEach(box => { box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.user&&progress.mode!=='local'; }); update();filter(); });
  update();filter();
 })();

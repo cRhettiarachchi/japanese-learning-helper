@@ -1,6 +1,6 @@
 # Japanese learner
 
-Open index.html in your browser. It is self-contained and works offline, including the five photographs. Source links require internet access.
+Use `npm ci`, `npm run build`, and `npm run dev`, then open http://127.0.0.1:8765/. See [account progress setup](ACCOUNT-PROGRESS.md) for Development credentials, sign-in, tests and rollout status. Do not serve the repository root: it contains ignored server credentials.
 
 Five full article texts with original hiragana ruby readings. Source article photographs: one per article. Audio, videos and quizzes remain available on the original pages.
 
@@ -13,9 +13,9 @@ The source text is preserved, including historical statistics; it is not a curre
 
 Open grammar.html, or http://127.0.0.1:8765/grammar.html using:
 
-    python3 -m http.server 8765 --bind 127.0.0.1 --directory /Users/chari/Documents/projects/hirogaru-reader
+    npm run dev
 
-13 stages, 129 lesson entries, 136 distinct verified Misa video links, and 36 coverage-gap entries (165 total). Checkboxes save in this browser at this origin; keep the same address to retain progress. No progress is uploaded. Original article markup is unchanged: five articles and 238 ruby elements.
+13 stages, 129 lesson entries, 136 distinct verified Misa video links, and 36 coverage-gap entries (165 total). Signed-in checkboxes sync to your account; signed-out progress stays in this browser. Old browser progress can be explicitly imported after signing in. Article text and ruby markup are preserved.
 
 Research covers 299 public uploads, seven Shorts, nine relevant playlists, official grammar pages, and targeted searches. YouTube oEmbed confirmed metadata and attribution for 306 public videos; this does not guarantee playback in every region. Mapping is based on public metadata, not watching every video. Two historical links returned 403 and are not offered as verified videos. Missing matches are not proof of absence. Bunpro N5–N3 entries were used as a prerequisite cross-check, not a complete JLPT syllabus. See the page’s coverage notes and research/catalog-audit.json.
 
