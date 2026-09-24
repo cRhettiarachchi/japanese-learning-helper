@@ -1,13 +1,12 @@
 'use strict';
-(() => {
+(async () => {
   const storageKey = 'hirogaru-reading-progress-v1';
   const boxes = [...document.querySelectorAll('[data-reading-key]')];
   const warning = document.querySelector('#reading-storage-warning');
-  let saved = {};
-  try {
-    const value = JSON.parse(localStorage.getItem(storageKey) || '{}');
-    if (value && typeof value === 'object' && !Array.isArray(value)) saved = value;
-  } catch { warning.hidden = false; }
+  const progress = window.StudyProgress;
+  boxes.forEach(box => box.disabled = true);
+  await progress.ready;
+  boxes.forEach(box => box.disabled = false);
   const update = () => {
     let count = 0;
     boxes.forEach(box => {
@@ -23,16 +22,9 @@
     next.textContent = next.disabled ? 'This set is complete ✓' : 'Continue reading →';
   };
   boxes.forEach(box => {
-    box.checked = saved[box.dataset.readingKey] === true;
+    box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.user&&progress.mode!=='local';
     box.addEventListener('change', () => {
-      // Merge other pages' updates without resetting earlier reading sets.
-      try {
-        const latest = JSON.parse(localStorage.getItem(storageKey) || '{}');
-        if (latest && typeof latest === 'object' && !Array.isArray(latest)) saved = latest;
-        if (box.checked) saved[box.dataset.readingKey] = true;
-        else delete saved[box.dataset.readingKey];
-        localStorage.setItem(storageKey, JSON.stringify(saved));
-      } catch { warning.hidden = false; }
+      progress.set('article', box.dataset.readingKey, 'done', box.checked);
       update();
     });
   });
@@ -41,13 +33,8 @@
     if (next) { location.hash = next.closest('article').id; next.focus({preventScroll:true}); }
   });
   document.querySelector('#reading-date').addEventListener('change', event => { location.href = event.target.value; });
-  window.addEventListener('storage', event => {
-    if (event.key !== storageKey && event.key !== null) return;
-    try {
-      const value = JSON.parse(event.newValue || '{}');
-      saved = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
-      boxes.forEach(box => { box.checked = saved[box.dataset.readingKey] === true; }); update();
-    } catch { warning.hidden = false; }
+  progress.subscribe(() => {
+    boxes.forEach(box => { box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.user&&progress.mode!=='local'; }); update();
   });
   update();
 })();

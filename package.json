@@ -1,0 +1,22 @@
+{
+  "name": "japanese-learner",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test tests/*.cjs",
+    "dev": "node --env-file-if-exists=.env.local scripts/dev.cjs",
+    "db:migrate": "node --env-file-if-exists=.env.local scripts/migrate.cjs",
+    "test:integration": "node --env-file-if-exists=.env.local scripts/integration.cjs"
+  },
+  "dependencies": {
+    "jose": "6.2.12",
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8"
+  }
+}
