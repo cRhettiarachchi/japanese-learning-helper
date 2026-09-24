@@ -1,0 +1,2 @@
+const fs=require('node:fs');const {getPool}=require('../server/db.cjs');
+(async()=>{if(process.env.APP_ORIGIN!=='http://127.0.0.1:8765')throw Error('Local Development environment required; production migration is a separate rollout step.');const pool=getPool();try{await pool.query(fs.readFileSync('db/vocabulary.sql','utf8'));console.log('Development vocabulary schema ready.');}finally{await pool.end();}})().catch(e=>{console.error(e.message);process.exitCode=1;});

@@ -1,6 +1,6 @@
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'../public');
-const routes=Object.fromEntries(['auth/authorize','auth/callback','auth/session','auth/signout','progress','study-time'].map(p=>['/api/'+p,require('../api/'+p+'.js')]));
+const routes=Object.fromEntries(['auth/authorize','auth/callback','auth/session','auth/signout','progress','study-time','vocabulary'].map(p=>['/api/'+p,require('../api/'+p+'.js')]));
 const types={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.mp3':'audio/mpeg','.vtt':'text/vtt','.md':'text/plain; charset=utf-8'};
 http.createServer(async(req,res)=>{
  try{
