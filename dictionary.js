@@ -19,7 +19,7 @@
   const source=make('a','JMdict');source.href='https://www.edrdg.org/wiki/JMdict-EDICT_Dictionary_Project.html';source.target='_blank';source.rel='noopener';
   const license=make('a','CC BY-SA 4.0');license.href='https://creativecommons.org/licenses/by-sa/4.0/';license.target='_blank';license.rel='noopener';credit.append(source,' · ',license);
   panel.append(head,results,credit);document.body.append(panel);
-  let opened=false,trigger=null,token=null,generation=0;
+  let opened=false,trigger=null,token=null,generation=0,clearSave=()=>{};
   function select(button){
    for(const word of document.querySelectorAll('.word.selected'))word.classList.remove('selected');
    for(const word of document.querySelectorAll('[data-word]'))if(word.dataset.word===button.dataset.word)word.classList.add('selected');
@@ -27,12 +27,28 @@
   async function open(button,value){
    if(!opened){opened=true;onOpen();}
    trigger=button;token=value;const request=++generation;panel.hidden=false;select(button);
-   results.replaceChildren(make('p','Loading…'));closeButton.focus({preventScroll:true});
+   clearSave();clearSave=()=>{};results.replaceChildren(make('p','Loading…'));closeButton.focus({preventScroll:true});
    try{
     const dictionary=await loadDictionary();if(!opened||generation!==request)return;
     const values=meanings(value,dictionary);results.replaceChildren();
     if(!values.length)results.append(make('p','No English meaning found.'));
-    else {const list=make('ul');for(const text of values)list.append(make('li',text));results.append(list);}
+    else {
+     const review=document.defaultView?.VocabularyReview;
+     const ids=[...new Set(value.entries||[])].filter(id=>dictionary[id]&&meanings({entries:[id]},dictionary).length);
+     const targets=[];
+     if(review&&ids.length>1){
+      results.append(make('p','Several dictionary matches. Choose the entry you want to review.'));
+      for(const [index,id] of ids.entries()){
+       const entry=dictionary[id],section=make('section');section.className='dictionary-match';
+       const heading=make('h3',`${index+1}. ${entry.forms?.[0]||entry.readings?.[0]||value.lemma||value.surface}`);heading.lang='ja';section.append(heading);
+       const list=make('ul');for(const text of meanings({entries:[id]},dictionary))list.append(make('li',text));section.append(list);results.append(section);targets.push({id,target:section});
+      }
+     }else{
+      const list=make('ul');for(const text of values)list.append(make('li',text));results.append(list);
+      if(ids.length===1)targets.push({id:ids[0],target:results});
+     }
+     if(review&&targets.length)clearSave=review.attachSaveControls(results,targets);
+    }
     panel.scrollTop=0;
    }catch{
     if(!opened||generation!==request)return;
@@ -41,7 +57,7 @@
    }
   }
   function close(restore=true){
-   if(!opened)return;opened=false;generation++;panel.hidden=true;
+   if(!opened)return;opened=false;generation++;clearSave();clearSave=()=>{};panel.hidden=true;
    for(const word of document.querySelectorAll('.word.selected'))word.classList.remove('selected');
    if(restore&&trigger?.isConnected)trigger.focus({preventScroll:true});onClose(restore);
   }
