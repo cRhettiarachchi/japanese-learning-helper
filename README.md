@@ -1,4 +1,4 @@
-# Hirogaru reading collection
+# Japanese learner
 
 Open index.html in your browser. It is self-contained and works offline, including the five photographs. Source links require internet access.
 
@@ -20,3 +20,7 @@ Open grammar.html, or http://127.0.0.1:8765/grammar.html using:
 Research covers 299 public uploads, seven Shorts, nine relevant playlists, official grammar pages, and targeted searches. YouTube oEmbed confirmed metadata and attribution for 306 public videos; this does not guarantee playback in every region. Mapping is based on public metadata, not watching every video. Two historical links returned 403 and are not offered as verified videos. Missing matches are not proof of absence. Bunpro N5–N3 entries were used as a prerequisite cross-check, not a complete JLPT syllabus. See the page’s coverage notes and research/catalog-audit.json.
 
 Validation passed: completion saving and reload, next unfinished lesson, search, empty state, 36-gap filter, stage navigation, desktop and 390px mobile layouts without page overflow. All internal fragment targets resolve, all 136 video IDs match the verified catalog, and local assets return HTTP 200. Test completion was restored to unchecked.
+
+## App name and saved progress
+
+The app is named **Japanese learner**. Hirogaru remains the credited source of reading articles. Existing browser-storage keys and article URLs are intentionally unchanged, so the rename preserves completion history. Keep using the same local address and port for access to that history.
