@@ -1,0 +1,1525 @@
+{
+  "checked": "2026-09-13",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "01 · Sentence foundations",
+      "note": "Start here, or tick the basics you already understand. The first link is the main lesson; older alternatives are optional.",
+      "lessons": [
+        {
+          "id": "g-GUymRdqBglo",
+          "topic": "は + です: your first sentence",
+          "description": "Build “X is Y” sentences and understand the role of a topic marker.",
+          "video_ids": [
+            "GUymRdqBglo",
+            "UneYOL0DQxk"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-pubwgjOKtSM",
+          "topic": "Questions with か",
+          "description": "Ask yes/no and “what is…” questions in polite and casual speech.",
+          "video_ids": [
+            "pubwgjOKtSM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-RXcBOZ9XNPQ",
+          "topic": "これ・それ・あれ",
+          "description": "Point to this, that, and things farther away; distinguish polite direction words.",
+          "video_ids": [
+            "RXcBOZ9XNPQ",
+            "tecppGPsaPg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-9ScV9fK9lIQ",
+          "topic": "この・その・あの + noun",
+          "description": "Choose between a standalone demonstrative and a word placed before a noun.",
+          "video_ids": [
+            "9ScV9fK9lIQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Qyc_i3Q72Fw",
+          "topic": "Possession and noun links: の",
+          "description": "Connect nouns to express possession and relationships.",
+          "video_ids": [
+            "Qyc_i3Q72Fw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Y6OxSpzRM-o",
+          "topic": "Noun negation: じゃない",
+          "description": "Say that something is not a particular thing, in casual and polite forms.",
+          "video_ids": [
+            "Y6OxSpzRM-o"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-pqkEblIwSoA",
+          "topic": "い-adjectives and な-adjectives",
+          "description": "Describe things and attach the right kind of adjective to a noun.",
+          "video_ids": [
+            "pqkEblIwSoA"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-UtIJvxxZJbA",
+          "topic": "Negative adjectives",
+          "description": "Say “not expensive” or “not quiet” using the two adjective patterns.",
+          "video_ids": [
+            "UtIJvxxZJbA"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-5_woSKucmUg",
+          "topic": "Past and past-negative adjectives",
+          "description": "Describe how things were and how they were not.",
+          "video_ids": [
+            "5_woSKucmUg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-45vSd2dLaQU",
+          "topic": "Adjective conjugation checkpoint",
+          "description": "Test adjective negatives and past forms before adding more grammar.",
+          "video_ids": [
+            "45vSd2dLaQU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-2ipyWhy6430",
+          "topic": "ある・いる vs です; がない vs じゃない",
+          "description": "Distinguish existence from identity and living things from other things.",
+          "video_ids": [
+            "2ipyWhy6430"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-0-11",
+          "topic": "Past noun sentences: だった・でした",
+          "description": "Review “was” and “was not” for nouns; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-ET8HUGI0zAw",
+          "topic": "Pronouns and omitted subjects",
+          "description": "Choose natural ways to refer to people and learn when pronouns are inappropriate.",
+          "video_ids": [
+            "ET8HUGI0zAw"
+          ],
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "02 · Verbs and basic particles",
+      "note": "Learn the plain and polite forms that later lessons build on.",
+      "lessons": [
+        {
+          "id": "g-ePTdpMF-_H0",
+          "topic": "Verb basics and を",
+          "description": "Recognize basic verbs and mark the thing affected by an action.",
+          "video_ids": [
+            "ePTdpMF-_H0"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-nZXZElTzWjY",
+          "topic": "Polite verbs: ます",
+          "description": "Turn dictionary forms into polite verb forms.",
+          "video_ids": [
+            "nZXZElTzWjY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-NC90Tf3fQo8",
+          "topic": "Polite negatives: ません",
+          "description": "Say that you do not do something politely.",
+          "video_ids": [
+            "NC90Tf3fQo8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-L6UU-AYJuVI",
+          "topic": "Polite past: ました・ませんでした",
+          "description": "Talk about actions you did or did not do.",
+          "video_ids": [
+            "L6UU-AYJuVI"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-TgguUw-ixF4",
+          "topic": "に・で・と: first uses",
+          "description": "Mark destinations, places of action, tools, and companions.",
+          "video_ids": [
+            "TgguUw-ixF4"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-O3F3Qh1DMlI",
+          "topic": "Plain negatives: ない",
+          "description": "Form informal negatives for the different verb groups.",
+          "video_ids": [
+            "O3F3Qh1DMlI"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-5Ix0KDjDmE8",
+          "topic": "Plain past negative: なかった",
+          "description": "Say what did not happen in casual Japanese.",
+          "video_ids": [
+            "5Ix0KDjDmE8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-uFrGvTUBVQ8",
+          "topic": "Negative-verb checkpoint",
+          "description": "Check your recall of the plain negative conjugations.",
+          "video_ids": [
+            "uFrGvTUBVQ8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-00kDTCOr1Do",
+          "topic": "Verb nominalization: の + adjective",
+          "description": "Treat an action as a noun to say that doing it is fun or difficult.",
+          "video_ids": [
+            "00kDTCOr1Do"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Tf2q36mOCxw",
+          "topic": "上手・下手・得意・苦手",
+          "description": "Describe skills and preferences without treating these expressions as interchangeable.",
+          "video_ids": [
+            "Tf2q36mOCxw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-1-10",
+          "topic": "こと vs の: full nominalizer contrast",
+          "description": "Distinguish where these nominalizers can be used; related coverage exists, but no dedicated matching public video was verified.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-1-11",
+          "topic": "Adverbs: adjective く / に + verb",
+          "description": "Describe how an action happens; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-pahBB0uCeDg",
+          "topic": "に vs で: deeper comparison",
+          "description": "Resolve location, destination, means, and other particle choices in context.",
+          "video_ids": [
+            "pahBB0uCeDg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-FknmUij6ZIk",
+          "topic": "は vs が: deeper comparison",
+          "description": "Distinguish topics, subjects, contrast, and new information.",
+          "video_ids": [
+            "FknmUij6ZIk"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-o_EuKawOZAw",
+          "topic": "Particle checkpoint, including へ・まで・から",
+          "description": "Review the roles of common particles across complete sentences.",
+          "video_ids": [
+            "o_EuKawOZAw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "gap-adjective-nouns",
+          "topic": "Adjective nouns: さ",
+          "description": "Turn a quality into a noun; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "03 · The て-form toolkit",
+      "note": "Make requests, link actions, and talk about ongoing actions and past experiences.",
+      "lessons": [
+        {
+          "id": "g-sKS8vSVwRYw",
+          "topic": "Conjugate the て-form",
+          "description": "Learn the endings for each verb group; use the older group-by-group lessons if needed.",
+          "video_ids": [
+            "sKS8vSVwRYw",
+            "IqLKD3nVS60",
+            "f9IOmD9LbtA",
+            "WbWnQhQW0Fo",
+            "lOx1cWP2x-o"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-iNF7ntoPDCs",
+          "topic": "Requests with てください",
+          "description": "Use the て-form for basic requests; this older lesson also introduces ongoing actions.",
+          "video_ids": [
+            "iNF7ntoPDCs"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-L0ZmLKggWLU",
+          "topic": "Ongoing actions: ている・ています",
+          "description": "Describe what someone is doing using the plain and polite forms.",
+          "video_ids": [
+            "L0ZmLKggWLU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-EuAkhpbkAYE",
+          "topic": "Present/future vs ている",
+          "description": "Avoid using the simple non-past form when you mean an action in progress.",
+          "video_ids": [
+            "EuAkhpbkAYE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-qSvnEuLc9kE",
+          "topic": "Not yet: ていない",
+          "description": "Say an action has not happened yet using the negative of ている.",
+          "video_ids": [
+            "qSvnEuLc9kE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-e6uB1-iJSSo",
+          "topic": "ます and て-form checkpoint",
+          "description": "Test conjugations; the short video offers a quick extra drill.",
+          "video_ids": [
+            "e6uB1-iJSSo",
+            "DSfohWiDsrw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-QdPJTFYvj20",
+          "topic": "Plain past: た-form",
+          "description": "Build informal past tense from familiar conjugation patterns.",
+          "video_ids": [
+            "QdPJTFYvj20"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-77krgJkkywg",
+          "topic": "Experience: たことがある",
+          "description": "Say that you have done something before.",
+          "video_ids": [
+            "77krgJkkywg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-zFmFh1La_14",
+          "topic": "Representative actions: たり…たりする",
+          "description": "List examples of things you do without giving an exhaustive list.",
+          "video_ids": [
+            "zFmFh1La_14"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-1ucR-mWVOxY",
+          "topic": "Connect adjectives with くて・で",
+          "description": "Join descriptions without using the noun connector と.",
+          "video_ids": [
+            "1ucR-mWVOxY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-SjdkJhGtFlk",
+          "topic": "Connect actions and ideas: て・と・や・し・も",
+          "description": "Choose the right “and/also” construction for verbs, nouns, and reasons.",
+          "video_ids": [
+            "SjdkJhGtFlk"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-nzWMEOla0iM",
+          "topic": "Permission: てもいい",
+          "description": "Ask if you may do something and give permission.",
+          "video_ids": [
+            "nzWMEOla0iM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-V4simApUbuI",
+          "topic": "Beginner verb overview: wants, invitations, “don’t”",
+          "description": "Review common verb patterns together, including ways to tell someone not to do something.",
+          "video_ids": [
+            "V4simApUbuI"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-2-13",
+          "topic": "Prohibition: てはいけない・ちゃだめ",
+          "description": "Say an action is not allowed; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-2-14",
+          "topic": "ないで vs なくて",
+          "description": "Distinguish doing something without an action from a negative connection or reason; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "04 · Wants, plans, and everyday choices",
+      "note": "Use the forms you know to express what you want, can do, and intend to do.",
+      "lessons": [
+        {
+          "id": "g-CiJF9fs0ESE",
+          "topic": "Want to: たい",
+          "description": "Express your wish to do an action.",
+          "video_ids": [
+            "CiJF9fs0ESE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-fW9myvPDhto",
+          "topic": "Do not want to: たくない",
+          "description": "Negate wishes and conjugate the たい expression.",
+          "video_ids": [
+            "fW9myvPDhto"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-0CyJ01dYgxE",
+          "topic": "Can: potential forms and ことができる",
+          "description": "Express ability and distinguish verb-group potential endings.",
+          "video_ids": [
+            "0CyJ01dYgxE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-IvONxgB9_JM",
+          "topic": "Invitations and volitional forms",
+          "description": "Make “let’s…” suggestions and “shall I…?” offers.",
+          "video_ids": [
+            "IvONxgB9_JM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-8SvFK5oKl0k",
+          "topic": "Plans: つもり・予定・ようと思う",
+          "description": "Talk about intentions and arrangements, and compare how definite they sound.",
+          "video_ids": [
+            "8SvFK5oKl0k"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-n4VmUT4ICgo",
+          "topic": "Have to: obligation and necessity",
+          "description": "Express duties and needs; the lesson also contrasts past obligations and regrets.",
+          "video_ids": [
+            "n4VmUT4ICgo"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-y8isOzPtRjc",
+          "topic": "No need: なくてもいい",
+          "description": "Say that someone does not have to do something.",
+          "video_ids": [
+            "y8isOzPtRjc"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-E3AcGCkfZGk",
+          "topic": "Advice: たほうがいい・ないほうがいい",
+          "description": "Recommend an action or advise against it.",
+          "video_ids": [
+            "E3AcGCkfZGk"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-s1m91QGqiOU",
+          "topic": "Comparisons: より・ほうが",
+          "description": "Say that one thing is more or better than another.",
+          "video_ids": [
+            "s1m91QGqiOU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-KmBVQM_l2wY",
+          "topic": "Only: だけ vs しか",
+          "description": "Limit a statement while choosing the correct positive or negative form.",
+          "video_ids": [
+            "KmBVQM_l2wY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-3-10",
+          "topic": "Want a thing: ほしい; others’ wishes: たがる",
+          "description": "Distinguish wanting an object from an action and describing someone else’s desire; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-3-11",
+          "topic": "Go to do: verb stem + に行く",
+          "description": "Express the purpose of a trip; Misa’s old #34 is documented, but its public video could not be verified.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-3-12",
+          "topic": "Too much / easy or hard to do: すぎる・やすい・にくい",
+          "description": "Add these productive endings to describe excess or difficulty; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "gap-indefinites",
+          "topic": "何か・誰か・何も・誰も",
+          "description": "Express indefinite people or things and their negatives; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        },
+        {
+          "id": "gap-approximation",
+          "topic": "Approximate amounts: くらい・ぐらい・ごろ",
+          "description": "Distinguish rough quantities from approximate times; no dedicated matching public comparison found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-5",
+      "title": "05 · Longer sentences",
+      "note": "Combine clauses before moving on to more abstract meanings.",
+      "lessons": [
+        {
+          "id": "g-8-vu-qKEuaY",
+          "topic": "Relative clauses and word order",
+          "description": "Put a descriptive clause before a noun to build longer Japanese sentences.",
+          "video_ids": [
+            "8-vu-qKEuaY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "gap-subject-swap",
+          "topic": "が / の inside relative clauses",
+          "description": "Recognize this subject-marker alternation after studying relative clauses; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        },
+        {
+          "id": "g-TJetxzGpbfA",
+          "topic": "Reasons: から vs ので",
+          "description": "Explain why something happens and compare natural ways to ask why.",
+          "video_ids": [
+            "TJetxzGpbfA"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Zk7mkCPRSGg",
+          "topic": "Contrast: でも・けど・が・のに",
+          "description": "Connect contrasting ideas and distinguish neutral “but” from unexpected results.",
+          "video_ids": [
+            "Zk7mkCPRSGg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-qDh9rF2e5zg",
+          "topic": "Before: 前に vs 前で",
+          "description": "Distinguish time expressions from positions in front of something.",
+          "video_ids": [
+            "qDh9rF2e5zg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-4-4",
+          "topic": "Quotation: と言う・と思う・って",
+          "description": "Report statements and thoughts; some linked lessons use these forms, but no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-4-5",
+          "topic": "Embedded questions: か・かどうか",
+          "description": "Put “what/where…” or “whether…” inside another sentence; an official text article exists, but no matching public video found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-4-6",
+          "topic": "After: てから・たあとで",
+          "description": "Place one event after another and clarify their sequence; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-4-7",
+          "topic": "Even if: ても・でも",
+          "description": "Keep the result true despite a condition; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        }
+      ]
+    },
+    {
+      "id": "stage-6",
+      "title": "06 · If, when, and purpose",
+      "note": "Follow Misa’s four-part conditional sequence, then apply it to goals and wishes.",
+      "lessons": [
+        {
+          "id": "g-F-THHO4iHWE",
+          "topic": "Conditional 1: と vs とき",
+          "description": "Express regular consequences and compare “if” with “when.”",
+          "video_ids": [
+            "F-THHO4iHWE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-DFX0AaNhlEw",
+          "topic": "Conditional 2: たら",
+          "description": "Use たら for conditions and events that happen after something else.",
+          "video_ids": [
+            "DFX0AaNhlEw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-e_c3V882am0",
+          "topic": "Conditional 3: なら",
+          "description": "Respond to an assumed situation or information someone gives you.",
+          "video_ids": [
+            "e_c3V882am0"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-ELgHWErsA_k",
+          "topic": "Conditional 4: ば・もし",
+          "description": "Form ば conditions, compare all four patterns, and introduce counterfactual wishes.",
+          "video_ids": [
+            "ELgHWErsA_k"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-nXCTykxKO9w",
+          "topic": "Purpose 1: ために vs ように",
+          "description": "Distinguish intentional goals from desired outcomes.",
+          "video_ids": [
+            "nXCTykxKO9w"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-JtUVV0Y8KfQ",
+          "topic": "Purpose 2: ように vs のに",
+          "description": "Extend purpose expressions and compare their grammatical connections.",
+          "video_ids": [
+            "JtUVV0Y8KfQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-3PXC74n-5po",
+          "topic": "Hopes: といい・ますように",
+          "description": "Express hopes for yourself and other people.",
+          "video_ids": [
+            "3PXC74n-5po"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-5-7",
+          "topic": "During / while there is time: 間・間に・うちに",
+          "description": "Place actions within a time window; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        }
+      ]
+    },
+    {
+      "id": "stage-7",
+      "title": "07 · Giving, receiving, and voice",
+      "note": "Learn perspective before combining passive and causative grammar.",
+      "lessons": [
+        {
+          "id": "g-bXkMdHOlvpw",
+          "topic": "Giving and receiving: あげる・くれる・もらう",
+          "description": "Choose the verb that matches the giver, receiver, and speaker’s viewpoint.",
+          "video_ids": [
+            "bXkMdHOlvpw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-lp-2PNSANJ8",
+          "topic": "Favors: てあげる・てくれる・てもらう",
+          "description": "Describe doing an action for someone and receiving a favor.",
+          "video_ids": [
+            "lp-2PNSANJ8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-yV04HLbgl_8",
+          "topic": "Want someone to: てほしい vs てもらいたい",
+          "description": "Request or express a wish for someone else’s action.",
+          "video_ids": [
+            "yV04HLbgl_8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-QhUCbXJTJOg",
+          "topic": "Transitive vs intransitive verbs",
+          "description": "Distinguish someone changing a thing from a thing changing on its own.",
+          "video_ids": [
+            "QhUCbXJTJOg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-QPOA3OYFnj4",
+          "topic": "Passive: れる・られる",
+          "description": "Describe what happens to someone and how an action affects them.",
+          "video_ids": [
+            "QPOA3OYFnj4"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-jpo7YOytU6c",
+          "topic": "Causative 1: せる・させる",
+          "description": "Say that someone makes another person do something.",
+          "video_ids": [
+            "jpo7YOytU6c"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-GfOQBPbE1dI",
+          "topic": "Causative 2: permission and favors",
+          "description": "Combine “let someone…” with giving and receiving expressions.",
+          "video_ids": [
+            "GfOQBPbE1dI"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-ZNyH9mPg1TA",
+          "topic": "Causative-passive",
+          "description": "Say that someone was made or forced to do something.",
+          "video_ids": [
+            "ZNyH9mPg1TA"
+          ],
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "id": "stage-8",
+      "title": "08 · Time, state, and change",
+      "note": "Extend familiar verb forms to describe preparation, results, and intention.",
+      "lessons": [
+        {
+          "id": "g-rpaqcKE2hnc",
+          "topic": "Try: てみる vs ようとする",
+          "description": "Distinguish trying an action out from attempting to do it.",
+          "video_ids": [
+            "rpaqcKE2hnc"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-2u0MKfWseYM",
+          "topic": "Preparation: ておく・とく",
+          "description": "Do something in advance and recognize the common spoken contraction.",
+          "video_ids": [
+            "2u0MKfWseYM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Twa3H_BHHg0",
+          "topic": "Resulting states: てある vs ている vs ておく",
+          "description": "Connect transitivity with results, current states, and preparation.",
+          "video_ids": [
+            "Twa3H_BHHg0"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-UGCg-9CTMMY",
+          "topic": "Completion or regret: てしまう・ちゃう",
+          "description": "Describe finishing an action or doing something unintentionally.",
+          "video_ids": [
+            "UGCg-9CTMMY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-pqhCrcj_pGY",
+          "topic": "Just did: たばかり vs たところ",
+          "description": "Distinguish subjective recency from the immediate stage after an action.",
+          "video_ids": [
+            "pqhCrcj_pGY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-5XUmIsGslGM",
+          "topic": "Movement and change: ていく vs てくる",
+          "description": "Express direction relative to the speaker and changes over time.",
+          "video_ids": [
+            "5XUmIsGslGM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-B4yn28Fb9co",
+          "topic": "Unchanged state: まま vs ながら vs て",
+          "description": "Describe an action done with a state continuing; compare simultaneous actions.",
+          "video_ids": [
+            "B4yn28Fb9co"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-v-ovhlvECIU",
+          "topic": "Decisions: ことにする vs ことになる",
+          "description": "Distinguish a personal decision from something being decided or arranged.",
+          "video_ids": [
+            "v-ovhlvECIU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-YRIN7bePDlw",
+          "topic": "Past intention: たつもり vs つもりだった",
+          "description": "Contrast believing you did something with having intended to do it.",
+          "video_ids": [
+            "YRIN7bePDlw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-9X5Toks4kJ4",
+          "topic": "わかる vs 知っている",
+          "description": "Distinguish understanding from having knowledge and use the appropriate aspect.",
+          "video_ids": [
+            "9X5Toks4kJ4"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-7-10",
+          "topic": "Become / make: くなる・になる・くする・にする",
+          "description": "Describe changes in qualities and deliberate changes; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-7-11",
+          "topic": "New ability and habits: ようになる・ようにする",
+          "description": "Describe becoming able to do something and making an effort to do it; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-7-12",
+          "topic": "Action stages: ところだ・ているところだ",
+          "description": "Say an action is about to begin or is in progress; the linked たところ lesson does not verify full coverage of this family.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "gap-phases",
+          "topic": "Action phases: 始める・出す・続ける・終わる",
+          "description": "Describe starting, continuing, or finishing an action; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        },
+        {
+          "id": "gap-perception",
+          "topic": "見える・聞こえる vs potential forms",
+          "description": "Distinguish visibility and audibility from ability; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-9",
+      "title": "09 · Explanation and uncertainty",
+      "note": "Add context, inference, appearance, and conversational expectations.",
+      "lessons": [
+        {
+          "id": "g-dunBnCI1iP0",
+          "topic": "Explanatory の・んだ・んです",
+          "description": "Give background, seek explanations, and soften how you enter a conversation.",
+          "video_ids": [
+            "dunBnCI1iP0"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-RwlkJp2xqT8",
+          "topic": "じゃない・じゃん beyond negation",
+          "description": "Recognize confirmation, surprise, and other conversational meanings.",
+          "video_ids": [
+            "RwlkJp2xqT8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-M296Lye-k6c",
+          "topic": "んじゃない vs じゃないの",
+          "description": "Express a guess and distinguish question or confirmation nuances.",
+          "video_ids": [
+            "M296Lye-k6c"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-bG66faxJeSY",
+          "topic": "でしょう・だろう",
+          "description": "Express probability or seek agreement, and compare with ね.",
+          "video_ids": [
+            "bG66faxJeSY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-v2rjtaO1SpQ",
+          "topic": "かもしれない vs 多分",
+          "description": "Express uncertainty and choose between “maybe” and “probably.”",
+          "video_ids": [
+            "v2rjtaO1SpQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-a2XeZexCuco",
+          "topic": "Expected result: はず",
+          "description": "Say what should be true based on the situation.",
+          "video_ids": [
+            "a2XeZexCuco"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-kD_3Lb_MXdg",
+          "topic": "Appearance: そう",
+          "description": "Say that something looks a certain way, including negative appearance forms.",
+          "video_ids": [
+            "kD_3Lb_MXdg"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-t4z-pIjwyg0",
+          "topic": "Hearsay: そうだ vs らしい",
+          "description": "Report information you heard and distinguish forms of indirect evidence.",
+          "video_ids": [
+            "t4z-pIjwyg0"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-12qpT0pXpXY",
+          "topic": "Resemblance: みたい・よう・らしい・っぽい",
+          "description": "Compare similarity, typical qualities, and tendencies.",
+          "video_ids": [
+            "12qpT0pXpXY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "gap-wonder",
+          "topic": "かな・かしら",
+          "description": "Express wondering rather than asking a direct question; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-10",
+      "title": "10 · Intermediate nuance and selected N2 topics",
+      "note": "These are later studies, not a complete N3/N2/N1 exam syllabus.",
+      "lessons": [
+        {
+          "id": "g-P2KS94qQXxw",
+          "topic": "わけだ 1: “that explains it”",
+          "description": "Make sense of new information by drawing a conclusion.",
+          "video_ids": [
+            "P2KS94qQXxw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-ZagSFQq7NnQ",
+          "topic": "わけだ 2: “which means…”",
+          "description": "Restate a consequence and summarize a line of reasoning.",
+          "video_ids": [
+            "ZagSFQq7NnQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-dzhW05x9cno",
+          "topic": "わけではない・わけがない",
+          "description": "Contrast “it does not mean…” with “there is no way…”.",
+          "video_ids": [
+            "dzhW05x9cno"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-7hWNiYVgCJw",
+          "topic": "べき vs はず vs ほうがいい",
+          "description": "Distinguish a duty or judgment from an expectation or recommendation.",
+          "video_ids": [
+            "7hWNiYVgCJw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-ltnlX3xMTOs",
+          "topic": "ばかり・てばかり",
+          "description": "Describe doing only one thing and contrast other “only” expressions.",
+          "video_ids": [
+            "ltnlX3xMTOs"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-o_QcPBKR0ag",
+          "topic": "ほど…ない",
+          "description": "Make “not as…” comparisons and express strong evaluations.",
+          "video_ids": [
+            "o_QcPBKR0ag"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-hkykEZ_mp90",
+          "topic": "ほど vs ぐらい",
+          "description": "Express degree and “so…that…” results.",
+          "video_ids": [
+            "hkykEZ_mp90"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-BQG08i8onKM",
+          "topic": "ずにはいられない vs つい…ちゃう",
+          "description": "Say you cannot help doing something or do it involuntarily.",
+          "video_ids": [
+            "BQG08i8onKM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-M6d1zSn5iDY",
+          "topic": "どうしても",
+          "description": "Express determination or an inability despite effort.",
+          "video_ids": [
+            "M6d1zSn5iDY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-orRauBAGB8g",
+          "topic": "なんて vs なんか",
+          "description": "Express surprise, dismissal, or a negative evaluation in conversation.",
+          "video_ids": [
+            "orRauBAGB8g"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-UNHzLucIqT8",
+          "topic": "もの・もん・んだもん",
+          "description": "Justify yourself or give an emotionally colored explanation.",
+          "video_ids": [
+            "UNHzLucIqT8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g--QVjE8bJUvs",
+          "topic": "ものだ・たものだ",
+          "description": "Talk about general expectations and reminisce about past habits.",
+          "video_ids": [
+            "-QVjE8bJUvs"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-3LCnhZigVaw",
+          "topic": "多い vs 多く vs いっぱい vs たくさん",
+          "description": "Use quantities naturally with nouns and verbs.",
+          "video_ids": [
+            "3LCnhZigVaw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g--1AesYejias",
+          "topic": "More ways to say “a lot”",
+          "description": "Compare common quantity expressions in context.",
+          "video_ids": [
+            "-1AesYejias"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-SHOHdj2wz1o",
+          "topic": "すべて・全部・みんな・ずっと",
+          "description": "Distinguish “all/everything” expressions from continuity over time.",
+          "video_ids": [
+            "SHOHdj2wz1o"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-9-15",
+          "topic": "わけにはいかない",
+          "description": "Express being unable to do something for social or situational reasons; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-9-16",
+          "topic": "たびに・につれて・とともに",
+          "description": "Link repeated events or changes that progress together; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-9-17",
+          "topic": "おかげで・せいで",
+          "description": "Attribute a positive or negative outcome to a cause; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-9-18",
+          "topic": "はずがない・に違いない・に決まっている",
+          "description": "Extend expressions of strong inference and certainty; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "gap-more-more",
+          "topic": "ば…ほど",
+          "description": "Link increasing degrees; related degree lessons are available, but no dedicated matching public comparison found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-11",
+      "title": "11 · Register and natural conversation",
+      "note": "Apply the grammar in social situations; these lessons include usage as well as grammar.",
+      "lessons": [
+        {
+          "id": "g-szjfbOZmY1k",
+          "topic": "Sentence endings: よ・ね・よね・っけ",
+          "description": "Choose an ending for information, agreement, or recalling something.",
+          "video_ids": [
+            "szjfbOZmY1k"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-LNbhvXJ7kuw",
+          "topic": "When to use だ・だね・だな・だよ",
+          "description": "Distinguish the plain copula from sentence-ending nuances.",
+          "video_ids": [
+            "LNbhvXJ7kuw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-ZEW49dXLlbw",
+          "topic": "Sentence-final ぞ",
+          "description": "Recognize assertive or dramatic speech and its social implications.",
+          "video_ids": [
+            "ZEW49dXLlbw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-Bor5hJH5TR8",
+          "topic": "Commands and なさい",
+          "description": "Compare command forms with softer or conventional expressions.",
+          "video_ids": [
+            "Bor5hJH5TR8"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-boNN3-n5DQc",
+          "topic": "Requests beyond ください",
+          "description": "Choose a request that fits the situation and relationship.",
+          "video_ids": [
+            "boNN3-n5DQc"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-mJNsOVYjqjQ",
+          "topic": "Keigo: respectful and humble forms",
+          "description": "Distinguish raising someone else’s status from lowering your own actions.",
+          "video_ids": [
+            "mJNsOVYjqjQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-hbZa8-1ePao",
+          "topic": "Restaurant speech and keigo in practice",
+          "description": "Follow an order and recognize the polite forms used by staff and customers.",
+          "video_ids": [
+            "hbZa8-1ePao"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-cuDz0mN87TE",
+          "topic": "Short keigo review",
+          "description": "Review a compact set of restaurant and café expressions.",
+          "video_ids": [
+            "cuDz0mN87TE"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-BTNUC9GG0BU",
+          "topic": "Polite vs casual vs rude speech",
+          "description": "Compare how the same communicative goal changes with register.",
+          "video_ids": [
+            "BTNUC9GG0BU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-VanOen8uO4Q",
+          "topic": "Tokyo casual speech",
+          "description": "Recognize contractions and phrasing used in informal conversation.",
+          "video_ids": [
+            "VanOen8uO4Q"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-cDME9ayrtbo",
+          "topic": "Everyday casual expressions",
+          "description": "Extend your informal conversation toolkit with common spoken expressions.",
+          "video_ids": [
+            "cDME9ayrtbo"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-pN9nQQvUmXU",
+          "topic": "Kansai vs standard Japanese",
+          "description": "Recognize regional forms after establishing standard Japanese grammar.",
+          "video_ids": [
+            "pN9nQQvUmXU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-0yI7_794--U",
+          "topic": "Changing the subject",
+          "description": "Choose formal or casual ways to introduce a new topic.",
+          "video_ids": [
+            "0yI7_794--U"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "gap-literary-copula",
+          "topic": "Formal writing: である",
+          "description": "Recognize the written copula after learning ordinary plain and polite speech; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found",
+          "outline_reference": "https://bunpro.jp/grammar_points"
+        }
+      ]
+    },
+    {
+      "id": "stage-12",
+      "title": "12 · Grammar in context and review",
+      "note": "Optional consolidation. Revisit these when you finish a stage rather than racing through every video.",
+      "lessons": [
+        {
+          "id": "g-vSVqPhHWgIU",
+          "topic": "N5 grammar checkpoint",
+          "description": "Use a mixed grammar, vocabulary, and kanji test to find weak basics.",
+          "video_ids": [
+            "vSVqPhHWgIU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-DaMlB2wYbIo",
+          "topic": "N4 grammar checkpoint",
+          "description": "Check how intermediate-beginner grammar works in test questions.",
+          "video_ids": [
+            "DaMlB2wYbIo"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-UbsWi5qsPjY",
+          "topic": "N4 verb-pattern review",
+          "description": "Practice たら, たり, てみる, ておく, and other learned patterns.",
+          "video_ids": [
+            "UbsWi5qsPjY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-5reOWhwHWvQ",
+          "topic": "N5/N4 reading and listening review",
+          "description": "Recognize familiar grammar while working through connected language.",
+          "video_ids": [
+            "5reOWhwHWvQ"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-KYJgUUHqt8o",
+          "topic": "Informal conversation practice",
+          "description": "Listen for grammar as it appears in casual exchanges.",
+          "video_ids": [
+            "KYJgUUHqt8o"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-qmtfxXlcn2E",
+          "topic": "N4 conversation 1",
+          "description": "Consolidate N4-level structures in a listening lesson.",
+          "video_ids": [
+            "qmtfxXlcn2E"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-El93uYAxvNw",
+          "topic": "N4 conversation 2",
+          "description": "Continue applying the same structures in another conversation.",
+          "video_ids": [
+            "El93uYAxvNw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-9__CaRMbxXw",
+          "topic": "Formal and informal listening checkpoint",
+          "description": "Test comprehension across contrasting speech styles.",
+          "video_ids": [
+            "9__CaRMbxXw"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g--egnZoxUIIY",
+          "topic": "N4 story practice: Hanasaka Jiisan",
+          "description": "Read and listen to a folktale adapted for N4 practice.",
+          "video_ids": [
+            "-egnZoxUIIY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-AntbQhOhexY",
+          "topic": "N3 story practice: Hanasaka Jiisan",
+          "description": "Revisit the story with more demanding language.",
+          "video_ids": [
+            "AntbQhOhexY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-hNYoDSvIvuI",
+          "topic": "N3 grammar and integrated practice",
+          "description": "Apply grammar in a combined vocabulary, reading, and listening lesson.",
+          "video_ids": [
+            "hNYoDSvIvuI"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g--W662vz96DU",
+          "topic": "N3–N2 listening practice",
+          "description": "Work through a longer listening lesson using more advanced language.",
+          "video_ids": [
+            "-W662vz96DU"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-xHMAq9x2cEY",
+          "topic": "Travel phrases with grammar",
+          "description": "Apply practical sentence patterns to travel situations.",
+          "video_ids": [
+            "xHMAq9x2cEY"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-diNFjAYTEtM",
+          "topic": "Anime trailer analysis: DAN DA DAN",
+          "description": "Notice grammar and natural phrasing in a short authentic clip.",
+          "video_ids": [
+            "diNFjAYTEtM"
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "g-3zBA9Jh64Mw",
+          "topic": "Literature reading practice",
+          "description": "Apply the course to a guided reading of The Restaurant of Many Orders.",
+          "video_ids": [
+            "3zBA9Jh64Mw"
+          ],
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "id": "stage-13",
+      "title": "13 · Further coverage gaps",
+      "note": "Keep these later topics on your roadmap. No matching dedicated public Misa lesson was found; absence from this search is not proof that she never covered them.",
+      "lessons": [
+        {
+          "id": "g-12-0",
+          "topic": "ことはない・ことがある: frequency and necessity",
+          "description": "Distinguish occasional occurrences and lack of necessity from past experience.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-1",
+          "topic": "に対して・について・によって",
+          "description": "Mark a target, topic, or varying basis in longer statements.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-2",
+          "topic": "として・にとって",
+          "description": "Express a role or the viewpoint from which something matters.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-3",
+          "topic": "ばかりでなく・だけでなく・のみならず",
+          "description": "Extend a statement with “not only… but also…”.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-4",
+          "topic": "くせに・ものの・にもかかわらず",
+          "description": "Express different kinds of unexpected contrast.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-5",
+          "topic": "限り・さえ…ば・ない限り",
+          "description": "Specify limits and minimum or necessary conditions.",
+          "video_ids": [],
+          "status": "not-found"
+        },
+        {
+          "id": "g-12-6",
+          "topic": "Advanced formal patterns: に至る・を余儀なくされる",
+          "description": "Recognize formal written grammar; no dedicated matching public lesson found.",
+          "video_ids": [],
+          "status": "not-found"
+        }
+      ]
+    }
+  ]
+}

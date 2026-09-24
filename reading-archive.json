@@ -1,0 +1,106 @@
+[
+  {
+    "date": "2026-09-24",
+    "url": "/readings/2026-09-24.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/tanabata/index.html",
+        "title": "<ruby>七夕<rt>たなばた</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/yachoo/index.html",
+        "title": "<ruby>野鳥<rt>やちょう</rt></ruby>を<ruby>探<rt>さが</rt></ruby>して<ruby>里山<rt>さとやま</rt></ruby>へ"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/natsuokashi/index.html",
+        "title": "<ruby>夏<rt>なつ</rt></ruby>に<ruby>売<rt>う</rt></ruby>れるお<ruby>菓子<rt>かし</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/ohenro/index.html",
+        "title": "お<ruby>遍路<rt>へんろ</rt></ruby>の<ruby>旅<rt>たび</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/shinobue/index.html",
+        "title": "しのぶえ"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-23",
+    "url": "/readings/2026-09-23.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/market/article/bento/index.html",
+        "title": "お<ruby>弁当<rt>べんとう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/kurage/index.html",
+        "title": "くらげは<ruby>人気<rt>にんき</rt></ruby>です"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/tosho/index.html",
+        "title": "<ruby>小学校<rt>しょうがっこう</rt></ruby>の<ruby>読書<rt>どくしょ</rt></ruby>の<ruby>時間<rt>じかん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/kendo/index.html",
+        "title": "<ruby>剣道<rt>けんどう</rt></ruby>の<ruby>道具<rt>どうぐ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/dogcafe/index.html",
+        "title": "<ruby>犬<rt>いぬ</rt></ruby>と<ruby>行<rt>い</rt></ruby>くカフェ"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-14",
+    "url": "/readings/2026-09-14.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumushigoto/index.html",
+        "title": "プラネタリウムのお<ruby>仕事<rt>しごと</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/ichigogari/index.html",
+        "title": "いちご<ruby>狩<rt>が</rt></ruby>り"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakeart/index.html",
+        "title": "ケーキとアート"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/fudepen/index.html",
+        "title": "<ruby>筆<rt>ふで</rt></ruby>ペン"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/bibrio/index.html",
+        "title": "ビブリオバトル"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-09",
+    "url": "/readings/2026-09-09.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/kominka/index.html",
+        "title": "<ruby>古民家<rt>こみんか</rt></ruby>の<ruby>音楽会<rt>おんがくかい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplayphoto/index.html",
+        "title": "コスプレ<ruby>写真<rt>しゃしん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shitigosan/index.html",
+        "title": "<ruby>七五三<rt>しちごさん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/sadootaiken/index.html",
+        "title": "<ruby>茶道体験<rt>さどうたいけん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/penguin/index.html",
+        "title": "ペンギン"
+      }
+    ]
+  }
+]
