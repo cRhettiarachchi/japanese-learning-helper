@@ -3,7 +3,7 @@
   'use strict';
   const STORAGE_KEY = 'japanese-learner-audio-progress-v1';
   function bindAudioProgress({audio, checkbox, storage, progress, id, now = Date.now, status = () => {}}) {
-    let initialized = false, lastSaved = -Infinity, owner=progress?.user?.id||'local';
+    let initialized = false, lastSaved = -Infinity, owner=progress?.user?.id||'local', lastSnapshot;
     const listeners = [];
     function listen(target, event, handler) { target.addEventListener(event, handler); listeners.push(() => target.removeEventListener(event, handler)); }
     function readAll() {
@@ -16,7 +16,7 @@
     }
     function read() { if(progress){const p=progress.get('audio',id,'position');return {done:progress.get('audio',id,'done'),position:p?.seconds,duration:p?.duration,ended:p?.ended};}return readAll()?.[id] || {}; }
     function write(patch) {
-      if(progress){if(Object.hasOwn(patch,'done'))progress.set('audio',id,'done',patch.done);else progress.set('audio',id,'position',{seconds:patch.position,duration:patch.duration,ended:patch.ended});return;}
+      if(progress){if(progress.canEdit&&!progress.canEdit())return;if(Object.hasOwn(patch,'done'))progress.set('audio',id,'done',patch.done);else progress.set('audio',id,'position',{seconds:patch.position,duration:patch.duration,ended:patch.ended});return;}
       const all = readAll();
       if (!all) return;
       all[id] = {...all[id], ...patch};
@@ -34,10 +34,11 @@
       lastSaved = now();
     }
     function restore() {
-      if (initialized || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
+      if (initialized || (progress?.canEdit&&!progress.canEdit()) || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
       const saved = read();
       const position = Number.isFinite(saved.position) ? saved.position : 0;
       if (!saved.ended && position > 0 && position < audio.duration - 1) audio.currentTime = position;
+      lastSnapshot=JSON.stringify(progress?.get('audio',id,'position'));
       initialized = true;
     }
     checkbox.checked = read().done === true;
@@ -50,7 +51,18 @@
     restore();
     return {
       save: () => savePosition(true),
-      refreshDone: () => { if(progress)syncOwner(); checkbox.checked = read().done === true; },
+      refreshDone: () => {
+        if(progress){
+          syncOwner();restore();
+          const saved=progress.get('audio',id,'position'),snapshot=JSON.stringify(saved);
+          if(initialized&&audio.paused&&!audio.seeking&&(!progress.canEdit||progress.canEdit())&&snapshot!==lastSnapshot){
+            const seconds=saved?.ended?0:saved?.seconds;
+            if(Number.isFinite(seconds)&&seconds>=0&&seconds<audio.duration-1)audio.currentTime=seconds;
+            lastSnapshot=snapshot;
+          }
+        }
+        checkbox.checked = read().done === true;
+      },
       dispose: () => listeners.forEach(remove => remove())
     };
   }
@@ -68,17 +80,17 @@
   const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.id = 'audio-done';
   label.append(checkbox, ' Mark audio as done');
   const note = document.createElement('small'); note.setAttribute('role', 'status');
-  note.textContent = 'Audio progress saves in this browser only.';
+  note.textContent = ''; note.hidden = true;
   wrapper.append(label, note); audio.after(wrapper);
   let storage;
   try { storage = window.localStorage; }
-  catch { note.textContent = 'Browser storage is unavailable; audio progress cannot be saved.'; return; }
+  catch { storage=null; }
   checkbox.disabled=true;
   const progress=window.StudyProgress;
   progress.ready.then(()=>{
   checkbox.disabled=false;
   const controller = bindAudioProgress({audio, checkbox, storage, progress, id: match[1], status: message => { note.textContent = message; }});
-  function sync(){controller.refreshDone();checkbox.disabled=!progress.user&&progress.mode!=='local';note.textContent=progress.mode==='local'?'Saved in this browser. Sign in to sync.':progress.mode==='account'&&!progress.queue.length?'Audio progress synced.':'Audio changes are waiting to sync.';}
+  function sync(){controller.refreshDone();checkbox.disabled=!progress.canEdit();}
   progress.subscribe(sync);sync();
   window.addEventListener('pagehide', controller.save);
   document.addEventListener('visibilitychange', () => { if (document.hidden) controller.save(); });

@@ -3,12 +3,12 @@ const {error}=require('./http.cjs');
 const LEASE_MS=45000,MAX_MS=86400000;
 const uuid=s=>typeof s==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 function validate(x){
- const actions=['start','heartbeat','stop','save','adjust','discard'];
+ const actions=['start','heartbeat','stop','save','adjust','discard','commit'];
  if(!x||typeof x!=='object'||Array.isArray(x)||!actions.includes(x.action)||!uuid(x.mutationId)||!uuid(x.clientId))throw error(400,'Invalid timer request');
  const allowed=['action','mutationId','clientId'];
  if(x.action!=='start')allowed.push('id');
  if(['save','adjust','discard'].includes(x.action))allowed.push('revision');
- if(['save','adjust'].includes(x.action))allowed.push('seconds');
+ if(['save','adjust','commit'].includes(x.action))allowed.push('seconds');
  if(Object.keys(x).some(k=>!allowed.includes(k))||(x.action!=='start'&&!uuid(x.id)))throw error(400,'Invalid timer request');
  if(allowed.includes('revision')&&(!Number.isInteger(x.revision)||x.revision<1))throw error(400,'Invalid revision');
  if(allowed.includes('seconds')&&(!Number.isInteger(x.seconds)||x.seconds<0||x.seconds>86400))throw error(400,'Choose a duration between 0 and 24 hours');
@@ -31,7 +31,11 @@ async function run(db,userId,input=null,testNow){
   const prior=x.action==='heartbeat'?null:(await db.query('SELECT payload_hash FROM learner_timer_mutations WHERE user_id=$1 AND id=$2',[userId,x.mutationId])).rows[0];
   if(prior&&prior.payload_hash!==hash)throw error(409,'This request was already used. Refresh and try again.');
   if(!prior){
-   if(x.action==='start'){
+   if(x.action==='commit'){
+    // Explicit local-draft commit: no prior server start/checkpoints are required.
+    const inserted=await db.query("INSERT INTO learner_study_sessions(id,user_id,owner_client,state,elapsed_ms,confirmed_seconds,started_at,checkpoint_at,stopped_at,saved_at) VALUES($1,$2,$3,'saved',$4,$5,$6,$7,$7,$7) ON CONFLICT DO NOTHING RETURNING id",[x.id,userId,x.clientId,x.seconds*1000,x.seconds,new Date(now-x.seconds*1000).toISOString(),time]);
+    if(!inserted.rows.length)throw error(409,'This draft has already been committed. Refresh saved history.');
+   }else if(x.action==='start'){
     if(!open)await db.query("INSERT INTO learner_study_sessions(id,user_id,owner_client,state,started_at,checkpoint_at) VALUES($1,$2,$3,'active',$4,$4)",[randomUUID(),userId,x.clientId,time]);
    }else{
     let row=(await db.query('SELECT * FROM learner_study_sessions WHERE user_id=$1 AND id=$2',[userId,x.id])).rows[0];

@@ -22,7 +22,7 @@
     next.textContent = next.disabled ? 'This set is complete ✓' : 'Continue reading →';
   };
   boxes.forEach(box => {
-    box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.user&&progress.mode!=='local';
+    box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.canEdit();
     box.addEventListener('change', () => {
       progress.set('article', box.dataset.readingKey, 'done', box.checked);
       update();
@@ -30,11 +30,11 @@
   });
   document.querySelector('#continue-reading').addEventListener('click', () => {
     const next = boxes.find(box => !box.checked);
-    if (next) { location.hash = next.closest('article').id; next.focus({preventScroll:true}); }
+    if (next) { const href=new URL('#'+next.closest('article').id,document.baseURI).href;if(window.parent!==window)window.parent.postMessage({type:'study-navigate',href},location.origin);else location.hash=next.closest('article').id; next.focus({preventScroll:true}); }
   });
   document.querySelector('#reading-date').addEventListener('change', event => { location.href = event.target.value; });
   progress.subscribe(() => {
-    boxes.forEach(box => { box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.user&&progress.mode!=='local'; }); update();
+    boxes.forEach(box => { box.checked = progress.get('article', box.dataset.readingKey); box.disabled=!progress.canEdit(); }); update();
   });
   update();
 })();

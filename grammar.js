@@ -36,7 +36,7 @@
   document.querySelector('#empty').hidden = shown !== 0;
  };
  boxes.forEach(box => {
-  box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.user&&progress.mode!=='local';
+  box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.canEdit();
   box.addEventListener('change',() => {
    progress.set('grammar', box.dataset.lesson, 'done', box.checked);
    update();filter();
@@ -47,9 +47,9 @@
  const clearFilters = () => {document.querySelector('#search').value='';document.querySelector('#status').value='all';filter();};
  document.querySelector('#continue').addEventListener('click',() => {
   const next=boxes.find(x=>!x.checked); if(!next)return;
-  clearFilters();location.hash=next.closest('tr').id;next.focus({preventScroll:true});
+  clearFilters();const href=new URL('#'+next.closest('tr').id,document.baseURI).href;if(window.parent!==window)window.parent.postMessage({type:'study-navigate',href},location.origin);else location.hash=next.closest('tr').id;next.focus({preventScroll:true});
  });
  document.querySelectorAll('.stages a').forEach(a=>a.addEventListener('click',clearFilters));
- progress.subscribe(() => { boxes.forEach(box => { box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.user&&progress.mode!=='local'; }); update();filter(); });
+ progress.subscribe(() => { boxes.forEach(box => { box.checked = progress.get('grammar', box.dataset.lesson); box.disabled=!progress.canEdit(); }); update();filter(); });
  update();filter();
 })();
