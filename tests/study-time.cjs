@@ -39,3 +39,14 @@ test('timer rejects owner injection, out-of-range durations, malformed IDs, and 
  for(const x of [op('start',{user_id:'victim'}),op('save',{id:randomUUID(),revision:1,seconds:-1}),op('save',{id:randomUUID(),revision:1,seconds:86401}),op('save',{id:randomUUID(),revision:1,seconds:NaN}),op('stop',{id:'bad'}),op('discard',{id:randomUUID(),revision:0})])assert.throws(()=>timer.validate(x),{status:400});
  await fixture(async(db,run)=>{const x=op('start');await run('A',x);await assert.rejects(run('A',{...x,clientId:randomUUID()}),{status:409});});
 });
+
+test('explicit local draft commit requires no open server timer, deduplicates and preserves old sessions',()=>fixture(async(db,run)=>{
+ const old=await run('A',op('start'));const id=require('crypto').randomUUID(),commit=op('commit',{id,seconds:90});
+ let s=await run('A',commit);assert.equal(s.totalSeconds,90);assert.equal(s.current.id,old.current.id);
+ assert.equal((await run('A',commit)).totalSeconds,90);
+ await assert.rejects(run('A',op('commit',{id,seconds:90})),{status:409});
+ await assert.rejects(run('B',op('commit',{id,seconds:900})),{status:409});
+ assert.equal((await run('B')).totalSeconds,0);
+ await assert.rejects(run('A',{...commit,seconds:91}),{status:409});
+ assert.throws(()=>timer.validate(op('commit',{id,seconds:86401})),{status:400});
+}));

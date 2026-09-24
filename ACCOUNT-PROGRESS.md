@@ -1,6 +1,6 @@
 # Account progress
 
-This feature is on `feature/account-study-progress`. It is not merged, pushed, or deployed. The user will push and create the PR. Production still runs the existing static site.
+Automatic account progress changes are on `feature/automatic-account-progress`, based on merged main. The user handles pushing, PR creation, and deployment.
 
 ## Local development
 
@@ -15,15 +15,17 @@ npm run dev
 
 Open http://127.0.0.1:8765/ and use **Sign in with Vercel**. The development server serves only `public/` and explicit API routes. `npm run build` copies an allowlist of study assets; server code, database schema, tests and environment files stay outside the static output.
 
-The existing `hirogaru-study` Vercel project has Development-only environment variables: `APP_ORIGIN`, `VERCEL_APP_CLIENT_ID`, `VERCEL_APP_CLIENT_SECRET`, and the Neon integration's database variables. The app uses `DATABASE_URL`. The database `japanese-learner-progress` is on Neon `free_v3`; no paid upgrade was selected. The OAuth app is **Japanese learner**, restricted to members of `crhettiarachchis-projects`, with only `openid profile` and `client_secret_basic`. Its callbacks are `http://127.0.0.1:8765/api/auth/callback` and `https://hirogaru-study.vercel.app/api/auth/callback`. Production and Preview credentials have not been configured.
+The app uses `APP_ORIGIN`, Vercel OAuth client credentials, and `DATABASE_URL`. Keep Development and Production credentials separate. The existing Vercel project and authenticated production database are retained; this change does not alter deployment protection, credentials, database schema, or services.
 
 ## Behavior
 
-Article and grammar checkboxes and each recording's playback position and independent **Mark audio as done** checkbox use authenticated account storage. Signed-out users retain browser-only progress. The same account on another device loads saved changes when opening, refocusing, or reconnecting the page. Audio restores position without autoplay, writes at most every five seconds while playing, and saves on pause, seek, end, and leaving the page. Finishing audio resets its resume position but does not mark it done automatically.
+Signed-in article/grammar completion, audio completion and playback positions load and save automatically. The shared account UI is only an accessible profile menu with **Sign out**; signed-out visitors see **Sign in** and cannot change saved progress. There is no browser/account choice, import button, or routine sync banner. Errors appear only when connection or saving needs attention. Vocabulary keeps its account-backed behavior. The timer is the explicit exception: its active draft stays local until Save time (see STUDY-TIMER.md).
 
-Legacy keys remain `hirogaru-reading-progress-v1`, `hirogaru-misa-grammar-v1`, and `japanese-learner-audio-progress-v1`. After signing in, use **Import this browser’s old progress** and confirm the named account. Import only fills absent server fields, preserves explicit server unchecks, filters unknown content IDs, and leaves original local data intact. A browser import is claimed by one account to prevent accidental import into another account on a shared browser.
+Initial account loading disables edits until the server response verifies the account. Changes save immediately. Opening, focusing, reconnecting, returning to the page, and a 15-second foreground retry/refresh loop load account changes. Requests time out after 15 seconds. Paused audio follows refreshed playback position; playing audio is not interrupted by another device's position. Audio still saves at most every five seconds while playing and on pause/seek/end/navigation, without autoplay or automatically marking completion.
 
-Pending updates are journaled separately by account and operation in browser storage and retried on reconnect/focus. Account switches cannot upload one account's pending edits to another. If two devices edit the same field from an old revision, the server returns a conflict; **Refresh from account** explicitly discards pending changes and loads the server state. Completion and playback position have independent revisions. A browser crash can lose up to the playback save interval; clearing browser storage removes unsynced edits. If browser storage is unavailable, keep the tab open until it reports synced.
+Browser cache and per-account pending journals are implementation details. Offline edits after a verified load remain queued for that account and retry automatically. Fresh offline page loads cannot verify identity and therefore leave editing disabled. Account changes and sign-out clear displayed data; pending journals are never uploaded to another account. A stale revision automatically keeps the current server value for that field and continues unrelated saves. Superseded intentions are retained under the account cache's `:superseded:` keys for recovery, not retried. No union of completed flags is performed, so an older check cannot resurrect a newer uncheck. Clearing browser storage can still lose unsaved work; unavailable storage is reported.
+
+Legacy keys remain `hirogaru-reading-progress-v1`, `hirogaru-misa-grammar-v1`, and `japanese-learner-audio-progress-v1`, untouched. Only legacy progress whose existing `japanese-learner-legacy-owner-v1` claim matches the current account is automatically migrated, once per account. Catalog-validated values fill absent server fields only; explicit false and newer server positions survive. Pending edits take priority, and server revision checks also protect migration races. Legacy progress without an ownership claim (or assigned to another account) has no reliable timestamps/identity and is preserved locally without adoption. This prevents silently assigning shared-browser history to the wrong person. There is no destructive cleanup or production schema change.
 
 ## Security model
 
@@ -33,14 +35,14 @@ All progress queries derive the owner from the server session, never from a subm
 
 ## Validation
 
-All 20 automated tests pass. Real-account audio completion and unchecking survived a browser reload; playback did not autoplay.
+Automated checks cover automatic initial loading/saving, stale revisions, legacy migration, offline recovery, account switches, profile controls, and audio restore.
 
 `npm test` covers signed-token rejection cases, CSRF/origin, secure cookies, actual PostgreSQL SQL/RLS through PGlite, account A/B isolation, stale revisions, explicit unchecks, independent audio fields, offline retry, concurrent-tab journals, account switching, import safety, malformed storage, and playback events.
 
 `npm run test:integration` is opt-in and requires the local server and Development credentials. It creates uniquely named temporary test accounts in the real Neon database, exercises the actual HTTP session/progress/logout APIs, verifies private-file exclusion and audio byte ranges, and cleans up only those test records. It does not impersonate a real user or bypass the production login flow. Real Vercel browser sign-in was separately completed and confirmed by the user.
 
-## Before any production rollout
+## Deployment
 
-A later authorized rollout must configure Production environment variables (`APP_ORIGIN=https://hirogaru-study.vercel.app`), choose/migrate the production database, preserve Vercel Authentication for All Deployments, and test the deployed callback. Preview deployments need an explicitly approved callback/origin and appropriate credentials; they currently cannot sign in. Pushing this branch can trigger a Git-connected preview, so no push was performed.
+No new environment variables or schema migration are required. The user handles the PR and deployment of the existing project. Keep Vercel Authentication enabled and use the normal build so study pages receive the persistent shell. Preview environments still require their own configured OAuth callback/origin.
 
-The daily content automation still points at the older workflow checkout. Migrate that workflow to this repository and preserve the account scripts/build process before it deploys over this feature. New reading sets must keep canonical article IDs and load `/progress-store.js` before `reading.js`; new audio needs a stable slug, duration in `audio-catalog.json`, and `/audio-progress.js`. `research/render_course.py` includes the shared progress loader.
+The daily content automation is unchanged. New reading sets must keep canonical article IDs and load `/progress-store.js` before `reading.js`; new audio needs a stable slug, duration in `audio-catalog.json`, and `/audio-progress.js`. The build wraps all allowed study routes in the persistent header while preserving inner study documents.

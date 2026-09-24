@@ -58,3 +58,11 @@ test('account audio uses shared progress and cannot carry position into a differ
  progress.user={id:'B'};c.refreshDone();assert.equal(audio.paused,true);assert.equal(audio.currentTime,8);assert.equal(writes.length,1);
  checkbox.checked=true;checkbox.fire('change');assert.equal(writes[1].owner,'B');assert.deepEqual(writes[1].args,['audio','episode','done',true]);
 });
+test('account switch waits for loaded data and paused playback follows refreshed account position',()=>{
+ const audio=Object.assign(new Element(),{duration:100,currentTime:0,paused:true,ended:false,seeking:false,pause(){this.paused=true;this.fire('pause');}}),checkbox=new Element();let loaded=true,seconds=30;
+ const progress={user:{id:'A'},canEdit:()=>loaded,get:(_,id,field)=>field==='done'?false:{seconds,duration:100,ended:false},set:()=>assert.fail('refresh must not write')};
+ const c=bindAudioProgress({audio,checkbox,progress,id:'episode'});assert.equal(audio.currentTime,30);
+ loaded=false;progress.user={id:'B'};seconds=0;c.refreshDone();assert.equal(audio.currentTime,0);
+ loaded=true;seconds=8;c.refreshDone();assert.equal(audio.currentTime,8);seconds=24;c.refreshDone();assert.equal(audio.currentTime,24);
+ audio.paused=false;seconds=40;c.refreshDone();assert.equal(audio.currentTime,24);
+});

@@ -26,3 +26,5 @@ for(const name of [...files.filter(name=>name.endsWith('.html')),'revisions.html
 }
 fs.writeFileSync(path.join(out,'progress-catalog.json'),JSON.stringify(catalog));
 console.log(`Built ${files.length} public files; ${Object.keys(catalog.article).length} articles, ${Object.keys(catalog.grammar).length} lessons, ${Object.keys(catalog.audio).length} audio episodes.`);
+
+require('./build-shell.cjs').build(root,out,[...files.filter(name=>name.endsWith('.html')),'revisions.html','revisions/revision-1-test.html','revisions/revision-1-answers.html']);
