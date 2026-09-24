@@ -1,5 +1,5 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),{JSDOM}=require('jsdom'),{PGlite}=require('@electric-sql/pglite');
-const {VocabularyStore}=require('../vocabulary-client.js'),{createPage,swipeRating,wordWithRuby}=require('../vocabulary.js'),vocabulary=require('../server/vocabulary.cjs');
+const {VocabularyStore}=require('../vocabulary-client.js'),{createPage,swipeRating,wordWithRuby,PHONE_QUERY}=require('../vocabulary.js'),vocabulary=require('../server/vocabulary.cjs');
 const catalog={'100':{word:'食べる',reading:'たべる',readings:['たべる'],meanings:['to eat']},'200':{word:'読む',reading:'よむ',readings:['よむ'],meanings:['to read']}};
 const settle=async f=>{for(let i=0;i<250;i++){if(f())return;await new Promise(r=>setImmediate(r));}assert.ok(f(),'UI settled');};
 async function fixture(fn){
@@ -24,12 +24,12 @@ test('swipe direction is LEFT Good and RIGHT Again; vertical/short/slow gestures
 test('review gates both gestures/buttons behind reveal, supports undo and restores the due queue',()=>fixture(async({db,dom,store,q})=>{
  await store.mutate({action:'add',entryId:'100'});createPage(dom.window.document,store);await settle(()=>!store.busy);
  assert.equal(q('.vocabulary-answer').hidden,true);assert.equal(q('[data-good]').disabled,true);
- swipe(dom,q('.vocabulary-card'),-150);assert.equal(store.data.items[0].stage,0);
+ swipe(dom,q('.vocabulary-answer'),-150);assert.equal(store.data.items[0].stage,0);
  q('.reveal-meaning').click();assert.equal(q('.vocabulary-answer').hidden,false);assert.equal(q('[data-good]').disabled,false);
- swipe(dom,q('.vocabulary-card'),50,140);assert.equal(store.data.items[0].revision,1);
- swipe(dom,q('.vocabulary-card'),-150);await settle(()=>!store.busy&&store.data.items[0].stage===1);assert.equal(store.data.dueCount,0);assert.match(q('.vocabulary-empty').textContent,/All done/);
+ swipe(dom,q('.vocabulary-answer'),50,140);assert.equal(store.data.items[0].revision,1);
+ swipe(dom,q('.vocabulary-answer'),-150);await settle(()=>!store.busy&&store.data.items[0].stage===1);assert.equal(store.data.dueCount,0);assert.match(q('.vocabulary-empty').textContent,/All done/);
  q('#undo-rating').click();await settle(()=>!store.busy&&store.data.dueCount===1);assert.equal(q('.vocabulary-answer').hidden,true);assert.equal(store.data.items[0].stage,0);
- q('.reveal-meaning').click();swipe(dom,q('.vocabulary-card'),150);await settle(()=>!store.busy&&store.data.dueCount===0);assert.equal(store.data.items[0].stage,0);assert.equal(new Date(store.data.items[0].due_at).getTime(),1700000600000);
+ q('.reveal-meaning').click();swipe(dom,q('.vocabulary-answer'),150);await settle(()=>!store.busy&&store.data.dueCount===0);assert.equal(store.data.items[0].stage,0);assert.equal(new Date(store.data.items[0].due_at).getTime(),1700000600000);
  assert.equal((await db.query('SELECT count(*)::int AS n FROM learner_vocabulary_ratings')).rows[0].n,2);
 }));
 test('large buttons match gesture meanings and double taps cannot advance twice',()=>fixture(async({dom,store,q})=>{
@@ -60,17 +60,44 @@ test('front-side ruby uses verified reading, omits ruby for kana/missing reading
  assert.equal(wordWithRuby(dom.window.document,'ありがとう','ありがとう').querySelector('ruby'),null);
  assert.equal(wordWithRuby(dom.window.document,'未知','').querySelector('ruby'),null);
 }));
-test('upward undo works only in the marked pad, including all-done state; ordinary vertical scroll and no-history swipes are harmless',()=>fixture(async({dom,store,q})=>{
- await store.mutate({action:'add',entryId:'100'});createPage(dom.window.document,store);await settle(()=>!store.busy);
- swipe(dom,q('.vocabulary-swipe-pad'),0,-120);assert.equal(store.data.items[0].revision,1);
- q('.reveal-meaning').click();q('[data-good]').click();await settle(()=>!store.busy&&store.data.dueCount===0);
- swipe(dom,q('.vocabulary-empty'),0,-140);assert.equal(store.data.dueCount,0);
- swipe(dom,q('.vocabulary-swipe-pad'),0,-120);await settle(()=>!store.busy&&store.data.dueCount===1);
- assert.equal(store.data.items[0].revision,3);assert.equal(q('.vocabulary-answer').hidden,true);assert.equal(store.lastRating,null);
+test('meaning-area upward Undo works after reveal; Undo button stays usable before reveal and after final card',()=>fixture(async({dom,store,q})=>{
+ await store.mutate({action:'add',entryId:'100'});await store.mutate({action:'add',entryId:'200'});const page=createPage(dom.window.document,store);await settle(()=>!store.busy);
+ assert.equal(q('.vocabulary-swipe-pad'),null);swipe(dom,q('.vocabulary-answer'),0,-120);assert.equal(store.data.items[0].revision,1);
+ q('.reveal-meaning').click();q('[data-good]').click();await settle(()=>!store.busy&&page.current.entry_id==='200');
+ assert.equal(q('#vocabulary-undo').hidden,false);swipe(dom,q('.vocabulary-answer'),0,-120);assert.equal(page.current.entry_id,'200');
+ q('.reveal-meaning').click();swipe(dom,q('.vocabulary-answer'),0,-120);await settle(()=>!store.busy&&page.current.entry_id==='100');assert.equal(page.revealed,false);
+ q('.reveal-meaning').click();q('[data-good]').click();await settle(()=>!store.busy&&page.current.entry_id==='200');
+ q('.reveal-meaning').click();q('[data-good]').click();await settle(()=>!store.busy&&store.data.dueCount===0);assert.equal(q('#vocabulary-undo').hidden,false);
+ q('#undo-rating').click();await settle(()=>!store.busy&&store.data.dueCount===1);assert.equal(page.current.entry_id,'200');
 }));
 
 test('undo returns immediately to the accidentally rated word when more cards remain',()=>fixture(async({dom,store,q})=>{
  await store.mutate({action:'add',entryId:'100'});await store.mutate({action:'add',entryId:'200'});const page=createPage(dom.window.document,store);await settle(()=>!store.busy);
  q('.reveal-meaning').click();q('[data-good]').click();await settle(()=>!store.busy&&page.current.entry_id==='200');
  q('#undo-rating').click();await settle(()=>!store.busy&&page.current.entry_id==='100');assert.equal(page.revealed,false);
+}));
+
+const phoneMedia=query=>({matches:query===PHONE_QUERY,addEventListener(){}});
+test('phone layout has no swipe pad, gates controls, pages all long meanings, and supports keyboard ratings',()=>fixture(async({db,dom,store,q})=>{
+ await store.mutate({action:'add',entryId:'100'});
+ await db.query("UPDATE learner_vocabulary SET meanings=$1 WHERE user_id='A'",[JSON.stringify(['first','second','third','fourth','fifth','sixth','seventh'])]);await store.load();
+ const page=createPage(dom.window.document,store,{matchMedia:phoneMedia});await settle(()=>!store.busy);
+ assert.equal(dom.window.document.documentElement.classList.contains('vocabulary-phone'),true);
+ assert.equal(q('.vocabulary-ratings').hidden,true);assert.equal(q('.vocabulary-swipe-pad'),null);assert.equal(q('.gesture-help').hidden,true);
+ q('.reveal-meaning').click();assert.equal(q('.vocabulary-ratings').hidden,false);assert.equal(dom.window.document.activeElement,q('.vocabulary-answer'));
+ assert.equal(q('.vocabulary-answer ul').children.length,3);
+ q('[data-meaning-page="next"]').click();assert.match(q('.vocabulary-answer ul').textContent,/fourth/);
+ q('[data-meaning-page="next"]').click();assert.equal(q('.vocabulary-answer ul').textContent,'seventh');assert.equal(q('[data-meaning-page="next"]').disabled,true);
+ q('.vocabulary-answer').dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));await settle(()=>!store.busy&&store.data.dueCount===0);assert.equal(store.data.items[0].stage,0);
+}));
+test('fine-pointer touch laptops retain desktop controls and cancelled/multitouch/off-axis gestures do not rate',()=>fixture(async({dom,store,q})=>{
+ await store.mutate({action:'add',entryId:'100'});createPage(dom.window.document,store,{matchMedia:()=>({matches:true,addEventListener(){}})});await settle(()=>!store.busy);
+ assert.equal(dom.window.document.documentElement.classList.contains('vocabulary-phone'),false);assert.equal(q('.vocabulary-ratings').hidden,true);
+ q('.reveal-meaning').click();assert.equal(q('.vocabulary-ratings').hidden,false);
+ const answer=q('.vocabulary-answer');
+ const event=(type,x,y,primary=true)=>{const e=new dom.window.Event(type,{bubbles:true});Object.assign(e,{clientX:x,clientY:y,pointerId:primary?1:2,isPrimary:primary,button:0});answer.dispatchEvent(e);};
+ event('pointerdown',200,100);event('pointercancel',200,100);event('pointerup',20,100);assert.equal(store.data.items[0].revision,1);
+ event('pointerdown',200,100);event('pointerdown',200,100,false);event('pointerup',20,100);assert.equal(store.data.items[0].revision,1);
+ event('pointerdown',200,100);event('pointermove',150,300);event('pointerup',20,100);assert.equal(store.data.items[0].revision,1);
+ swipe(dom,q('.vocabulary-card'),-150);assert.equal(store.data.items[0].revision,1);
 }));
