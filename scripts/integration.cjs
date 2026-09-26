@@ -1,7 +1,7 @@
 // Opt-in integration test uses uniquely named temporary accounts in the Development database.
 const assert=require('node:assert/strict');const {random,hash}=require('../server/auth.cjs');const {getPool,withUser}=require('../server/db.cjs');const catalog=require('../server/catalog.json');
 (async()=>{
- if(process.env.APP_ORIGIN!=='http://127.0.0.1:8765')throw Error('Local Development origin required');
+ if(process.env.APP_ORIGIN!=='http://127.0.0.1:3000')throw Error('Local Development origin required');
  const pool=getPool(),prefix='integration-'+random(),users=[prefix+'-A',prefix+'-B'],tokens=[random(),random()],csrf=[random(),random()];
  const request=(path,index=0,options={})=>fetch(process.env.APP_ORIGIN+path,{...options,headers:{Cookie:'learner_session='+tokens[index],...(options.method?{Origin:process.env.APP_ORIGIN,'Content-Type':'application/json','X-CSRF-Token':csrf[index]}:{}),...options.headers}});
  try{

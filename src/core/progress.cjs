@@ -23,6 +23,33 @@ class ProgressStore {
     this.listeners = [];
     this.mode = "loading";
   }
+  hydrate(snapshot) {
+    if (this.user?.id !== snapshot.auth?.user.id) this.queue = [];
+    this.catalog = snapshot.catalog;
+    this.user = snapshot.auth?.user || null;
+    this.csrf = snapshot.auth?.csrf || null;
+    this.rows = Object.fromEntries(
+      (snapshot.progress?.rows || []).map((r) => [
+        keyOf(r.kind, r.id, r.field),
+        r,
+      ]),
+    );
+    this.loading = false;
+    this.loaded = snapshot.status === "account";
+    this.mode = snapshot.status;
+  }
+  async recover() {
+    if (!this.user || !this.loaded) return;
+    this.queue = [
+      ...new Map(
+        [...this.loadQueue(), ...this.queue].map((op) => [op.mutationId, op]),
+      ).values(),
+    ].sort((a, b) => (a.queuedAt || 0) - (b.queuedAt || 0));
+    this.persist();
+    this.migrateLegacy();
+    this.emit();
+    await this.flush();
+  }
   read(key, fallback) {
     try {
       const v = JSON.parse(this.storage.getItem(key));
@@ -105,7 +132,25 @@ class ProgressStore {
     this.loading = true;
     this.emit();
     try {
-      const response = await this.request("/api/auth/session");
+      const snapshot = this.snapshot ? await this.snapshot() : null;
+      if (
+        snapshot &&
+        snapshot.auth?.user.id !== this.user?.id &&
+        snapshot.status === "unavailable"
+      ) {
+        this.user = snapshot.auth?.user || null;
+        this.csrf = snapshot.auth?.csrf || null;
+        this.rows = {};
+        this.queue = [];
+        this.loaded = false;
+      }
+      if (snapshot && snapshot.status !== "account")
+        throw Object.assign(Error(snapshot.error || "Sign in required"), {
+          status: snapshot.status === "signedout" ? 401 : 503,
+        });
+      const response = snapshot
+        ? snapshot.auth
+        : await this.request("/api/auth/session");
       const changed = this.user?.id !== response.user.id;
       this.user = response.user;
       this.csrf = response.csrf;
@@ -115,7 +160,9 @@ class ProgressStore {
         this.loaded = false;
         this.emit();
       }
-      const result = await this.request("/api/progress");
+      const result = snapshot
+        ? snapshot.progress
+        : await this.request("/api/progress");
       if (result.userId !== this.user.id)
         throw Object.assign(Error("Account changed"), { status: 403 });
       this.rows = Object.fromEntries(

@@ -58,3 +58,25 @@ async function run(db,userId,input=null,{now:override,catalog:allowed}={}){
  return {userId,items,dueCount:items.filter(e=>new Date(e.due_at).getTime()<=now).length,serverNow:time,lastRating};
 }
 module.exports={run,validate,schedule,DAYS};
+
+// Read-only rendering path. Existing canonical enrichment changes only this response.
+async function snapshot(db, userId, now = Date.now()) {
+  const items = (
+    await db.query(
+      "SELECT entry_id,word,reading,readings,meanings,stage,due_at,revision,created_at FROM learner_vocabulary WHERE user_id=$1 ORDER BY due_at,created_at,entry_id",
+      [userId],
+    )
+  ).rows;
+  const source = catalog();
+  for (const item of items)
+    if (!item.reading && source[item.entry_id]?.word === item.word)
+      item.reading = source[item.entry_id].reading || "";
+  return {
+    userId,
+    items,
+    dueCount: items.filter((e) => new Date(e.due_at).getTime() <= now).length,
+    serverNow: new Date(now).toISOString(),
+    lastRating: null,
+  };
+}
+module.exports.snapshot = snapshot;

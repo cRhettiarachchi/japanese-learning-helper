@@ -1,6 +1,6 @@
 # Japanese learner
 
-Use `npm ci`, `npm run build`, and `npm run dev`, then open http://127.0.0.1:8765/. See [account progress setup](ACCOUNT-PROGRESS.md) for Development credentials, sign-in, tests and rollout status. Do not serve the repository root: it contains ignored server credentials.
+Use `npm ci`, `npm run build`, and `npm run dev`, then open http://127.0.0.1:3000/. See [account progress setup](ACCOUNT-PROGRESS.md) for Development credentials, sign-in, tests and rollout status. Do not serve the repository root: it contains ignored server credentials.
 
 Twenty unique articles across four dated sets, with original Japanese text and hiragana ruby readings. Original source photographs are retained where present. Audio, videos and quizzes remain available on the original pages.
 
@@ -11,7 +11,7 @@ The source text is preserved, including historical statistics; it is not a curre
 
 ## Grammar course (13 September 2026)
 
-Open grammar.html, or http://127.0.0.1:8765/grammar.html using:
+Open grammar.html, or http://127.0.0.1:3000/grammar.html using:
 
     npm run dev
 
@@ -31,7 +31,7 @@ The app is named **Japanese learner**. Hirogaru remains the credited source of r
 The application uses Next.js App Router, React, strict TypeScript, Tailwind CSS and real shadcn/ui components. A persistent root layout owns the profile, theme, shared account store and study timer; internal Next links change only the study content. There are no iframe routes. Existing `.html` addresses and fragment links remain supported.
 
 - `npm ci` installs locked dependencies (Node 22 or newer).
-- `npm run dev` regenerates content and runs the local app on port 8765. Existing Development credentials remain in ignored `.env.local`.
+- `npm run dev` regenerates content and runs the local app on port 3000. Existing Development credentials remain in ignored `.env.local`.
 - `npm run content:build` compiles source documents and dictionary data into typed React page inputs, updates catalogs, and regenerates the public media/data allowlist.
 - `npm run build` regenerates content and creates an optimized Next build. `npm start` serves that build locally.
 - `npm run typecheck` checks TypeScript. `npm test` runs persistence, API, content integrity and historical behavior regressions. `npm run test:browser` runs the actual React app in isolated synthetic-account browser contexts; start the local app first. Install Chromium using `npx playwright install chromium`, or set `PLAYWRIGHT_EXECUTABLE_PATH` to an existing executable. `TEST_APP_ORIGIN` optionally changes the default local URL.
@@ -45,3 +45,9 @@ The timer draft stays local and account-scoped. Start, stop, background pause an
 Reading appearance provides saved text size, line spacing and furigana controls. Light/dark/system appearance uses `next-themes` with a pre-hydration theme script. Account/profile, theme menus, timer dialogs, dictionary sheet and shared buttons use shadcn/ui. Japanese text and readings remain selectable and semantic HTML ruby; the dictionary remains attributed to JMdict.
 
 Historical DOM UI code is retained only under `tests/legacy-ui` for baseline behavior tests. It is not part of the runtime or public files.
+
+Account data is loaded on the server for each authenticated page request and hydrates the shared stores before the first render. The private, dynamic response contains only the verified public profile, CSRF value and that account’s progress, vocabulary and saved time. Client refreshes use one `/api/account` snapshot on focus, visibility, reconnect or account-storage events; there is no network polling. Local pending changes are recovered after hydration, and mutations and explicit Refresh/History actions still make requests. The timer’s local clock does not fetch data.
+
+`npm run test:ssr` is an opt-in Development-database test with temporary fixtures and cleanup. It checks authenticated SSR, account isolation, pending-change recovery and absence of startup/idle API traffic. Set `STRICT_SSR_CACHE=1` against `npm start` to require private/no-store document headers; Next development mode uses its own no-cache headers.
+
+The local address now uses port 3000, leaving port 8765 free for AnkiConnect. Browser-local preferences and unsaved drafts on the old origin remain there; server-saved progress is available after signing in. Configure the Development OAuth redirect URI for `http://127.0.0.1:3000/api/auth/callback`.

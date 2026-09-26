@@ -46,7 +46,7 @@ test('all existing articles and transcripts preserve text, ruby, links, completi
  }
 });
 test('article lookup opens from ruby taps without intercepting completion controls or links',async()=>{
- const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:8765/'}),{window}=dom,doc=window.document;
+ const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:3000/'}),{window}=dom,doc=window.document;
  const dict=JSON.parse(fs.readFileSync('listening/dictionary.json','utf8'));let requests=0;window.fetch=async()=>{requests++;return {ok:true,json:async()=>dict};};
  window.eval(fs.readFileSync('tests/legacy-ui/dictionary.js','utf8'));window.eval(fs.readFileSync('tests/legacy-ui/article-lookup.js','utf8'));
  const tokenMap=JSON.parse(doc.querySelector('#article-lookup-data').textContent);const ruby=[...doc.querySelectorAll('.prose .article-word')].find(e=>e.querySelector('rt')&&tokenMap[e.dataset.word].entries.length).querySelector('rt');ruby.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));await new Promise(r=>setImmediate(r));assert.equal(doc.querySelector('#dictionary-panel').hidden,false);assert.ok(doc.querySelector('#dictionary-results li'));assert.equal(requests,1);
@@ -55,7 +55,7 @@ test('article lookup opens from ruby taps without intercepting completion contro
  doc.querySelectorAll('.article-word')[1].click();await new Promise(r=>setImmediate(r));assert.equal(requests,1);
 });
 test('shared transcript player pauses lookup, resumes only previous playback, and seeks without double resume',async()=>{
- const dom=new JSDOM(fs.readFileSync('listening/teppei-1587.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:8765/listening/teppei-1587.html'}),{window}=dom,doc=window.document,audio=doc.querySelector('audio');let paused=true,plays=0;
+ const dom=new JSDOM(fs.readFileSync('listening/teppei-1587.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:3000/listening/teppei-1587.html'}),{window}=dom,doc=window.document,audio=doc.querySelector('audio');let paused=true,plays=0;
  Object.defineProperty(audio,'paused',{get:()=>paused});audio.play=()=>{plays++;paused=false;audio.dispatchEvent(new window.Event('play'));return Promise.resolve();};audio.pause=()=>{paused=true;audio.dispatchEvent(new window.Event('pause'));};
  window.matchMedia=()=>({matches:true});window.requestAnimationFrame=()=>1;window.cancelAnimationFrame=()=>{};window.HTMLElement.prototype.scrollIntoView=()=>{};
  window.eval(fs.readFileSync('tests/legacy-ui/dictionary.js','utf8'));window.eval(fs.readFileSync('tests/legacy-ui/transcript-player.js','utf8'));

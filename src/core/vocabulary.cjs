@@ -1,6 +1,7 @@
 class VocabularyStore {
-  constructor({ request, storage, uuid = () => crypto.randomUUID() }) {
+  constructor({ request, storage, getAuth, uuid = () => crypto.randomUUID() }) {
     this.request = request;
+    this.getAuth = getAuth;
     this.storage = storage;
     this.uuid = uuid;
     this.auth = null;
@@ -59,7 +60,11 @@ class VocabularyStore {
     this.error = "";
     this.emit();
     try {
-      const auth = await this.request("/api/auth/session");
+      const auth = this.getAuth
+        ? await this.getAuth()
+        : await this.request("/api/auth/session");
+      if (!auth)
+        throw Object.assign(Error("Sign in required"), { status: 401 });
       if (auth.user.id !== this.auth?.user.id) {
         this.data = null;
         this.lastRating = null;

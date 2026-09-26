@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),{randomUUID}=require('node:crypto'),{random,hash}=require('../server/auth.cjs'),{getPool,withUser}=require('../server/db.cjs');
 (async()=>{
- if(process.env.APP_ORIGIN!=='http://127.0.0.1:8765')throw Error('Local Development required');
+ if(process.env.APP_ORIGIN!=='http://127.0.0.1:3000')throw Error('Local Development required');
  const pool=getPool(),prefix='vocabulary-test-'+randomUUID(),users=[prefix+'A',prefix+'B'],tokens=[random(),random()],csrf=[random(),random()],entryId=Object.keys(require('../server/vocabulary-catalog.json'))[0];
  const op=(action,x={})=>({action,mutationId:randomUUID(),...x});
  const req=(i=0,input,headers={})=>fetch(process.env.APP_ORIGIN+'/api/vocabulary',{method:input?'POST':'GET',headers:{Cookie:'learner_session='+tokens[i],...(input?{Origin:process.env.APP_ORIGIN,'Content-Type':'application/json','X-CSRF-Token':csrf[i]}:{}),...headers},...(input?{body:JSON.stringify(input)}:{})});

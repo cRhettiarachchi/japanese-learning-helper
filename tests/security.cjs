@@ -10,7 +10,7 @@ test('signed Vercel identity requires correct issuer, audience, nonce, expiry an
  await assert.rejects(verify(await sign({},other.privateKey)));
 });
 test('write requests require exact origin and session CSRF, including non-ASCII attacks',()=>{
- process.env.APP_ORIGIN='http://127.0.0.1:8765';const s={csrf:'aa'};
+ process.env.APP_ORIGIN='http://127.0.0.1:3000';const s={csrf:'aa'};
  assert.doesNotThrow(()=>authorizeWrite({headers:{origin:process.env.APP_ORIGIN,'x-csrf-token':'aa'}},s));
  for(const headers of [{origin:'https://evil.example','x-csrf-token':'aa'},{origin:process.env.APP_ORIGIN},{origin:process.env.APP_ORIGIN,'x-csrf-token':'éé'}])assert.throws(()=>authorizeWrite({headers},s),{status:403});
  assert.equal(h.equal('é','a'),false);

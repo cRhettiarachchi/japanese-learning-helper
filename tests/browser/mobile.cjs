@@ -71,7 +71,17 @@ const { chromium } = require(root + "/node_modules/playwright"),
     let result,
       status = 200;
     try {
-      if (path === "/api/auth/session")
+      if (path === "/api/account")
+        result = {
+          status: "account",
+          auth: { user: { id: account, name: account }, csrf: "fixture" },
+          progress: { userId: account, rows: [] },
+          timer: await db.transaction((tx) => timer.run(tx, account)),
+          vocabulary: await callV(null),
+          catalog: require("../../server/catalog.json"),
+          error: null,
+        };
+      else if (path === "/api/auth/session")
         result = { user: { id: account, name: account }, csrf: "fixture" };
       else if (path === "/api/progress") result = { userId: account, rows: [] };
       else if (path === "/api/vocabulary") result = await callV(body);
@@ -98,9 +108,11 @@ const { chromium } = require(root + "/node_modules/playwright"),
     });
   });
   await p.goto(
-    (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:8765") +
+    (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:3000") +
       "/vocabulary.html",
   );
+  await p.waitForTimeout(200);
+  await p.evaluate(() => window.dispatchEvent(new Event("online")));
   await p.locator(".reveal-meaning").waitFor();
   assert.equal(await p.locator("html").getAttribute("class"), "dark");
   assert.equal(await p.locator(".vocabulary-answer").count(), 0);
