@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-09-27",
+    "url": "/readings/2026-09-27.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+        "title": "<ruby>子<rt>こ</rt></ruby>どもの<ruby>空手<rt>からて</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+        "title": "いろいろな<ruby>書体<rt>しょたい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+        "title": "<ruby>豆本作<rt>まめほんづく</rt></ruby>り"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+        "title": "お<ruby>茶<rt>ちゃ</rt></ruby>のかき<ruby>氷<rt>ごおり</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html",
+        "title": "ひとりでカラオケ"
+      }
+    ]
+  },
+  {
     "date": "2026-09-24",
     "url": "/readings/2026-09-24.html",
     "articles": [

@@ -1,35 +1,29 @@
 {
   "index.html": {
-    "articleText": "f9de00ddd0f9f90e20cf0a6021adaea859fe1ae8e65200067288939535b21cf3",
-    "ruby": "5230cd99b62a1e31ead07593de2b217a2234a4caed50f831ef0d3c7616e73e32",
+    "articleText": "30f302b42a2a7ca2c4ec37b87159a8a6868a8c7dd4ff64a9598cb5d09919f701",
+    "ruby": "9394a5aa5adcb468ccfbe4e014f407530ce25b0d96909369566985745e932122",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/tanabata/index.html",
-      "#top",
-      "#yachoo",
-      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/yachoo/index.html",
-      "#top",
-      "#tanabata",
-      "#natsuokashi",
-      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/natsuokashi/index.html",
-      "#top",
-      "#yachoo",
-      "#ohenro",
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/ohenro/index.html",
-      "#top",
-      "#natsuokashi",
-      "#shinobue",
-      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/shinobue/index.html",
-      "#top",
-      "#ohenro"
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+      "#shotai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+      "#kodomonokarate",
+      "#mamehon",
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+      "#shotai",
+      "#ochanokakigoori",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+      "#mamehon",
+      "#hitorikaraoke",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html",
+      "#ochanokakigoori"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/tanabata/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/yachoo/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/natsuokashi/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/ohenro/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/music/article/shinobue/index.html"
-    ],
-    "studyData": null
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html"
+    ]
   },
   "readings/2026-09-09.html": {
     "articleText": "4b652fbefc18cca7c6a8ddce71cae0bbc45ffa54fd1f20775489e8566bc668e2",
@@ -179,5 +173,31 @@
     "links": [],
     "completion": [],
     "studyData": "0601fc68948b8725721ea44ee49aca044165e8082218aaa6dbced9b682c44fe2"
+  },
+  "readings/2026-09-27.html": {
+    "articleText": "30f302b42a2a7ca2c4ec37b87159a8a6868a8c7dd4ff64a9598cb5d09919f701",
+    "ruby": "9394a5aa5adcb468ccfbe4e014f407530ce25b0d96909369566985745e932122",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+      "#shotai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+      "#kodomonokarate",
+      "#mamehon",
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+      "#shotai",
+      "#ochanokakigoori",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+      "#mamehon",
+      "#hitorikaraoke",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html",
+      "#ochanokakigoori"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html"
+    ]
   }
 }
