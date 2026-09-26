@@ -1,6 +1,6 @@
 const {error}=require('./http.cjs');
 let catalog;
-function getCatalog(){return catalog ||= require('./catalog.json');}
+function getCatalog(){return catalog ||= require('./content-catalog.cjs').catalog;}
 function validate(input, allowed=getCatalog()){
  if(!input||Array.isArray(input)||typeof input!=='object')throw error(400,'Invalid update');
  if(Object.keys(input).some(k=>!['kind','id','field','value','expectedRevision','mutationId'].includes(k)))throw error(400,'Unexpected update field');

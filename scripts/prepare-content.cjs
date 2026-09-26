@@ -5,10 +5,24 @@ const { JSDOM } = require("jsdom");
 const root = path.resolve(__dirname, "..");
 const read = (n) => fs.readFileSync(path.join(root, n), "utf8");
 const generated = path.join(root, "src/generated");
+// Rebuild from the current inputs, including removal of private episodes.
+fs.rmSync(generated, { recursive: true, force: true });
 fs.mkdirSync(generated, { recursive: true });
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), "learner-revisions-"));
 require("./render-revisions.cjs").render(root, temp);
 const archive = JSON.parse(read("reading-archive.json"));
+const publicAudio = JSON.parse(read("audio-catalog.json"));
+const privateEpisodes = require("./private-listening.cjs").load(
+  root,
+  publicAudio,
+);
+const privateRoutes = new Map(
+  privateEpisodes.map((ep) => [`listening/${ep.slug}.html`, ep]),
+);
+const localCatalog = { audio: {}, vocabulary: {} };
+const localDictionary = {};
+for (const ep of privateEpisodes)
+  localCatalog.audio[ep.slug] = { duration: ep.duration };
 const routes = [
   "index.html",
   "grammar.html",
@@ -17,6 +31,7 @@ const routes = [
     .readdirSync(path.join(root, "listening"))
     .filter((s) => s.endsWith(".html"))
     .map((s) => "listening/" + s),
+  ...privateRoutes.keys(),
   "revisions.html",
   "revisions/revision-1-test.html",
   "revisions/revision-1-answers.html",
@@ -25,19 +40,49 @@ const manifest = {};
 const catalog = {
   article: {},
   grammar: {},
-  audio: JSON.parse(read("audio-catalog.json")),
+  audio: publicAudio,
 };
 for (const set of archive)
   for (const a of set.articles) catalog.article[a.key] = {};
 for (const name of routes) {
   const doc = new JSDOM(
     fs.readFileSync(
-      path.join(name.startsWith("revisions") ? temp : root, name),
+      privateRoutes.get(name)?.files.html ||
+        path.join(name.startsWith("revisions") ? temp : root, name),
       "utf8",
     ),
   ).window.document;
   const lookup = doc.querySelector("#article-lookup-data,#study-data");
   let data = lookup ? JSON.parse(lookup.textContent) : null;
+  if (privateRoutes.has(name) && data?.dictionary) {
+    for (const [id, entry] of Object.entries(data.dictionary)) {
+      localDictionary[id] = entry;
+      const word = entry.forms?.[0] || entry.readings?.[0];
+      const meanings = [...new Set(entry.senses.flatMap((s) => s.gloss || []))];
+      if (word && meanings.length)
+        localCatalog.vocabulary[id] = {
+          word,
+          reading: "",
+          readings: entry.readings || [],
+          meanings,
+        };
+    }
+  }
+  if (name.startsWith("listening/")) {
+    const nav = doc.querySelector(".episode-nav");
+    for (const ep of privateEpisodes) {
+      const href = `/listening/${ep.slug}.html`;
+      if (!nav || nav.querySelector(`a[href="${href}"]`)) continue;
+      const link = doc.createElement("a"),
+        label = doc.createElement("span");
+      link.href = href;
+      label.textContent = ep.label;
+      link.append(label, doc.createTextNode(ep.title));
+      if (name === `listening/${ep.slug}.html`)
+        link.setAttribute("aria-current", "page");
+      nav.append(link);
+    }
+  }
   if (lookup?.id === "article-lookup-data")
     data = {
       tokens: data,
@@ -119,6 +164,10 @@ fs.writeFileSync(
   JSON.stringify(catalog, null, 2) + "\n",
 );
 require("./build-vocabulary-catalog.cjs").build(root);
+fs.writeFileSync(
+  path.join(root, "server/local-listening.json"),
+  JSON.stringify(localCatalog),
+);
 // Public files are generated from an explicit data/media allowlist. No legacy HTML or JS remains.
 const out = path.join(root, "public");
 fs.rmSync(out, { recursive: true, force: true });
@@ -137,11 +186,28 @@ for (const name of files) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.copyFileSync(path.join(root, name), dest);
 }
+for (const ep of privateEpisodes) {
+  fs.mkdirSync(path.join(out, "audio"), { recursive: true });
+  fs.mkdirSync(path.join(out, "listening"), { recursive: true });
+  fs.copyFileSync(ep.files.mp3, path.join(out, "audio", `${ep.slug}.mp3`));
+  fs.copyFileSync(ep.files.md, path.join(out, "listening", `${ep.slug}.md`));
+}
+if (privateEpisodes.length) {
+  const dictionary = JSON.parse(read("listening/dictionary.json"));
+  dictionary.entries = { ...dictionary.entries, ...localDictionary };
+  fs.writeFileSync(
+    path.join(out, "listening/dictionary.json"),
+    JSON.stringify(dictionary),
+  );
+}
 fs.writeFileSync(
   path.join(out, "progress-catalog.json"),
-  JSON.stringify(catalog),
+  JSON.stringify({
+    ...catalog,
+    audio: { ...catalog.audio, ...localCatalog.audio },
+  }),
 );
 fs.rmSync(temp, { recursive: true });
 console.log(
-  `Prepared ${routes.length} React content routes: ${Object.keys(catalog.article).length} articles, ${Object.keys(catalog.grammar).length} lessons, ${Object.keys(catalog.audio).length} audio episodes.`,
+  `Prepared ${routes.length} React content routes: ${Object.keys(catalog.article).length} articles, ${Object.keys(catalog.grammar).length} lessons, ${Object.keys(catalog.audio).length + privateEpisodes.length} audio episodes.`,
 );

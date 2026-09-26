@@ -1,6 +1,6 @@
 const {createHash}=require('node:crypto');const {error}=require('./http.cjs');
 const DAYS=[1,3,7,14,30,30];let savedCatalog;
-const catalog=()=>savedCatalog||=require('./vocabulary-catalog.json');
+const catalog=()=>savedCatalog||=require('./content-catalog.cjs').vocabulary;
 const uuid=s=>typeof s==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 function validate(x){
  if(!x||typeof x!=='object'||Array.isArray(x)||!['add','rate','undo'].includes(x.action)||!uuid(x.mutationId))throw error(400,'Invalid vocabulary request');

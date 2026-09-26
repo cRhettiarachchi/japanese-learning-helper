@@ -2,6 +2,7 @@ const STORAGE_KEY = "japanese-learner-audio-progress-v1";
 function bindAudioProgress({
   audio,
   checkbox,
+  bindCompletion = true,
   storage,
   progress,
   id,
@@ -106,8 +107,10 @@ function bindAudioProgress({
     lastSnapshot = JSON.stringify(progress?.get("audio", id, "position"));
     initialized = true;
   }
-  checkbox.checked = read().done === true;
-  listen(checkbox, "change", () => write({ done: checkbox.checked }));
+  if (bindCompletion) {
+    checkbox.checked = read().done === true;
+    listen(checkbox, "change", () => write({ done: checkbox.checked }));
+  }
   listen(audio, "loadedmetadata", restore);
   listen(audio, "timeupdate", () => {
     if (!audio.paused && !audio.seeking) savePosition();
@@ -141,7 +144,7 @@ function bindAudioProgress({
           lastSnapshot = snapshot;
         }
       }
-      checkbox.checked = read().done === true;
+      if (bindCompletion) checkbox.checked = read().done === true;
     },
     dispose: () => listeners.forEach((remove) => remove()),
   };

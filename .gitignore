@@ -14,3 +14,5 @@ __pycache__/
 src/generated/
 playwright-report/
 test-results/
+.private-listening/
+server/local-listening.json

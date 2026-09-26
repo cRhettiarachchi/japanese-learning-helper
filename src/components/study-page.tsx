@@ -101,6 +101,7 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
     const controller = bindAudioProgress({
       audio: audio.current,
       checkbox: checkbox.current,
+      bindCompletion: false,
       progress,
       id,
       storage: null,
@@ -441,7 +442,9 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
                 type="checkbox"
                 checked={!!progress?.get("audio", audioId)}
                 disabled={!progress?.canEdit()}
-                onChange={() => {}}
+                onChange={(e) =>
+                  progress?.set("audio", audioId, "done", e.target.checked)
+                }
               />{" "}
               Mark audio as done
             </label>

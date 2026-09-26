@@ -66,3 +66,14 @@ test('account switch waits for loaded data and paused playback follows refreshed
  loaded=true;seconds=8;c.refreshDone();assert.equal(audio.currentTime,8);seconds=24;c.refreshDone();assert.equal(audio.currentTime,24);
  audio.paused=false;seconds=40;c.refreshDone();assert.equal(audio.currentTime,24);
 });
+test('React-owned completion is not reset or double-saved by playback binding',()=>{
+ const audio=Object.assign(new Element(),{duration:100,currentTime:0,paused:true,ended:false,seeking:false});
+ const checkbox=Object.assign(new Element(),{checked:false}),writes=[];
+ const progress={user:{id:'A'},get:(_,id,field)=>field==='done'?true:{seconds:12,duration:100,ended:false},set:(...args)=>writes.push(args)};
+ const c=bindAudioProgress({audio,checkbox,progress,id:'episode',bindCompletion:false});
+ assert.equal(audio.currentTime,12);assert.equal(checkbox.checked,false);
+ checkbox.fire('change');assert.equal(writes.length,0);
+ c.refreshDone();assert.equal(checkbox.checked,false);
+ audio.currentTime=25;audio.fire('pause');assert.equal(writes.length,1);assert.equal(writes[0][2],'position');
+ c.dispose();
+});

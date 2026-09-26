@@ -3,7 +3,7 @@ const { withUser } = require("./db.cjs");
 const progress = require("./progress.cjs");
 const timer = require("./study-time.cjs");
 const vocabulary = require("./vocabulary.cjs");
-const catalog = require("./catalog.json");
+const catalog = require("./content-catalog.cjs").catalog;
 // Request-scoped, read-only snapshot. Never cache this value or serialize the raw session.
 async function loadAccount(req) {
   const empty = {
