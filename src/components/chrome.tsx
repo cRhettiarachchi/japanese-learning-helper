@@ -24,7 +24,6 @@ export function Chrome() {
     ["/grammar.html", "Grammar"],
     ["/listening/teppei-1586.html", "Listening"],
     ["/vocabulary.html", "Vocabulary"],
-    ["/revisions.html", "Revisions"],
   ];
   return (
     <>
@@ -93,8 +92,7 @@ export function Chrome() {
                     pathname === "/index.html" ||
                     pathname.startsWith("/readings/"))) ||
                 pathname === href ||
-                (label === "Listening" && pathname.startsWith("/listening/")) ||
-                (label === "Revisions" && pathname.startsWith("/revisions/"))
+                (label === "Listening" && pathname.startsWith("/listening/"))
                   ? "page"
                   : undefined
               }

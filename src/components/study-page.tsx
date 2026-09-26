@@ -13,6 +13,7 @@ import { useAccount } from "./account-provider";
 import { ReaderSettings, useReaderSettings } from "./reader-settings";
 import { DictionaryPanel } from "./dictionary-panel";
 import { Button } from "./ui/button";
+import { GrammarPractice } from "./grammar-practice";
 import { Input } from "./ui/input";
 import { bindAudioProgress } from "../core/audio.cjs";
 import type { StudyDocument, Token, GrammarRow } from "../lib/types";
@@ -29,6 +30,10 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState("1"),
     [playerError, setPlayerError] = useState("");
+  const [practice, setPractice] = useState<{
+    id: string;
+    title: string;
+  } | null>(null);
   const reader = useReaderSettings(),
     audio = useRef<HTMLAudioElement>(null),
     checkbox = useRef<HTMLInputElement>(null),
@@ -197,6 +202,8 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
       if (node.name === "script" || node.name === "style") return <></>;
       if (node.name === "a") {
         const href = a.href || "";
+        if (href === "/revisions.html" || href.startsWith("/revisions/"))
+          return <></>;
         if (href.startsWith("#stage-"))
           return (
             <a
@@ -223,6 +230,30 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
             </Link>
           );
         return;
+      }
+      if (
+        doc.kind === "grammar" &&
+        node.name === "span" &&
+        a.class === "topic"
+      ) {
+        const row = node.parent?.parent as Element;
+        const title = node.children
+          .map((n) => ("data" in n ? n.data : ""))
+          .join("");
+        return (
+          <>
+            <span {...props}>{children()}</span>
+            <div className="grammar-practice-action">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPractice({ id: row.attribs.id, title })}
+              >
+                Generate questions
+              </Button>
+            </div>
+          </>
+        );
       }
       if (a["data-word"])
         return (
@@ -542,6 +573,9 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
         <ReaderSettings {...reader} />
       )}{" "}
       {parse(doc.html, options)}
+      {practice && (
+        <GrammarPractice lesson={practice} onClose={() => setPractice(null)} />
+      )}
       <DictionaryPanel
         token={lookup}
         data={doc.data}

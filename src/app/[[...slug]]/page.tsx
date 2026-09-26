@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import manifest from "../../generated/manifest.json";
 import { StudyPage } from "../../components/study-page";
 import { VocabularyPage } from "../../components/vocabulary-page";
@@ -38,6 +38,8 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const route = "/" + (slug || []).join("/");
+  if (route === "/revisions.html" || route.startsWith("/revisions/"))
+    redirect("/grammar.html");
   const name = routes[route];
   if (!name) notFound();
   if (name === "vocabulary") return <VocabularyPage />;

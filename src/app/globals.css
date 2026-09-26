@@ -820,3 +820,72 @@ progress {
     padding: 0;
   }
 }
+
+/* Grammar practice stays readable on narrow phones and in both themes. */
+.grammar-practice-action {
+  margin-top: 0.65rem;
+}
+.practice-dialog {
+  max-height: 90dvh;
+  overflow-y: auto;
+  width: min(44rem, calc(100vw - 2rem));
+  max-width: 44rem;
+}
+.practice-form {
+  min-width: 0;
+  display: grid;
+  gap: 1rem;
+}
+.practice-note {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+.practice-questions {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+.practice-questions li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.practice-questions label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.practice-questions textarea {
+  width: 100%;
+  min-height: 5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 1rem;
+  resize: vertical;
+}
+.practice-questions textarea:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.practice-questions textarea[readonly] {
+  opacity: 0.8;
+}
+.practice-feedback {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-left: 3px solid var(--primary);
+  background: var(--muted);
+  border-radius: 0.25rem;
+}
+.practice-feedback p {
+  margin: 0.35rem 0 0;
+}
+.practice-feedback.incorrect {
+  border-left-color: var(--destructive);
+}
+.practice-error {
+  color: var(--destructive);
+}
