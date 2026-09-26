@@ -6,12 +6,14 @@ import callback from "../../../../api/auth/callback";
 import signout from "../../../../api/auth/signout";
 import progress from "../../../../api/progress";
 import vocabulary from "../../../../api/vocabulary";
+import practice from "../../../../api/grammar-practice";
 import timer from "../../../../api/study-time";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const maxDuration = 30;
+export const maxDuration = 60;
 const handlers: Record<string, Function> = {
   account,
+  "grammar-practice": practice,
   "auth/session": session,
   "auth/authorize": authorize,
   "auth/callback": callback,
