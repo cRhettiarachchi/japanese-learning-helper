@@ -1,7 +1,6 @@
 const {error}=require('./http.cjs');
-const fs=require('node:fs');const path=require('node:path');
 let catalog;
-function getCatalog(){return catalog ||= JSON.parse(fs.readFileSync(path.join(__dirname,'catalog.json'),'utf8'));}
+function getCatalog(){return catalog ||= require('./catalog.json');}
 function validate(input, allowed=getCatalog()){
  if(!input||Array.isArray(input)||typeof input!=='object')throw error(400,'Invalid update');
  if(Object.keys(input).some(k=>!['kind','id','field','value','expectedRevision','mutationId'].includes(k)))throw error(400,'Unexpected update field');

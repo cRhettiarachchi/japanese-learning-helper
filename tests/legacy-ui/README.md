@@ -1,0 +1,1 @@
+Historical pre-migration DOM UI fixtures retained only for behavioral baseline tests. These are never copied to public or executed by the application. Current UI lives in src/components; current persistence engines live in src/core. tests/browser exercises the actual React application.

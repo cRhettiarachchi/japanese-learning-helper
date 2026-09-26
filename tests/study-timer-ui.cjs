@@ -14,7 +14,7 @@ async function setup(){
   if(drop&&options.body){drop=false;throw Error('Network interrupted');}
   return{ok:true,json:async()=>data};
  };
- w.eval(fs.readFileSync('study-timer.js','utf8'));
+ w.eval(fs.readFileSync('tests/legacy-ui/study-timer.js','utf8'));
  const q=s=>w.document.querySelector(s);
  await flush(()=>q('[data-timer-total]').textContent.includes('0.00'));
  return{db,w,q,intervals,requests,setUser:value=>user=value,advance:ms=>now+=ms,drop:()=>drop=true,close:async()=>{w.close();await db.close();}};

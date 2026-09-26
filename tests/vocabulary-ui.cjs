@@ -1,5 +1,5 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),{JSDOM}=require('jsdom'),{PGlite}=require('@electric-sql/pglite');
-const {VocabularyStore}=require('../vocabulary-client.js'),{createPage,swipeRating,wordWithRuby,PHONE_QUERY}=require('../vocabulary.js'),vocabulary=require('../server/vocabulary.cjs');
+const {VocabularyStore}=require('../src/core/vocabulary.cjs'),{createPage,swipeRating,wordWithRuby,PHONE_QUERY}=require('./legacy-ui/vocabulary.js'),vocabulary=require('../server/vocabulary.cjs');
 const catalog={'100':{word:'食べる',reading:'たべる',readings:['たべる'],meanings:['to eat']},'200':{word:'読む',reading:'よむ',readings:['よむ'],meanings:['to read']}};
 const settle=async f=>{for(let i=0;i<250;i++){if(f())return;await new Promise(r=>setImmediate(r));}assert.ok(f(),'UI settled');};
 async function fixture(fn){
@@ -45,7 +45,7 @@ test('lost rating response retries once and another account never receives pendi
  account('A');await store.load();assert.equal(store.data.items.length,2);assert.equal(store.data.items.find(x=>x.entry_id==='100').revision,2);
 }));
 test('multi-match dictionary requires an explicit entry choice; already saved entry disables only its own button',()=>fixture(async({dom,store})=>{
- const w=dom.window,doc=w.document;w.eval(fs.readFileSync('vocabulary-client.js','utf8'));w.VocabularyReview.store=store;w.eval(fs.readFileSync('dictionary.js','utf8'));
+ const w=dom.window,doc=w.document;w.eval(fs.readFileSync('tests/legacy-ui/vocabulary-client.js','utf8'));w.VocabularyReview.store=store;w.eval(fs.readFileSync('tests/legacy-ui/dictionary.js','utf8'));
  const trigger=doc.createElement('button');trigger.dataset.word='inflected';doc.body.append(trigger);
  const entries={'100':{forms:['食べる'],readings:['たべる'],senses:[{gloss:['to eat']}]},'200':{forms:['読む'],readings:['よむ'],senses:[{gloss:['to read']}]}};
  const popup=w.DictionaryLookup.createPopup({document:doc,loadDictionary:()=>entries});await popup.open(trigger,{surface:'食べました',entries:['100','200']});await settle(()=>!store.busy);

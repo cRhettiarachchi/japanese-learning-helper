@@ -34,9 +34,9 @@ npm test
 node --env-file-if-exists=.env.local scripts/integration-vocabulary.cjs
 ```
 
-The migration helper only accepts the local Development origin. The integration test creates and removes uniquely named synthetic accounts; it never changes real users’ words. The local app is at http://127.0.0.1:8765/vocabulary.html . Rebuild static assets after frontend changes and restart the dev server after backend/catalog changes.
+The migration helper only accepts the local Development origin. The integration test creates and removes uniquely named synthetic accounts; it never changes real users’ words. The local app is at http://127.0.0.1:8765/vocabulary.html . The Next development server reloads frontend and backend source changes; run `npm run content:build` after changing source documents or dictionary catalogs.
 
-The regular build creates `server/vocabulary-catalog.json` from the shared dictionary plus transcript-only entries and pairs it with the committed verified reading subset. Server assets are included by the existing Vercel function configuration. No Python/full dictionary/network lookup is needed during a normal Vercel build.
+The regular build creates `server/vocabulary-catalog.json` from the shared dictionary plus transcript-only entries and pairs it with the committed verified reading subset. The Next API adapter bundles explicit server catalog imports. No Python/full dictionary/network lookup is needed during a normal Vercel build.
 
 When changing the dictionary subset, first build the updated canonical catalog, then regenerate verified readings from the matching official dictionary snapshot and build again:
 
@@ -47,10 +47,12 @@ npm run build
 
 Missing new reading pairs are safe (no fabricated ruby), but should be regenerated and audited before release. Existing word IDs/progress remain stable.
 
-## Production rollout — vocabulary migration NOT applied
+## Initial production rollout (historical instructions) rollout — vocabulary migration NOT applied
 
 **Before merging/deploying this branch, apply `db/vocabulary.sql` to the existing separate Production database through the authorized migration process.** This branch also includes the earlier account/timer functionality, so `db/schema.sql` and `db/study-time.sql` must already be installed. The timer migration was separately applied to the current production database during the 2026-09-24 incident repair; it should still be checked in any other environment. Vercel build does not run database migrations.
 
 If using a separate runtime role, grant that existing role SELECT/INSERT/UPDATE/DELETE on the four vocabulary tables and retain RLS. Do not point the local `.env.local` at Production or run Development integration against Production. Retain existing Vercel Authentication and environment variables. No new service/paid plan is required. Vocabulary has not been pushed or deployed by this feature work.
 
 Test coverage includes deduplication, all schedule transitions/reset, row isolation/RLS, concurrent real-Postgres additions/ratings, stale ratings/undo, lost responses and account switches, reveal and gesture gating, all three directions, button equivalents, responsive reveal gating, long-meaning pagination, gesture cancellation/multitouch, keyboard access, and front-side ruby/kana fallback. Existing article text/ruby, transcript audio, grammar Revisions and timer tests remain in the suite. Mobile browser checks use disposable in-memory fixture data rather than real user records.
+
+The React/Next migration adds no schema changes. Its UI uses `src/components/vocabulary-page.tsx` and a fresh account-scoped store on identity changes. The historical rollout instructions above describe first-time schema setup, not an additional migration required for this frontend change.
