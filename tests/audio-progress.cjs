@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const {bindAudioProgress, STORAGE_KEY} = require('../audio-progress.js');
+const {bindAudioProgress, STORAGE_KEY} = require('../src/core/audio.cjs');
 class Element extends EventTarget { fire(name) { this.dispatchEvent(new Event(name)); } }
 function fixture(seed = {}) {
   let value = JSON.stringify(seed), writes = 0, time = 0;

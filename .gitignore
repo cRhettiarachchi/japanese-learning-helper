@@ -8,3 +8,9 @@ public/
 
 __pycache__/
 *.pyc
+
+.next/
+*.tsbuildinfo
+src/generated/
+playwright-report/
+test-results/

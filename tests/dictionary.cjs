@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),crypto=require('node:crypto');
-const {JSDOM}=require('jsdom');const {meanings,createPopup,createLookupSession}=require('../dictionary.js');
+const {JSDOM}=require('jsdom');const {meanings,createPopup,createLookupSession}=require('./legacy-ui/dictionary.js');
 const fixture=()=>{const dom=new JSDOM('<button class="word" data-word="a">日本</button><button class="word" data-word="b">川</button>');return {dom,document:dom.window.document,buttons:[...dom.window.document.querySelectorAll('button')]};};
 const dictionary={a:{forms:['日本'],readings:['にほん'],senses:[{gloss:['Japan','Japan'],forms:[]},{gloss:['land of the rising sun'],forms:['alternate form']}]},b:{senses:[{gloss:['river','stream']}]}};
 test('all English senses are shown without pronunciation, POS, sense filtering or duplicate glosses',()=>{
@@ -48,7 +48,7 @@ test('all existing articles and transcripts preserve text, ruby, links, completi
 test('article lookup opens from ruby taps without intercepting completion controls or links',async()=>{
  const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:8765/'}),{window}=dom,doc=window.document;
  const dict=JSON.parse(fs.readFileSync('listening/dictionary.json','utf8'));let requests=0;window.fetch=async()=>{requests++;return {ok:true,json:async()=>dict};};
- window.eval(fs.readFileSync('dictionary.js','utf8'));window.eval(fs.readFileSync('article-lookup.js','utf8'));
+ window.eval(fs.readFileSync('tests/legacy-ui/dictionary.js','utf8'));window.eval(fs.readFileSync('tests/legacy-ui/article-lookup.js','utf8'));
  const tokenMap=JSON.parse(doc.querySelector('#article-lookup-data').textContent);const ruby=[...doc.querySelectorAll('.prose .article-word')].find(e=>e.querySelector('rt')&&tokenMap[e.dataset.word].entries.length).querySelector('rt');ruby.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));await new Promise(r=>setImmediate(r));assert.equal(doc.querySelector('#dictionary-panel').hidden,false);assert.ok(doc.querySelector('#dictionary-results li'));assert.equal(requests,1);
  doc.querySelector('#dictionary-close').click();const checkbox=doc.querySelector('[data-reading-key]');checkbox.click();assert.equal(checkbox.checked,true);assert.equal(doc.querySelector('#dictionary-panel').hidden,true);
  const link=doc.querySelector('.article-footer a');link.addEventListener('click',e=>e.preventDefault());link.click();assert.equal(doc.querySelector('#dictionary-panel').hidden,true);
@@ -58,7 +58,7 @@ test('shared transcript player pauses lookup, resumes only previous playback, an
  const dom=new JSDOM(fs.readFileSync('listening/teppei-1587.html','utf8'),{runScripts:'outside-only',url:'http://127.0.0.1:8765/listening/teppei-1587.html'}),{window}=dom,doc=window.document,audio=doc.querySelector('audio');let paused=true,plays=0;
  Object.defineProperty(audio,'paused',{get:()=>paused});audio.play=()=>{plays++;paused=false;audio.dispatchEvent(new window.Event('play'));return Promise.resolve();};audio.pause=()=>{paused=true;audio.dispatchEvent(new window.Event('pause'));};
  window.matchMedia=()=>({matches:true});window.requestAnimationFrame=()=>1;window.cancelAnimationFrame=()=>{};window.HTMLElement.prototype.scrollIntoView=()=>{};
- window.eval(fs.readFileSync('dictionary.js','utf8'));window.eval(fs.readFileSync('transcript-player.js','utf8'));
+ window.eval(fs.readFileSync('tests/legacy-ui/dictionary.js','utf8'));window.eval(fs.readFileSync('tests/legacy-ui/transcript-player.js','utf8'));
  const words=doc.querySelectorAll('#transcript [data-word]');words[0].click();doc.querySelector('#dictionary-close').click();assert.equal(plays,0);
  await audio.play();words[0].click();assert.equal(paused,true);words[1].click();doc.querySelector('#dictionary-close').click();assert.equal(plays,2);assert.equal(paused,false);
  words[0].click();doc.querySelector('[data-start]').click();assert.equal(plays,3);assert.equal(doc.querySelector('#dictionary-panel').hidden,true);

@@ -1,13 +1,66 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),path=require('path'),os=require('os'),{JSDOM}=require('jsdom');
-test('build creates persistent timer/profile above navigation and preserves study document scripts/deep-link bases',()=>{
- const root=fs.mkdtempSync(path.join(os.tmpdir(),'study-shell-')),out=path.join(root,'public');fs.mkdirSync(out);fs.mkdirSync(path.join(out,'listening'));
- try{
- for(const name of ['app-shell.js','app-shell.css','account-profile.js'])fs.copyFileSync(name,path.join(root,name));
- const page='<html><head><title>Lesson</title><script src="/progress-store.js" defer></script><script src="/study-timer.js" defer></script></head><body><nav><a href="/index.html">Reading</a></nav><audio src="/audio/episode.mp3"></audio><script src="/audio-progress.js"></script></body></html>';
- fs.writeFileSync(path.join(out,'index.html'),page);fs.writeFileSync(path.join(out,'listening','lesson.html'),page);
- require('../scripts/build-shell.cjs').build(root,out,['index.html','listening/lesson.html']);
- const outer=new JSDOM(fs.readFileSync(path.join(out,'listening/lesson.html'),'utf8')),inner=new JSDOM(fs.readFileSync(path.join(out,'_pages/listening/lesson.html'),'utf8'));
- assert.ok(outer.window.document.querySelector('.app-header [data-timer-host]'));assert.ok(outer.window.document.querySelector('.app-header [data-profile-host]'));assert.equal(outer.window.document.querySelectorAll('iframe').length,1);
- assert.equal(inner.window.document.querySelector('base').getAttribute('href'),'/listening/lesson.html');assert.equal(inner.window.document.querySelectorAll('script[src="/study-timer.js"]').length,0);assert.ok(inner.window.document.querySelector('script[src="/audio-progress.js"]'));assert.ok(inner.window.document.querySelector('script[src="/progress-store.js"]'));assert.equal(inner.window.document.querySelector('audio').getAttribute('src'),'/audio/episode.mp3');outer.window.close();inner.window.close();
- }finally{fs.rmSync(root,{recursive:true,force:true});}
+const test = require("node:test"),
+  assert = require("node:assert/strict"),
+  fs = require("node:fs"),
+  path = require("node:path"),
+  { JSDOM } = require("jsdom");
+test("React content migration preserves article text, ruby associations, completion keys and archive routes", () => {
+  const archive = JSON.parse(fs.readFileSync("reading-archive.json"));
+  const manifest = JSON.parse(fs.readFileSync("src/generated/manifest.json"));
+  const seen = new Set();
+  let rubies = 0;
+  for (const set of archive) {
+    assert.ok(manifest[set.url]);
+    const source = new JSDOM(fs.readFileSync("." + set.url, "utf8")).window
+      .document;
+    const generated = JSON.parse(
+      fs.readFileSync(path.join("src/generated", manifest[set.url])),
+    );
+    const migrated = new JSDOM(generated.html).window.document;
+    for (const checkbox of source.querySelectorAll("[data-reading-key]")) {
+      const key = checkbox.dataset.readingKey;
+      assert.ok(!seen.has(key));
+      seen.add(key);
+      const article = checkbox.closest("article"),
+        copy = migrated.getElementById(article.id);
+      assert.equal(copy.textContent, article.textContent);
+      const pairs = (d) =>
+        [...d.querySelectorAll("ruby")].map(
+          (r) =>
+            [...r.childNodes]
+              .filter((n) => n.nodeName !== "RT" && n.nodeName !== "RP")
+              .map((n) => n.textContent)
+              .join("") +
+            "|" +
+            r.querySelector("rt").textContent,
+        );
+      assert.deepEqual(pairs(copy), pairs(article));
+      rubies += pairs(copy).length;
+      assert.ok(generated.keys.some((k) => k.id === key));
+    }
+    assert.equal(migrated.querySelectorAll("script,iframe").length, 0);
+    assert.ok(generated.data.tokens);
+    assert.ok(generated.data.dictionary);
+  }
+  assert.equal(seen.size, 20);
+  assert.equal(rubies, 1000);
+});
+test("Next build public allowlist excludes iframe documents, browser bootstraps, server and credentials", () => {
+  const walk = (dir) =>
+    fs
+      .readdirSync(dir, { withFileTypes: true })
+      .flatMap((e) =>
+        e.isDirectory()
+          ? walk(path.join(dir, e.name))
+          : [path.join(dir, e.name)],
+      );
+  for (const file of walk("public")) {
+    assert.doesNotMatch(file, /\.(html|js|cjs|tsx?|env)$/);
+    assert.doesNotMatch(file, /(?:_pages|server|node_modules|\.env)/);
+  }
+  for (const file of walk("src/components"))
+    if (file.endsWith(".tsx"))
+      assert.doesNotMatch(
+        fs.readFileSync(file, "utf8"),
+        /<iframe|contentWindow|innerHTML/,
+      );
 });

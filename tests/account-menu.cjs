@@ -11,7 +11,7 @@ test('account UI is profile/signout only, automatically retries, and signed-out 
  else if(o.method==='PUT'){const x=JSON.parse(o.body);writes.push(x);const row={...x,revision:1};rows=[row];body={userId:'A',row};}
  else body={userId:'A',rows};
  return {ok:status===200,status,headers:{get:()=> 'application/json'},json:async()=>body};};
- w.eval(fs.readFileSync('progress-store.js','utf8'));await w.StudyProgress.ready;
+ w.eval(fs.readFileSync('tests/legacy-ui/progress-store.js','utf8'));await w.StudyProgress.ready;
  const menu=w.document.querySelector('details'),profile=w.document.querySelector('summary');
  assert.equal(menu.hidden,false);assert.match(profile.getAttribute('aria-label'),/Learner/);assert.equal(w.document.querySelector('.account-feedback').hidden,true);
  assert.deepEqual([...w.document.querySelectorAll('button')].map(b=>b.textContent),['Sign out']);assert.doesNotMatch(w.document.body.textContent,/Import|Refresh from account|Synced|Browser progress/);

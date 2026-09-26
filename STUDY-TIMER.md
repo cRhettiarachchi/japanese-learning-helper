@@ -1,6 +1,6 @@
 # Study timer
 
-The persistent header sits above study navigation and holds the timer and compact profile menu. A same-origin study-page frame preserves existing page scripts, dictionary, audio, grammar and reading behavior while the outer header stays mounted during internal links, archive selections, and browser Back/Forward. URLs remain ordinary shareable study routes; direct links and actual browser refresh load the same shell. Each study document scrolls inside the frame. Printing a study document is best done from its frame. No frontend framework or extra service is required.
+The persistent Next.js root layout sits above study navigation and holds the React timer and compact profile menu. Next links preserve the mounted header during internal navigation, archive selections, and browser Back/Forward. Existing shareable study URLs and fragments remain supported. There are no iframe documents; the page scrolls and prints as one normal document.
 
 ## Local draft and explicit save
 
@@ -14,8 +14,8 @@ The timer counts visible foreground time with a monotonic clock and stores its d
 
 No schema migration is required: `commit` reuses the existing study sessions and mutation receipt tables. Existing saved history/totals are untouched. Older server-tracked open sessions remain accessible in History for review once their old lease expires; the legacy API is retained for compatibility. All non-timer study progress continues to auto-save normally.
 
-Build with `npm run build`; the build writes outer routes and inner `_pages/` documents. Local API code changes require restarting `npm run dev`. This branch is local only; the user handles push, PR and deployment.
+Build with `npm run build`; Next produces the application and server routes. `npm run dev` regenerates content and provides hot reload. This branch is local only; the user handles push, PR and deployment.
 
 ## Verification
 
-Tests use PGlite for real SQL constraints, account isolation, idempotent commits, history preservation and stale edits. UI tests verify zero timer requests during local running/stopping, explicit save/retry, adjustments, discard, background recovery and account switching. Shared build checks cover shell routing assets and preserved study scripts. Browser checks cover header placement, internal navigation, Back and 360px layout.
+Tests use PGlite for real SQL constraints, account isolation, idempotent commits, history preservation and stale edits. UI tests verify zero timer requests during local running/stopping, explicit save/retry, adjustments, discard, background recovery and account switching. Migration checks verify source/ruby preservation and public asset exclusions; `npm run test:browser` verifies the actual React UI. Browser checks cover header placement, internal navigation, Back and 360px layout.

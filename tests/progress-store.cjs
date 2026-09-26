@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('node:assert/strict');const {ProgressStore,keyOf,legacyKeys}=require('../progress-store.js');
+const test=require('node:test'),assert=require('node:assert/strict');const {ProgressStore,keyOf,legacyKeys}=require('../src/core/progress.cjs');
 function memory(){const data=new Map();return {getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k),key:i=>[...data.keys()][i],get length(){return data.size;}};}
 const catalog={article:{story:{},second:{}},grammar:{lesson:{}},audio:{episode:{duration:100}}};
 function service(){let user='A',online=true;const rows=new Map(),writes=[];return {rows,writes,setUser:u=>user=u,setOnline:o=>online=o,request:async(url,o={})=>{

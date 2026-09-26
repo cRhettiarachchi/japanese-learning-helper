@@ -13,7 +13,7 @@ npm run db:migrate
 npm run dev
 ```
 
-Open http://127.0.0.1:8765/ and use **Sign in with Vercel**. The development server serves only `public/` and explicit API routes. `npm run build` copies an allowlist of study assets; server code, database schema, tests and environment files stay outside the static output.
+Open http://127.0.0.1:8765/ and use **Sign in with Vercel**. The Next development server serves React pages, an allowlist of public media/data, and explicit authenticated API routes. Server code, database schema, tests and environment files are not public assets.
 
 The app uses `APP_ORIGIN`, Vercel OAuth client credentials, and `DATABASE_URL`. Keep Development and Production credentials separate. The existing Vercel project and authenticated production database are retained; this change does not alter deployment protection, credentials, database schema, or services.
 
@@ -45,4 +45,4 @@ Automated checks cover automatic initial loading/saving, stale revisions, legacy
 
 No new environment variables or schema migration are required. The user handles the PR and deployment of the existing project. Keep Vercel Authentication enabled and use the normal build so study pages receive the persistent shell. Preview environments still require their own configured OAuth callback/origin.
 
-The daily content automation is unchanged. New reading sets must keep canonical article IDs and load `/progress-store.js` before `reading.js`; new audio needs a stable slug, duration in `audio-catalog.json`, and `/audio-progress.js`. The build wraps all allowed study routes in the persistent header while preserving inner study documents.
+The daily content automation is unchanged. New reading sets must keep canonical article IDs, source ruby and lookup token data; new audio needs a stable slug, duration in `audio-catalog.json`, and embedded transcript/timing data. `scripts/prepare-content.cjs` extracts these into React page inputs. Shared account behavior comes from the root provider, with no per-page script tags. Deploy the Next build rather than uploading public as a static site.
