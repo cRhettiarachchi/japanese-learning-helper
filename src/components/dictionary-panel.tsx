@@ -15,7 +15,7 @@ export function DictionaryPanel({
 }) {
   const { vocabulary: store } = useAccount();
   useEffect(() => {
-    if (token) void store?.load();
+    if (token && store && !store.data && !store.busy) void store.load();
   }, [token, store]);
   const ids = [...new Set(token?.entries || [])].filter(
     (id) => data?.dictionary[id],

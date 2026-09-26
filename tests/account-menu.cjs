@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
 test('account UI is profile/signout only, automatically retries, and signed-out UI offers sign-in',async()=>{
- const dom=new JSDOM('<!doctype html><header class="topbar">Study pages</header><main>Reading</main>',{url:'http://127.0.0.1:8765/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+ const dom=new JSDOM('<!doctype html><header class="topbar">Study pages</header><main>Reading</main>',{url:'http://127.0.0.1:3000/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
  let signedIn=true,online=true,retry;const writes=[];let rows=[];
  w.setInterval=f=>{retry=f;return 1;};
  w.fetch=async(url,o)=>{if(!online)throw Error('offline');let status=200,body={};

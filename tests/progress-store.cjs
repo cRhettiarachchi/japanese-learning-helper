@@ -74,3 +74,99 @@ test('legacy migration races keep newer server unchecks',async()=>{
  let injected=false;const s=new ProgressStore({storage,catalog,uuid:()=>`mutation-00000000-${++uuid}`,request:async(u,o)=>{if(o?.method==='PUT'&&!injected){injected=true;api.rows.set('A|'+keyOf('article','story','done'),{kind:'article',id:'story',field:'done',value:false,revision:1});}return api.request(u,o);}});
  await s.refresh();assert.equal(s.get('article','story'),false);assert.equal(s.queue.length,0);assert.equal(api.writes.length,0);
 });
+
+test("SSR hydration renders verified rows without requests or storage writes, then recovers pending edits once", async () => {
+  const api = service(),
+    storage = memory();
+  const saved = {
+    kind: "article",
+    id: "story",
+    field: "done",
+    value: true,
+    revision: 1,
+  };
+  api.rows.set("A|" + keyOf("article", "story", "done"), saved);
+  const pending = {
+    kind: "article",
+    id: "story",
+    field: "done",
+    value: false,
+    expectedRevision: 1,
+    mutationId: "pending-ssr-000000000",
+    queuedAt: 1,
+  };
+  storage.setItem(
+    "japanese-learner-account-v1:A:pending:" + pending.mutationId,
+    JSON.stringify(pending),
+  );
+  const snapshot = {
+    status: "account",
+    auth: { user: { id: "A", name: "A" }, csrf: "A-csrf" },
+    progress: { userId: "A", rows: [saved] },
+    catalog,
+  };
+  let reads = 0,
+    writes = 0;
+  const originalSet = storage.setItem;
+  storage.setItem = (...args) => {
+    writes++;
+    return originalSet(...args);
+  };
+  const store = new ProgressStore({
+    storage,
+    request: async (...args) => {
+      reads++;
+      return api.request(...args);
+    },
+  });
+  store.hydrate(snapshot);
+  assert.equal(store.get("article", "story"), true);
+  assert.equal(store.canEdit(), true);
+  assert.equal(reads, 0);
+  assert.equal(writes, 0);
+  await store.recover();
+  assert.equal(store.get("article", "story"), false);
+  assert.equal(api.writes.length, 1);
+  await store.recover();
+  assert.equal(api.writes.length, 1);
+  store.hydrate({
+    ...snapshot,
+    status: "signedout",
+    auth: null,
+    progress: null,
+  });
+  assert.equal(store.canEdit(), false);
+  assert.equal(store.get("article", "story"), false);
+});
+test("event refresh can use one combined snapshot without separate session/progress startup calls", async () => {
+  const s = new ProgressStore({
+    storage: memory(),
+    request: async () => {
+      throw Error("unexpected endpoint");
+    },
+  });
+  let calls = 0;
+  s.snapshot = async () => {
+    calls++;
+    return {
+      status: "account",
+      auth: { user: { id: "A" }, csrf: "A-csrf" },
+      progress: {
+        userId: "A",
+        rows: [
+          {
+            kind: "grammar",
+            id: "lesson",
+            field: "done",
+            value: true,
+            revision: 1,
+          },
+        ],
+      },
+      catalog,
+    };
+  };
+  await s.refresh();
+  assert.equal(calls, 1);
+  assert.equal(s.get("grammar", "lesson"), true);
+});

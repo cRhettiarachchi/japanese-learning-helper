@@ -10,6 +10,7 @@ import {
   DialogDescription,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
+import type { TimerData } from "../lib/types";
 interface Draft {
   id: string;
   local: true;
@@ -27,22 +28,16 @@ interface Saved {
   revision: number;
   started_at: string;
 }
-interface TimerData {
-  userId: string;
-  totalSeconds: number;
-  history: Saved[];
-  current?: Saved;
-}
 const format = (s: number) => {
   s = Math.floor(s);
   return `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 };
 export function StudyTimer() {
-  const { progress } = useAccount();
+  const { progress, snapshot } = useAccount();
   const user = progress?.user?.id,
     csrf = progress?.csrf;
   const [draft, setDraft] = useState<Draft | null>(null),
-    [data, setData] = useState<TimerData | null>(null),
+    [data, setData] = useState<TimerData | null>(snapshot.timer),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [modal, setModal] = useState<"review" | "history" | null>(null),
@@ -135,7 +130,7 @@ export function StudyTimer() {
       document.removeEventListener("visibilitychange", hidden);
     };
   }, []);
-  async function load(retry = true) {
+  async function load(retry = true, fetchHistory = true) {
     if (!user || !csrf) return;
     if (busyRef.current) {
       reload.current = true;
@@ -165,6 +160,10 @@ export function StudyTimer() {
           throw error;
         }
       }
+      if (!fetchHistory) {
+        setError("");
+        return;
+      }
       const result = await request<TimerData>("/api/study-time");
       if (g !== generation.current) return;
       if (result.userId !== user)
@@ -191,7 +190,7 @@ export function StudyTimer() {
     generation.current++;
     owner.current = user;
     change(null, false);
-    setData(null);
+    setData(snapshot.timer?.userId === user ? snapshot.timer : null);
     setModal(null);
     setError("");
     setDraftBlocked(false);
@@ -227,11 +226,24 @@ export function StudyTimer() {
         "The saved draft could not be read. It has been kept unchanged.",
       );
     }
-    void load();
+    try {
+      if (pendingFor(user).length) void load(true, false);
+    } catch {
+      setError(
+        "Pending timer changes could not be read. They were kept unchanged.",
+      );
+    }
   }, [user]);
   useEffect(() => {
     const refresh = () => {
-      if (!document.hidden) void load();
+      try {
+        if (!document.hidden && user && pendingFor(user).length)
+          void load(true, false);
+      } catch {
+        setError(
+          "Pending timer changes could not be read. They were kept unchanged.",
+        );
+      }
     };
     const storage = (event: StorageEvent) => {
       if (user && event.key === key(user)) {
@@ -243,14 +255,23 @@ export function StudyTimer() {
       }
     };
     window.addEventListener("online", refresh);
-    window.addEventListener("focus", refresh);
     window.addEventListener("storage", storage);
     return () => {
       window.removeEventListener("online", refresh);
-      window.removeEventListener("focus", refresh);
       window.removeEventListener("storage", storage);
     };
   }, [user, csrf]);
+  useEffect(() => {
+    if (snapshot.timer?.userId !== user || busyRef.current) return;
+    setData((previous) =>
+      !previous ||
+      !previous.serverNow ||
+      !snapshot.timer?.serverNow ||
+      new Date(snapshot.timer.serverNow) >= new Date(previous.serverNow)
+        ? snapshot.timer
+        : previous,
+    );
+  }, [snapshot.timer, user]);
   function review(row: Draft | Saved) {
     setEditing({ ...row });
     const seconds =

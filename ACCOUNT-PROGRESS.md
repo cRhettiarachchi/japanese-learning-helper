@@ -13,7 +13,7 @@ npm run db:migrate
 npm run dev
 ```
 
-Open http://127.0.0.1:8765/ and use **Sign in with Vercel**. The Next development server serves React pages, an allowlist of public media/data, and explicit authenticated API routes. Server code, database schema, tests and environment files are not public assets.
+Open http://127.0.0.1:3000/ and use **Sign in with Vercel**. The Next development server serves React pages, an allowlist of public media/data, and explicit authenticated API routes. Server code, database schema, tests and environment files are not public assets.
 
 The app uses `APP_ORIGIN`, Vercel OAuth client credentials, and `DATABASE_URL`. Keep Development and Production credentials separate. The existing Vercel project and authenticated production database are retained; this change does not alter deployment protection, credentials, database schema, or services.
 

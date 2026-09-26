@@ -34,7 +34,7 @@ npm test
 node --env-file-if-exists=.env.local scripts/integration-vocabulary.cjs
 ```
 
-The migration helper only accepts the local Development origin. The integration test creates and removes uniquely named synthetic accounts; it never changes real users’ words. The local app is at http://127.0.0.1:8765/vocabulary.html . The Next development server reloads frontend and backend source changes; run `npm run content:build` after changing source documents or dictionary catalogs.
+The migration helper only accepts the local Development origin. The integration test creates and removes uniquely named synthetic accounts; it never changes real users’ words. The local app is at http://127.0.0.1:3000/vocabulary.html . The Next development server reloads frontend and backend source changes; run `npm run content:build` after changing source documents or dictionary catalogs.
 
 The regular build creates `server/vocabulary-catalog.json` from the shared dictionary plus transcript-only entries and pairs it with the committed verified reading subset. The Next API adapter bundles explicit server catalog imports. No Python/full dictionary/network lookup is needed during a normal Vercel build.
 

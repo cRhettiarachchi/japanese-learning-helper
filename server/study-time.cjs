@@ -62,3 +62,37 @@ async function run(db,userId,input=null,testNow){
  return {userId,current,history,totalSeconds:total,serverNow:time,leaseMs:LEASE_MS};
 }
 module.exports={run,validate,LEASE_MS};
+
+// Read-only rendering path: no account insert, locks, or legacy timer recovery writes.
+async function snapshot(db, userId, now = Date.now()) {
+  const current =
+    (
+      await db.query(
+        "SELECT * FROM learner_study_sessions WHERE user_id=$1 AND state IN ('active','review')",
+        [userId],
+      )
+    ).rows[0] || null;
+  const history = (
+    await db.query(
+      "SELECT * FROM learner_study_sessions WHERE user_id=$1 AND state='saved' ORDER BY started_at DESC LIMIT 50",
+      [userId],
+    )
+  ).rows;
+  const totalSeconds = Number(
+    (
+      await db.query(
+        "SELECT COALESCE(SUM(confirmed_seconds),0) AS total FROM learner_study_sessions WHERE user_id=$1 AND state='saved'",
+        [userId],
+      )
+    ).rows[0].total,
+  );
+  return {
+    userId,
+    current,
+    history,
+    totalSeconds,
+    serverNow: new Date(now).toISOString(),
+    leaseMs: LEASE_MS,
+  };
+}
+module.exports.snapshot = snapshot;

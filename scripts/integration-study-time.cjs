@@ -1,7 +1,7 @@
 // Temporary accounts only; requires the local Development API and database.
 const assert=require('node:assert/strict');const {randomUUID}=require('node:crypto');const {random,hash}=require('../server/auth.cjs');const {getPool,withUser}=require('../server/db.cjs');
 (async()=>{
- if(process.env.APP_ORIGIN!=='http://127.0.0.1:8765')throw Error('Local Development required');
+ if(process.env.APP_ORIGIN!=='http://127.0.0.1:3000')throw Error('Local Development required');
  const pool=getPool(),prefix='timer-test-'+randomUUID(),users=[prefix+'A',prefix+'B'],tokens=[random(),random()],csrf=[random(),random()];
  const clientId=randomUUID();const op=(action,extra={})=>({action,clientId,mutationId:randomUUID(),...extra});
  const req=(i=0,input,headers={})=>fetch(process.env.APP_ORIGIN+'/api/study-time',{method:input?'POST':'GET',headers:{Cookie:'learner_session='+tokens[i],...(input?{Origin:process.env.APP_ORIGIN,'Content-Type':'application/json','X-CSRF-Token':csrf[i]}:{}),...headers},...(input?{body:JSON.stringify(input)}:{})});

@@ -74,6 +74,9 @@ export interface ProgressModel {
   loading: boolean;
   loaded: boolean;
   catalog: unknown;
+  hydrate(snapshot: AccountSnapshot): void;
+  recover(): Promise<void>;
+  snapshot?: () => Promise<AccountSnapshot>;
   canEdit(): boolean;
   get(kind: ProgressKind, id: string, field?: string): any;
   set(kind: ProgressKind, id: string, field: string, value: unknown): void;
@@ -89,5 +92,39 @@ export interface VocabularyModel {
   subscribe(fn: () => void): () => void;
   load(): Promise<boolean>;
   mutate(input: Record<string, unknown>): Promise<boolean>;
+  accept(data: VocabularyData): void;
+  pending(): unknown[];
   has(id: string): boolean;
+}
+
+export interface ProgressRow {
+  kind: ProgressKind;
+  id: string;
+  field: string;
+  value: unknown;
+  revision: number;
+}
+export interface SavedStudySession {
+  id: string;
+  state: string;
+  confirmed_seconds: number;
+  elapsed_ms: number;
+  revision: number;
+  started_at: string;
+}
+export interface TimerData {
+  userId: string;
+  totalSeconds: number;
+  history: SavedStudySession[];
+  current?: SavedStudySession | null;
+  serverNow?: string;
+}
+export interface AccountSnapshot {
+  status: "account" | "signedout" | "unavailable";
+  auth: Auth | null;
+  progress: { userId: string; rows: ProgressRow[] } | null;
+  timer: TimerData | null;
+  vocabulary: VocabularyData | null;
+  catalog: unknown;
+  error: string | null;
 }

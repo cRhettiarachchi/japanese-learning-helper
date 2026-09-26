@@ -24,10 +24,28 @@ export function VocabularyPage() {
       peakX: number;
       peakY: number;
     } | null>(null);
+  const [localNow, setLocalNow] = useState(0);
+  const dueNow = Math.max(
+    localNow,
+    Date.parse(store?.data?.serverNow || "") || 0,
+  );
   const items = store?.data?.items || [],
-    due = items.filter(
-      (item) => new Date(item.due_at) <= new Date(store!.data!.serverNow),
+    due = items.filter((item) => Date.parse(item.due_at) <= dueNow);
+  useEffect(() => {
+    if (!localNow) setLocalNow(Date.now());
+    const nextDue = Math.min(
+      ...items
+        .map((item) => Date.parse(item.due_at))
+        .filter((at) => at > Math.max(dueNow, Date.now())),
     );
+    if (!Number.isFinite(nextDue)) return;
+    // A single local deadline updates the due view; it never fetches account data.
+    const timeout = setTimeout(
+      () => setLocalNow(Date.now()),
+      Math.min(2147483647, Math.max(1, nextDue - Date.now() + 1)),
+    );
+    return () => clearTimeout(timeout);
+  }, [store?.data, localNow]);
   const current = due.find((i) => i.entry_id === preferred) || due[0] || null;
   const identity = `${store?.auth?.user.id}:${current?.entry_id}:${current?.revision}`;
   const isRevealed = revealed && revealedFor === identity;
@@ -50,21 +68,6 @@ export function VocabularyPage() {
       fine.removeEventListener("change", update);
     };
   }, []);
-  useEffect(() => {
-    if (!store) return;
-    void store.load();
-    const refresh = () => {
-      if (!document.hidden) void store.load();
-    };
-    window.addEventListener("focus", refresh);
-    window.addEventListener("online", refresh);
-    const timer = setInterval(refresh, 60000);
-    return () => {
-      clearInterval(timer);
-      window.removeEventListener("focus", refresh);
-      window.removeEventListener("online", refresh);
-    };
-  }, [store]);
   async function rate(rating: string) {
     if (!current || !isRevealed || store?.busy) return;
     if (
@@ -116,7 +119,7 @@ export function VocabularyPage() {
       <h1>Vocabulary</h1>
       <p id="vocabulary-count">
         {store?.data
-          ? `${store.data.dueCount} due · ${items.length} saved words`
+          ? `${due.length} due · ${items.length} saved words`
           : "Your vocabulary follows your account."}
       </p>
       <div className="flex flex-wrap gap-2 my-5">

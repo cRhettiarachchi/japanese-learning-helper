@@ -32,7 +32,22 @@ const assert = require("node:assert/strict"),
       return;
     }
     let data;
-    if (p === "/api/auth/session")
+    if (p === "/api/account")
+      data = {
+        status: "account",
+        auth: { user: { id: account, name: account }, csrf: "synthetic" },
+        progress: { userId: account, rows },
+        timer: { userId: account, totalSeconds: 0, history: [] },
+        vocabulary: {
+          userId: account,
+          items: [],
+          dueCount: 0,
+          serverNow: new Date().toISOString(),
+        },
+        catalog: require("../../server/catalog.json"),
+        error: null,
+      };
+    else if (p === "/api/auth/session")
       data = { user: { id: account, name: account }, csrf: "synthetic" };
     else if (p === "/api/progress") {
       if (payload) {
@@ -61,9 +76,11 @@ const assert = require("node:assert/strict"),
     });
   });
   await page.goto(
-    (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:8765") + "/",
+    (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:3000") + "/",
   );
   await page.locator("[data-reading-key]").first().waitFor();
+  await page.waitForTimeout(150);
+  await page.evaluate(() => window.dispatchEvent(new Event("online")));
   await page.waitForFunction(
     () => !document.querySelector("[data-reading-key]").disabled,
   );
@@ -136,6 +153,8 @@ const assert = require("node:assert/strict"),
   });
   await page.reload();
   await page.locator("[data-reading-key]").first().waitFor();
+  await page.waitForTimeout(150);
+  await page.evaluate(() => window.dispatchEvent(new Event("online")));
   assert.equal(await page.locator("html").getAttribute("class"), "dark");
   console.log("dark preference persists");
   await page.getByRole("switch", { name: "Show furigana" }).click();
@@ -188,6 +207,8 @@ const assert = require("node:assert/strict"),
   );
   await page.goBack();
   await page.locator("[data-reading-key]").first().waitFor();
+  await page.waitForTimeout(150);
+  await page.evaluate(() => window.dispatchEvent(new Event("online")));
   await page.goForward();
   await page.locator("audio").waitFor();
   assert.equal(
@@ -215,7 +236,7 @@ const assert = require("node:assert/strict"),
     assert.equal(
       (
         await context.request.get(
-          (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:8765") + route,
+          (process.env.TEST_APP_ORIGIN || "http://127.0.0.1:3000") + route,
         )
       ).status(),
       200,

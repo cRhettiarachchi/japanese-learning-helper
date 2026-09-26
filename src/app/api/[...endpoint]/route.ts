@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import account from "../../../../api/account";
 import session from "../../../../api/auth/session";
 import authorize from "../../../../api/auth/authorize";
 import callback from "../../../../api/auth/callback";
@@ -10,6 +11,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 const handlers: Record<string, Function> = {
+  account,
   "auth/session": session,
   "auth/authorize": authorize,
   "auth/callback": callback,
