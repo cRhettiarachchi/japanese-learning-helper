@@ -889,3 +889,133 @@ progress {
 .practice-error {
   color: var(--destructive);
 }
+
+/* Personal notes: scoped editor styles and a paper-like read-only view. */
+.grammar-notes-cell {
+  min-width: 10rem;
+}
+.grammar-video-note + .grammar-video-note {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+.note-video-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-bottom: 0.35rem;
+}
+.video-note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.video-note-actions [role="status"] {
+  width: 100%;
+}
+.video-note-dialog {
+  width: min(48rem, calc(100vw - 2rem));
+  max-width: 48rem;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+.note-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.note-editor {
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  overflow: hidden;
+}
+.note-input {
+  min-height: 15rem;
+  max-height: 45dvh;
+  overflow-y: auto;
+  padding: 1rem;
+  outline-offset: -3px;
+}
+.note-prose {
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+}
+.note-prose h2 {
+  font-size: 1.5rem;
+  margin: 1.3em 0 0.5em;
+}
+.note-prose h3 {
+  font-size: 1.2rem;
+  margin: 1.1em 0 0.4em;
+}
+.note-prose p {
+  margin: 0.8em 0;
+  white-space: pre-wrap;
+}
+.note-prose ul {
+  list-style: disc;
+  padding-left: 1.6em;
+}
+.note-prose ol {
+  list-style: decimal;
+  padding-left: 1.6em;
+}
+.note-prose blockquote {
+  margin: 1em 0;
+  border-left: 3px solid var(--primary);
+  padding: 0.2em 1em;
+  color: var(--muted-foreground);
+}
+.note-prose code {
+  font-family: monospace;
+  background: var(--muted);
+  padding: 0.1em 0.25em;
+  border-radius: 0.2rem;
+}
+.note-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.note-error {
+  color: var(--color-destructive);
+}
+.note-book {
+  background: #faf5e9;
+  color: #332e24;
+  border-color: #dacfb9;
+  box-shadow:
+    0 18px 60px #0003,
+    inset 6px 0 0 #c1af8b26;
+  padding: clamp(1.3rem, 4vw, 3rem);
+}
+.note-book [data-slot="dialog-description"] {
+  color: #70634d;
+}
+.note-book-page {
+  font-family: Georgia, "Yu Mincho", serif;
+  font-size: 1.12rem;
+  padding: 0.5rem 0 1rem;
+}
+.dark .note-book {
+  background: #252820;
+  color: #ebe6d9;
+  border-color: #4f5343;
+}
+.dark .note-book [data-slot="dialog-description"] {
+  color: #c1bba8;
+}
+@media (max-width: 760px) {
+  .grammar td.grammar-notes-cell {
+    min-width: 160px;
+  }
+  .note-input {
+    min-height: 12rem;
+  }
+  .note-book-page {
+    font-size: 1.05rem;
+  }
+}

@@ -13,6 +13,7 @@ import { useAccount } from "./account-provider";
 import { ReaderSettings, useReaderSettings } from "./reader-settings";
 import { DictionaryPanel } from "./dictionary-panel";
 import { Button } from "./ui/button";
+import { VideoNoteActions } from "./video-note";
 import { GrammarPractice } from "./grammar-practice";
 import { Input } from "./ui/input";
 import { bindAudioProgress } from "../core/audio.cjs";
@@ -366,6 +367,18 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
             No lessons match these filters.
           </p>
         );
+      if (
+        doc.kind === "grammar" &&
+        node.name === "tr" &&
+        node.parent instanceof Element &&
+        node.parent.name === "thead"
+      )
+        return (
+          <tr {...props}>
+            {children()}
+            <th scope="col">Notes</th>
+          </tr>
+        );
       if (node.name === "tr" && a["data-topic"]) {
         const lesson = doc.keys.find((k) => k.anchor === id),
           done = lesson && progress?.get("grammar", lesson.id);
@@ -378,6 +391,18 @@ export function StudyPage({ doc }: { doc: StudyDocument }) {
         return (
           <tr {...props} hidden={!visible} className={done ? "complete" : ""}>
             {children()}
+            <td className="grammar-notes-cell">
+              {(grammarRows.find((r) => r.id === id)?.videos || []).map(
+                (video, index) => (
+                  <div key={video.id} className="grammar-video-note">
+                    <span className="note-video-label" title={video.title}>
+                      {index === 0 ? "Main video" : `Extra video ${index}`}
+                    </span>
+                    <VideoNoteActions video={video} />
+                  </div>
+                ),
+              )}
+            </td>
           </tr>
         );
       }

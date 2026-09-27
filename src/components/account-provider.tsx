@@ -9,14 +9,17 @@ import {
 } from "react";
 import { ThemeProvider } from "next-themes";
 import { ProgressStore } from "../core/progress.cjs";
+import { VideoNoteStore } from "../core/video-notes.cjs";
 import { VocabularyStore } from "../core/vocabulary.cjs";
 import { request, safeStorage } from "../lib/request";
 import type {
   AccountSnapshot,
   ProgressModel,
   VocabularyModel,
+  VideoNoteModel,
 } from "../lib/types";
 interface Account {
+  notes: VideoNoteModel | null;
   progress: ProgressModel;
   vocabulary: VocabularyModel | null;
   snapshot: AccountSnapshot;
@@ -93,6 +96,23 @@ export function AccountProvider({
   const [vocabulary, setVocabulary] = useState<VocabularyModel | null>(() =>
     vocabularyFor(initial),
   );
+  function notesFor(data: AccountSnapshot): VideoNoteModel | null {
+    if (!data.auth) return null;
+    const owner = data.auth.user.id;
+    return new VideoNoteStore({
+      auth: data.auth,
+      data: data.notes,
+      request,
+      getAuth: async () => {
+        if (progress.user?.id !== owner || !progress.csrf)
+          throw Object.assign(Error("Sign in required"), { status: 401 });
+        return { user: progress.user, csrf: progress.csrf };
+      },
+    });
+  }
+  const [notes, setNotes] = useState<VideoNoteModel | null>(() =>
+    notesFor(initial),
+  );
   const latest = useRef(snapshot),
     refreshing = useRef<Promise<void> | null>(null),
     epoch = useRef(0);
@@ -138,6 +158,16 @@ export function AccountProvider({
     )
       vocabulary.accept(snapshot.vocabulary);
   }, [owner, snapshot]);
+  useEffect(() => {
+    if (!owner) {
+      setNotes(null);
+      return;
+    }
+    if (notes?.auth.user.id !== owner) {
+      if (snapshot.auth?.user.id === owner) setNotes(notesFor(snapshot));
+    } else if (snapshot.notes?.userId === owner) notes.accept(snapshot.notes);
+  }, [owner, snapshot]);
+  useEffect(() => notes?.subscribe(() => render((n) => n + 1)), [notes]);
   useEffect(() => {
     if (!vocabulary) return;
     const off = vocabulary.subscribe(() => render((n) => n + 1));
@@ -193,6 +223,7 @@ export function AccountProvider({
         progress: null,
         timer: null,
         vocabulary: null,
+        notes: null,
         error: null,
       };
       epoch.current++;
@@ -200,6 +231,7 @@ export function AccountProvider({
       progress.hydrate(empty);
       setSnapshot(empty);
       setVocabulary(null);
+      setNotes(null);
       setError("");
       render((n) => n + 1);
       try {
@@ -219,6 +251,7 @@ export function AccountProvider({
       <Context.Provider
         value={{
           progress,
+          notes: notes?.auth.user.id === owner ? notes : null,
           vocabulary:
             owner && (!vocabulary?.auth || vocabulary.auth.user.id === owner)
               ? vocabulary

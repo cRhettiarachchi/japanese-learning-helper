@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import videoNotes from "../../../../api/video-notes";
 import account from "../../../../api/account";
 import session from "../../../../api/auth/session";
 import authorize from "../../../../api/auth/authorize";
@@ -14,6 +15,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 const handlers: Record<string, Function> = {
   account,
+  "video-notes": videoNotes,
   "revision-card": revisionCard,
   "grammar-practice": practice,
   "auth/session": session,

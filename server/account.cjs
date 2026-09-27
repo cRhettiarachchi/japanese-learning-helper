@@ -3,6 +3,7 @@ const { withUser } = require("./db.cjs");
 const progress = require("./progress.cjs");
 const timer = require("./study-time.cjs");
 const vocabulary = require("./vocabulary.cjs");
+const notes = require("./video-notes.cjs");
 const catalog = require("./catalog.json");
 // Request-scoped, read-only snapshot. Never cache this value or serialize the raw session.
 async function loadAccount(req) {
@@ -12,6 +13,7 @@ async function loadAccount(req) {
     progress: null,
     timer: null,
     vocabulary: null,
+    notes: null,
     catalog,
     error: null,
   };
@@ -39,6 +41,7 @@ async function loadAccount(req) {
         },
         timer: await timer.snapshot(db, auth.user.id, now),
         vocabulary: await vocabulary.snapshot(db, auth.user.id, now),
+        notes: await notes.snapshot(db, auth.user.id),
       };
     });
     return JSON.parse(
