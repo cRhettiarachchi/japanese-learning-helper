@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-09-28",
+    "url": "/readings/2026-09-28.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+        "title": "お<ruby>菓子<rt>かし</rt></ruby>の<ruby>工場<rt>こうじょう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+        "title": "<ruby>落款<rt>らっかん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+        "title": "サメ"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+        "title": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>星座<rt>せいざ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html",
+        "title": "タコ<ruby>釣<rt>つ</rt></ruby>り"
+      }
+    ]
+  },
+  {
     "date": "2026-09-27",
     "url": "/readings/2026-09-27.html",
     "articles": [

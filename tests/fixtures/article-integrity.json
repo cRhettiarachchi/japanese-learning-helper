@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "30f302b42a2a7ca2c4ec37b87159a8a6868a8c7dd4ff64a9598cb5d09919f701",
-    "ruby": "9394a5aa5adcb468ccfbe4e014f407530ce25b0d96909369566985745e932122",
+    "articleText": "48fd86f882a77284d99afbeaeb60e85bb2e4dbc975da95c36178cadec142746a",
+    "ruby": "aea3399e19d61e445365a1ae94d0d9fbd685f14afe0fe22fb175709335525910",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
-      "#shotai",
-      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
-      "#kodomonokarate",
-      "#mamehon",
-      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
-      "#shotai",
-      "#ochanokakigoori",
-      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
-      "#mamehon",
-      "#hitorikaraoke",
-      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html",
-      "#ochanokakigoori"
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+      "#rakkan",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+      "#okashikoojoo",
+      "#same",
+      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+      "#rakkan",
+      "#nihonhoshi",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+      "#same",
+      "#tako",
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html",
+      "#nihonhoshi"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -198,6 +198,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html"
+    ]
+  },
+  "readings/2026-09-28.html": {
+    "articleText": "48fd86f882a77284d99afbeaeb60e85bb2e4dbc975da95c36178cadec142746a",
+    "ruby": "aea3399e19d61e445365a1ae94d0d9fbd685f14afe0fe22fb175709335525910",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+      "#rakkan",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+      "#okashikoojoo",
+      "#same",
+      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+      "#rakkan",
+      "#nihonhoshi",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+      "#same",
+      "#tako",
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html",
+      "#nihonhoshi"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html"
     ]
   }
 }
