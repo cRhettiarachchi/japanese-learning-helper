@@ -22,6 +22,7 @@ const routes = [
   "revisions/revision-1-answers.html",
 ];
 const manifest = {};
+const videoCatalog = {};
 const catalog = {
   article: {},
   grammar: {},
@@ -95,6 +96,21 @@ for (const name of routes) {
     grammarRows:
       kind === "grammar"
         ? [...doc.querySelectorAll("tr[data-topic]")].map((row) => ({
+            videos: [...row.querySelectorAll("a.video-link")].flatMap(
+              (link) => {
+                const url = new URL(link.href);
+                const id = url.searchParams.get("v");
+                if (
+                  !["www.youtube.com", "youtube.com"].includes(url.hostname) ||
+                  !id ||
+                  !/^[A-Za-z0-9_-]{11}$/.test(id)
+                )
+                  return [];
+                const title = link.textContent.replace(/\s*↗\s*$/, "").trim();
+                videoCatalog[id] = { title };
+                return [{ id, title }];
+              },
+            ),
             id: row.id,
             topic: row.dataset.topic,
             lesson:
@@ -117,6 +133,10 @@ fs.writeFileSync(
 fs.writeFileSync(
   path.join(root, "server/catalog.json"),
   JSON.stringify(catalog, null, 2) + "\n",
+);
+fs.writeFileSync(
+  path.join(root, "server/grammar-video-catalog.json"),
+  JSON.stringify(videoCatalog, null, 2) + "\n",
 );
 require("./build-vocabulary-catalog.cjs").build(root);
 // Public files are generated from an explicit data/media allowlist. No legacy HTML or JS remains.

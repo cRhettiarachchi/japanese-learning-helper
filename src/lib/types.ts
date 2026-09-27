@@ -27,7 +27,12 @@ export interface LookupData {
   dictionary: Record<string, DictionaryEntry>;
   sentences?: Sentence[];
 }
+export interface GrammarVideo {
+  id: string;
+  title: string;
+}
 export interface GrammarRow {
+  videos?: GrammarVideo[];
   id: string;
   topic: string;
   lesson: string | null;
@@ -127,7 +132,42 @@ export interface TimerData {
   current?: SavedStudySession | null;
   serverNow?: string;
 }
+export interface NoteNode {
+  type: string;
+  text?: string;
+  attrs?: { level?: number; start?: number };
+  marks?: { type: string }[];
+  content?: NoteNode[];
+}
+export interface VideoNote {
+  video_id: string;
+  document: NoteNode | null;
+  revision: number;
+  updated_at: string;
+}
+export interface NoteSnapshot {
+  userId: string;
+  available: boolean;
+  items: VideoNote[];
+}
+export interface NoteSave {
+  videoId: string;
+  document: NoteNode | null;
+  expectedRevision: number;
+  mutationId: string;
+}
+export interface VideoNoteModel {
+  auth: Auth;
+  data: NoteSnapshot;
+  busy: boolean;
+  subscribe(fn: () => void): () => void;
+  accept(data: NoteSnapshot): void;
+  get(id: string): VideoNote | null;
+  load(): Promise<void>;
+  save(body: NoteSave): Promise<void>;
+}
 export interface AccountSnapshot {
+  notes?: NoteSnapshot | null;
   status: "account" | "signedout" | "unavailable";
   auth: Auth | null;
   progress: { userId: string; rows: ProgressRow[] } | null;

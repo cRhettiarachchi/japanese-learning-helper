@@ -15,12 +15,16 @@
     "start": "next start -H 127.0.0.1 -p 3000",
     "typecheck": "tsc --noEmit",
     "pretest": "npm run content:build",
-    "test:browser": "node tests/browser/desktop.cjs && node tests/browser/mobile.cjs && node tests/browser/background-timer.cjs && node tests/browser/revision-cards.cjs",
+    "test:browser": "node tests/browser/desktop.cjs && node tests/browser/mobile.cjs && node tests/browser/background-timer.cjs && node tests/browser/revision-cards.cjs && node tests/browser/video-notes.cjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,cts,cjs,css}\" scripts/prepare-content.cjs tests/browser/*.cjs",
-    "test:ssr": "node --env-file-if-exists=.env.local tests/browser/ssr.cjs"
+    "test:ssr": "node --env-file-if-exists=.env.local tests/browser/ssr.cjs",
+    "preview:notes": "node scripts/preview-video-notes.cjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.4.0",
@@ -40,6 +44,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",
+    "@electric-sql/pglite-socket": "^0.2.11",
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
