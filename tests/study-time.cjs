@@ -36,7 +36,7 @@ test('account isolation, one-open constraint, CSRF-compatible validation, and RL
  await assert.rejects(db.query("INSERT INTO learner_timer_accounts(user_id) VALUES('C')"),/row-level security/);
 }));
 test('timer rejects owner injection, out-of-range durations, malformed IDs, and reused operation payloads',async()=>{
- for(const x of [op('start',{user_id:'victim'}),op('save',{id:randomUUID(),revision:1,seconds:-1}),op('save',{id:randomUUID(),revision:1,seconds:86401}),op('save',{id:randomUUID(),revision:1,seconds:NaN}),op('stop',{id:'bad'}),op('discard',{id:randomUUID(),revision:0})])assert.throws(()=>timer.validate(x),{status:400});
+ for(const x of [op('start',{user_id:'victim'}),op('save',{id:randomUUID(),revision:1,seconds:-1}),op('save',{id:randomUUID(),revision:1,seconds:Number.MAX_SAFE_INTEGER}),op('save',{id:randomUUID(),revision:1,seconds:NaN}),op('stop',{id:'bad'}),op('discard',{id:randomUUID(),revision:0})])assert.throws(()=>timer.validate(x),{status:400});
  await fixture(async(db,run)=>{const x=op('start');await run('A',x);await assert.rejects(run('A',{...x,clientId:randomUUID()}),{status:409});});
 });
 
@@ -48,5 +48,23 @@ test('explicit local draft commit requires no open server timer, deduplicates an
  await assert.rejects(run('B',op('commit',{id,seconds:900})),{status:409});
  assert.equal((await run('B')).totalSeconds,0);
  await assert.rejects(run('A',{...commit,seconds:91}),{status:409});
- assert.throws(()=>timer.validate(op('commit',{id,seconds:86401})),{status:400});
+ assert.throws(()=>timer.validate(op('commit',{id,seconds:Number.MAX_SAFE_INTEGER})),{status:400});
 }));
+
+test('multi-day and long sessions save, retry and adjust without a one-day or 32-bit millisecond limit',()=>fixture(async(db,run)=>{
+ const id=randomUUID(),seconds=45*24*3600+123,commit=op('commit',{id,seconds});
+ let result=await run('A',commit);assert.equal(result.totalSeconds,seconds);assert.equal(result.history[0].elapsed_ms,seconds*1000);
+ assert.equal((await run('A',commit)).totalSeconds,seconds);
+ result=await run('A',op('adjust',{id,revision:result.history[0].revision,seconds:seconds+86400}));assert.equal(result.totalSeconds,seconds+86400);
+ const snap=await db.transaction(tx=>timer.snapshot(tx,'A',1700000000000));assert.equal(typeof snap.history[0].elapsed_ms,'number');assert.equal(typeof snap.history[0].confirmed_seconds,'number');
+}));
+test('duration migration preserves old sessions and is repeatable',async()=>{
+ const db=new PGlite();try{
+ const legacy=fs.readFileSync('db/study-time.sql','utf8').replace('elapsed_ms bigint NOT NULL DEFAULT 0 CHECK(elapsed_ms >= 0)','elapsed_ms integer NOT NULL DEFAULT 0 CHECK(elapsed_ms BETWEEN 0 AND 86400000)').replace('confirmed_seconds bigint CHECK(confirmed_seconds >= 0)','confirmed_seconds integer CHECK(confirmed_seconds BETWEEN 0 AND 86400)');await db.exec(legacy);
+ const id=randomUUID();await db.query("INSERT INTO learner_study_sessions(id,user_id,owner_client,state,elapsed_ms,confirmed_seconds,started_at,checkpoint_at) VALUES($1,'A',$2,'saved',60000,60,now(),now())",[id,clientId]);
+ const migration=fs.readFileSync('db/study-time-unbounded.sql','utf8');await db.exec(migration);await db.exec(migration);
+ const row=(await db.query('SELECT * FROM learner_study_sessions WHERE id=$1',[id])).rows[0];assert.equal(Number(row.confirmed_seconds),60);assert.equal(row.user_id,'A');
+ await db.query('UPDATE learner_study_sessions SET elapsed_ms=$1,confirmed_seconds=$2 WHERE id=$3',[45*86400000,45*86400,id]);
+ await assert.rejects(db.query('UPDATE learner_study_sessions SET elapsed_ms=-1 WHERE id=$1',[id]));
+ }finally{await db.close();}
+});

@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS learner_timer_accounts (user_id text PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS learner_study_sessions (
  id uuid PRIMARY KEY, user_id text NOT NULL, owner_client uuid NOT NULL,
  state text NOT NULL CHECK(state IN ('active','review','saved','discarded')),
- elapsed_ms integer NOT NULL DEFAULT 0 CHECK(elapsed_ms BETWEEN 0 AND 86400000),
- confirmed_seconds integer CHECK(confirmed_seconds BETWEEN 0 AND 86400),
+ elapsed_ms bigint NOT NULL DEFAULT 0 CHECK(elapsed_ms >= 0),
+ confirmed_seconds bigint CHECK(confirmed_seconds >= 0),
  revision integer NOT NULL DEFAULT 1 CHECK(revision>0),
  started_at timestamptz NOT NULL, checkpoint_at timestamptz NOT NULL,
  stopped_at timestamptz, saved_at timestamptz, recovered boolean NOT NULL DEFAULT false,

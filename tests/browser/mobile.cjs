@@ -233,7 +233,7 @@ const { chromium } = require(root + "/node_modules/playwright"),
     .getByRole("button", { name: "Profile: review-A", exact: true })
     .waitFor();
   await p.waitForTimeout(200);
-  assert.equal(await p.locator("[data-timer-main]").innerText(), "Review time");
+  assert.equal(await p.locator("[data-timer-main]").innerText(), "Stop");
   console.log(
     "delayed vocabulary response/account switch isolation and timer draft recovery passed",
   );

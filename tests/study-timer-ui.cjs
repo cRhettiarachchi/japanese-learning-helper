@@ -42,7 +42,7 @@ test('local start/ticks/stop never write server; lost explicit save retries once
  assert.equal(f.requests.length,before);assert.equal((await f.db.query("SELECT COUNT(*)::int AS n FROM learner_study_sessions")).rows[0].n,0);
  q('[data-timer-main]').click();assert.equal(q('dialog').open,true);assert.equal(f.requests.length,before);
  f.drop();q('[data-save]').click();await flush(()=>q('[data-timer-retry]').hidden===false&&!q('[data-timer-main]').disabled);
- assert.equal((await f.db.query("SELECT SUM(confirmed_seconds) AS total FROM learner_study_sessions WHERE state='saved'")).rows[0].total,12);
+ assert.equal((await f.db.query("SELECT SUM(confirmed_seconds)::double precision AS total FROM learner_study_sessions WHERE state='saved'")).rows[0].total,12);
  q('[data-close]').click();q('[data-timer-retry]').click();await flush(()=>q('[data-timer-retry]').hidden&&!q('[data-timer-main]').disabled);
  assert.equal((await f.db.query("SELECT COUNT(*)::int AS n FROM learner_study_sessions WHERE state='saved'")).rows[0].n,1);
  assert.equal(w.localStorage.length,0);

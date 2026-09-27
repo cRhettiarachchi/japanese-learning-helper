@@ -40,7 +40,7 @@ The root HTML documents remain **content sources**, not served pages. Their orig
 
 `src/components` contains the React screens and shared shadcn components; `src/core` contains the tested headless progress, audio and vocabulary persistence engines. `src/app/api` adapts the existing authenticated server handlers without changing schemas, account ownership, CSRF checks, revision conflicts or idempotent mutation receipts. Server modules and credentials never enter the public output. No database migration is required.
 
-The timer draft stays local and account-scoped. Start, stop, background pause and adjustments do not write to the server. Explicit Save time commits an idempotent operation; lost responses retain the draft and receipt for retry. Saved history remains account-wide. Internal navigation preserves the mounted timer; browser refresh/background/closure pauses it for review rather than accruing unseen days.
+The timer draft stays local and account-scoped. Start, stop, background elapsed-time accounting and adjustments do not write to the server. Explicit Save time commits an idempotent operation; lost responses retain the draft and receipt for retry. Saved history remains account-wide. Internal navigation preserves the mounted timer; a persisted time anchor keeps an active draft counting through backgrounding, refresh, and browser suspension until Stop.
 
 Reading appearance provides saved text size, line spacing and furigana controls. Light/dark/system appearance uses `next-themes` with a pre-hydration theme script. Account/profile, theme menus, timer dialogs, dictionary sheet and shared buttons use shadcn/ui. Japanese text and readings remain selectable and semantic HTML ruby; the dictionary remains attributed to JMdict.
 
@@ -51,3 +51,7 @@ Account data is loaded on the server for each authenticated page request and hyd
 `npm run test:ssr` is an opt-in Development-database test with temporary fixtures and cleanup. It checks authenticated SSR, account isolation, pending-change recovery and absence of startup/idle API traffic. Set `STRICT_SSR_CACHE=1` against `npm start` to require private/no-store document headers; Next development mode uses its own no-cache headers.
 
 The local address now uses port 3000, leaving port 8765 free for AnkiConnect. Browser-local preferences and unsaved drafts on the old origin remain there; server-saved progress is available after signing in. Configure the Development OAuth redirect URI for `http://127.0.0.1:3000/api/auth/callback`.
+
+Background timer rollout: apply `db/study-time-unbounded.sql` to existing databases before deploying this change. It widens duration columns and removes the old one-day constraints without deleting sessions. There is no application duration cutoff; explicit Stop freezes the local draft and Save commits it.
+
+Changing accounts hides that account’s draft without stopping its elapsed-time anchor. Signing back into the same account restores the elapsed timer; expiry or logout does not silently discard background time.

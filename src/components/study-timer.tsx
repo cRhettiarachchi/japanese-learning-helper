@@ -18,6 +18,7 @@ interface Draft {
   owner_client: string;
   elapsed_ms: number;
   updatedAt: number;
+  running_since?: number;
   recovered?: boolean;
 }
 interface Saved {
@@ -28,6 +29,28 @@ interface Saved {
   revision: number;
   started_at: string;
 }
+function parseDraft(raw: string | null): Draft | null {
+  const stored = JSON.parse(raw || "null") as Draft | null;
+  if (
+    stored &&
+    (typeof stored.id !== "string" ||
+      !["active", "review"].includes(stored.state) ||
+      !Number.isFinite(stored.elapsed_ms) ||
+      stored.elapsed_ms < 0 ||
+      typeof stored.owner_client !== "string" ||
+      !Number.isFinite(stored.updatedAt) ||
+      (stored.running_since !== undefined &&
+        !Number.isFinite(stored.running_since)))
+  )
+    throw Error("Invalid draft");
+  return stored;
+}
+// The persisted anchor counts time even when the browser suspends JavaScript.
+const elapsed = (draft: Draft, now = Date.now()) =>
+  draft.elapsed_ms +
+  (draft.state === "active"
+    ? Math.max(0, now - (draft.running_since ?? draft.updatedAt))
+    : 0);
 const format = (s: number) => {
   s = Math.floor(s);
   return `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -48,7 +71,6 @@ export function StudyTimer() {
   const current = useRef<Draft | null>(null),
     owner = useRef<string | undefined>(undefined),
     client = useRef(""),
-    lastTick = useRef(0),
     busyRef = useRef(false),
     generation = useRef(0),
     reload = useRef(false),
@@ -69,7 +91,7 @@ export function StudyTimer() {
   };
   const change = (next: Draft | null, persist = true) => {
     current.current = next;
-    setDraft(next ? { ...next } : null);
+    setDraft(next ? { ...next, elapsed_ms: elapsed(next) } : null);
     if (persist && owner.current) {
       try {
         if (next)
@@ -85,28 +107,16 @@ export function StudyTimer() {
     }
   };
   const tick = () => {
-    const now = performance.now(),
-      delta = now - lastTick.current;
-    lastTick.current = now;
     const d = current.current;
-    if (d?.state === "active" && d.owner_client === client.current) {
-      if (delta > 5000 || delta < 0) {
-        d.state = "review";
-        d.recovered = true;
-      } else d.elapsed_ms = Math.min(86400000, d.elapsed_ms + delta);
-      if (d.elapsed_ms === 86400000) d.state = "review";
-      d.updatedAt = Date.now();
-      change(d);
-    }
-  };
-  const pause = () => {
-    const d = current.current;
-    if (d?.state === "active" && d.owner_client === client.current) {
-      tick();
-      d.state = "review";
-      d.recovered = true;
-      change(d);
-    }
+    if (d?.state !== "active") return;
+    const total = elapsed(d);
+    setDraft((previous) => ({
+      ...d,
+      elapsed_ms: Math.max(
+        total,
+        previous?.id === d.id ? previous.elapsed_ms : 0,
+      ),
+    }));
   };
   useEffect(() => {
     try {
@@ -116,18 +126,14 @@ export function StudyTimer() {
     } catch {
       setError("Enable browser session storage to start a timer.");
     }
-    lastTick.current = performance.now();
     const timer = setInterval(tick, 1000);
-    const hidden = () => {
-      if (document.hidden) pause();
-    };
-    window.addEventListener("pagehide", pause);
-    document.addEventListener("visibilitychange", hidden);
+    // These only redraw from the saved anchor; they never pause or fetch.
+    document.addEventListener("visibilitychange", tick);
+    window.addEventListener("pageshow", tick);
     return () => {
-      pause();
       clearInterval(timer);
-      window.removeEventListener("pagehide", pause);
-      document.removeEventListener("visibilitychange", hidden);
+      document.removeEventListener("visibilitychange", tick);
+      window.removeEventListener("pageshow", tick);
     };
   }, []);
   async function load(retry = true, fetchHistory = true) {
@@ -186,7 +192,6 @@ export function StudyTimer() {
     void load();
   };
   useEffect(() => {
-    pause();
     generation.current++;
     owner.current = user;
     change(null, false);
@@ -196,29 +201,12 @@ export function StudyTimer() {
     setDraftBlocked(false);
     if (!user) return;
     try {
-      const stored = JSON.parse(
-        safeStorage().getItem(key(user)) || "null",
-      ) as Draft | null;
+      const stored = parseDraft(safeStorage().getItem(key(user)));
       if (stored) {
-        if (
-          typeof stored.id !== "string" ||
-          !["active", "review"].includes(stored.state) ||
-          !Number.isFinite(stored.elapsed_ms) ||
-          stored.elapsed_ms < 0 ||
-          stored.elapsed_ms > 86400000 ||
-          typeof stored.owner_client !== "string" ||
-          !Number.isFinite(stored.updatedAt)
-        )
-          throw Error("Invalid draft");
-        if (
-          stored.state === "active" &&
-          (stored.owner_client === client.current ||
-            Date.now() - stored.updatedAt > 5000)
-        ) {
-          stored.state = "review";
-          stored.recovered = true;
-        }
-        change(stored);
+        // Old active drafts use their last persisted timestamp as the anchor.
+        if (stored.state === "active")
+          stored.running_since ??= stored.updatedAt;
+        change(stored, false);
       }
     } catch {
       setDraftBlocked(true);
@@ -248,9 +236,11 @@ export function StudyTimer() {
     const storage = (event: StorageEvent) => {
       if (user && event.key === key(user)) {
         try {
-          change(JSON.parse(event.newValue || "null"), false);
+          change(parseDraft(event.newValue), false);
+          setDraftBlocked(false);
         } catch {
-          setError("Draft could not be read.");
+          setDraftBlocked(true);
+          setError("Draft could not be read. It has been kept unchanged.");
         }
       }
     };
@@ -292,25 +282,41 @@ export function StudyTimer() {
       location.href = "/api/auth/authorize";
       return;
     }
-    if (draft?.state === "review") {
-      review(draft);
+    // Read the latest shared draft before an explicit action in another tab.
+    let latest = current.current;
+    try {
+      const raw = safeStorage().getItem(key(user));
+      latest = parseDraft(raw);
+    } catch {
+      setError(
+        "The saved draft could not be read. It has been kept unchanged.",
+      );
       return;
     }
-    if (draft?.state === "active") {
-      if (draft.owner_client !== client.current) return;
-      tick();
-      const d = { ...current.current!, state: "review" as const };
+    if (latest?.state === "review") {
+      change(latest, false);
+      review(latest);
+      return;
+    }
+    if (latest?.state === "active") {
+      const d: Draft = {
+        ...latest,
+        elapsed_ms: elapsed(latest),
+        state: "review",
+        running_since: undefined,
+        updatedAt: Date.now(),
+      };
       change(d);
       review(d);
       return;
     }
-    lastTick.current = performance.now();
     change({
       id: crypto.randomUUID(),
       local: true,
       state: "active",
       owner_client: client.current,
       elapsed_ms: 0,
+      running_since: Date.now(),
       updatedAt: Date.now(),
     });
   }
@@ -322,9 +328,9 @@ export function StudyTimer() {
       duration.some((n) => !Number.isInteger(n) || n < 0) ||
       duration[1] > 59 ||
       duration[2] > 59 ||
-      seconds > 86400
+      !Number.isSafeInteger(seconds * 1000)
     ) {
-      setError("Enter a duration from 0 to 24 hours.");
+      setError("Enter a valid non-negative duration.");
       return;
     }
     if ("local" in editing && action === "discard") {
@@ -388,6 +394,7 @@ export function StudyTimer() {
       }
     }
   }
+  const shownDraft = owner.current === user ? draft : null;
   return (
     <>
       <section className="timer-bar" aria-label="Study timer">
@@ -396,29 +403,25 @@ export function StudyTimer() {
           <span data-timer-total>
             {data ? `${(data.totalSeconds / 3600).toFixed(2)} hours saved` : ""}
           </span>
-          {draft?.state === "review" && <small>Draft ready to review</small>}
+          {shownDraft?.state === "review" && (
+            <small>Draft ready to review</small>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <span data-timer-clock className="tabular-nums">
-            {draft ? format(draft.elapsed_ms / 1000) : ""}
+            {shownDraft ? format(shownDraft.elapsed_ms / 1000) : ""}
           </span>
           <Button
             data-timer-main
             size="sm"
-            disabled={
-              draftBlocked ||
-              busy ||
-              (!!user && !client.current) ||
-              (draft?.state === "active" &&
-                draft.owner_client !== client.current)
-            }
+            disabled={draftBlocked || busy || (!!user && !client.current)}
             onClick={main}
           >
             {!user
               ? "Sign in"
-              : draft?.state === "active"
+              : shownDraft?.state === "active"
                 ? "Stop"
-                : draft?.state === "review"
+                : shownDraft?.state === "review"
                   ? "Review time"
                   : "Start"}
           </Button>
@@ -445,7 +448,7 @@ export function StudyTimer() {
         </p>
       )}
       <Dialog
-        open={!!modal}
+        open={owner.current === user && !!modal}
         onOpenChange={(open) => {
           if (!open && !busy) setModal(null);
         }}
@@ -457,7 +460,7 @@ export function StudyTimer() {
           <DialogDescription>
             {modal === "history"
               ? "Saved sessions belong to your account. Active drafts stay in this browser."
-              : "Only Save time commits this duration. Backgrounding or closing the app pauses the draft."}
+              : "Only Save time commits this duration. The timer keeps counting until you stop it, including while this tab is inactive or closed."}
           </DialogDescription>
           {modal === "history" ? (
             <>
@@ -499,7 +502,7 @@ export function StudyTimer() {
                       <Input
                         type="number"
                         min={0}
-                        max={i ? 59 : 24}
+                        max={i ? 59 : undefined}
                         value={duration[i]}
                         onChange={(e) => {
                           const next = duration.map((n, j) =>
@@ -513,7 +516,9 @@ export function StudyTimer() {
                             next.every((n) => Number.isInteger(n) && n >= 0) &&
                             next[1] < 60 &&
                             next[2] < 60 &&
-                            next[0] * 3600 + next[1] * 60 + next[2] <= 86400
+                            Number.isSafeInteger(
+                              (next[0] * 3600 + next[1] * 60 + next[2]) * 1000,
+                            )
                           )
                             change({
                               ...current.current,
