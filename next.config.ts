@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["pg"],
-  outputFileTracingIncludes: { "/api/**/*": ["./server/**", "./api/**"] },
+  outputFileTracingIncludes: { "/api/**/*": ["./server/**"] },
   async headers() {
     return [
       {

@@ -1,6 +1,6 @@
-const h = require("../server/http.cjs");
-const { session, authorizeWrite } = require("../server/auth.cjs");
-const generate = require("../server/revision-cards.cjs").createService();
+const h = require("../http.cjs");
+const { session, authorizeWrite } = require("../auth.cjs");
+const generate = require("../revision-cards.cjs").createService();
 module.exports = h.wrap(async (req, res) => {
   if (req.method !== "POST") throw h.error(405, "Method not allowed");
   const s = await session(req);

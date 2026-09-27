@@ -1,6 +1,6 @@
-const h = require("../server/http.cjs");
-const { session, authorizeWrite } = require("../server/auth.cjs");
-const { createService } = require("../server/grammar-practice.cjs");
+const h = require("../http.cjs");
+const { session, authorizeWrite } = require("../auth.cjs");
+const { createService } = require("../grammar-practice.cjs");
 const run = createService();
 module.exports = h.wrap(async (req, res) => {
   if (req.method !== "POST") throw h.error(405, "Method not allowed");

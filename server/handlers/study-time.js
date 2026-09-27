@@ -1,7 +1,7 @@
-const h=require('../server/http.cjs');
-const {session,authorizeWrite}=require('../server/auth.cjs');
-const {withUser}=require('../server/db.cjs');
-const timer=require('../server/study-time.cjs');
+const h=require('../http.cjs');
+const {session,authorizeWrite}=require('../auth.cjs');
+const {withUser}=require('../db.cjs');
+const timer=require('../study-time.cjs');
 module.exports=h.wrap(async(req,res)=>{
  const s=await session(req);let input=null;
  if(req.method==='POST'){authorizeWrite(req,s);input=await h.body(req);timer.validate(input);}

@@ -1,4 +1,4 @@
-const h=require('../../server/http.cjs');const {random,hash}=require('../../server/auth.cjs');const {getPool}=require('../../server/db.cjs');
+const h=require('../../http.cjs');const {random,hash}=require('../../auth.cjs');const {getPool}=require('../../db.cjs');
 module.exports=h.wrap(async(req,res)=>{
  if(req.method!=='GET')throw h.error(405,'Method not allowed');
  if(req.headers['sec-fetch-site']==='cross-site')throw h.error(403,'Open sign-in from this app');
