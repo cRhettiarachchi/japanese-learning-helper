@@ -7,12 +7,14 @@ import signout from "../../../../api/auth/signout";
 import progress from "../../../../api/progress";
 import vocabulary from "../../../../api/vocabulary";
 import practice from "../../../../api/grammar-practice";
+import revisionCard from "../../../../api/revision-card";
 import timer from "../../../../api/study-time";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 const handlers: Record<string, Function> = {
   account,
+  "revision-card": revisionCard,
   "grammar-practice": practice,
   "auth/session": session,
   "auth/authorize": authorize,

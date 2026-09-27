@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useAccount } from "./account-provider";
+import { RevisionCardDialog, CardJapanese } from "./revision-card-dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import type { VocabularyItem } from "../lib/types";
@@ -101,7 +102,9 @@ export function VocabularyPage() {
     }
   }
   const word = (item: VocabularyItem) =>
-    item.reading && /[\u3400-\u9fff々]/u.test(item.word) ? (
+    item.card ? (
+      <CardJapanese card={item.card} />
+    ) : item.reading && /[\u3400-\u9fff々]/u.test(item.word) ? (
       <ruby>
         {item.word}
         <rt>{item.reading}</rt>
@@ -119,10 +122,13 @@ export function VocabularyPage() {
       <h1>Vocabulary</h1>
       <p id="vocabulary-count">
         {store?.data
-          ? `${due.length} due · ${items.length} saved words`
+          ? `${due.length} due · ${items.length} saved cards`
           : "Your vocabulary follows your account."}
       </p>
       <div className="flex flex-wrap gap-2 my-5">
+        {store?.auth && (
+          <RevisionCardDialog key={store.auth.user.id} store={store} />
+        )}
         <Button
           aria-pressed={view === "due"}
           variant={view === "due" ? "default" : "outline"}
@@ -135,7 +141,7 @@ export function VocabularyPage() {
           variant={view === "all" ? "default" : "outline"}
           onClick={() => setView("all")}
         >
-          All words
+          All cards
         </Button>
         <Button
           variant="ghost"
@@ -177,8 +183,13 @@ export function VocabularyPage() {
               className="vocabulary-card"
               aria-label="Vocabulary review card"
             >
-              <p>What does this word mean?</p>
-              <h2 lang="ja">{word(current)}</h2>
+              <p>{current.card?.prompt || "What does this word mean?"}</p>
+              <h2
+                lang="ja"
+                className={current.card ? "!text-2xl break-words" : undefined}
+              >
+                {word(current)}
+              </h2>
               {!isRevealed ? (
                 <Button
                   ref={reveal}
@@ -345,7 +356,7 @@ export function VocabularyPage() {
         </section>
       ) : (
         <section>
-          <label htmlFor="word-search">Search your words</label>
+          <label htmlFor="word-search">Search your cards</label>
           <Input
             id="word-search"
             value={query}
@@ -365,6 +376,7 @@ export function VocabularyPage() {
                   <span lang="ja">{word(item)}</span>
                   <small>Due {new Date(item.due_at).toLocaleString()}</small>
                 </summary>
+                {item.card && <p>{item.card.prompt}</p>}
                 <p lang="ja">{item.readings.join(" · ")}</p>
                 <ul>
                   {item.meanings.map((m) => (
