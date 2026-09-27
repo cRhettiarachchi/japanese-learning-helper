@@ -90,6 +90,13 @@ const { chromium } = require("playwright");
       "Suspended/throttled five minutes counted",
     );
     assert.equal(api.length, before, "No background polling");
+    await page.clock.fastForward(72 * 3600000);
+    assert.equal(await page.locator("[data-timer-main]").innerText(), "Stop");
+    assert.ok(
+      (await seconds()) >= 72 * 3600 + 300,
+      "Three days of background time counted without a cutoff",
+    );
+    assert.equal(api.length, before, "No multi-day background polling");
     const anchor = await page.evaluate(
       (key) => JSON.parse(localStorage.getItem(key)),
       key,
@@ -103,7 +110,10 @@ const { chromium } = require("playwright");
     await page.reload();
     await authenticate();
     assert.equal(await page.locator("[data-timer-main]").innerText(), "Stop");
-    assert.ok((await seconds()) >= 300, "Reload retains active elapsed time");
+    assert.ok(
+      (await seconds()) >= 72 * 3600 + 300,
+      "Reload retains multi-day active elapsed time",
+    );
     await page.locator("[data-timer-main]").click();
     await page
       .getByRole("button", { name: "Review later", exact: true })

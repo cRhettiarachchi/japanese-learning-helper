@@ -37,7 +37,6 @@ function parseDraft(raw: string | null): Draft | null {
       !["active", "review"].includes(stored.state) ||
       !Number.isFinite(stored.elapsed_ms) ||
       stored.elapsed_ms < 0 ||
-      stored.elapsed_ms > 86400000 ||
       typeof stored.owner_client !== "string" ||
       !Number.isFinite(stored.updatedAt) ||
       (stored.running_since !== undefined &&
@@ -48,13 +47,10 @@ function parseDraft(raw: string | null): Draft | null {
 }
 // The persisted anchor counts time even when the browser suspends JavaScript.
 const elapsed = (draft: Draft, now = Date.now()) =>
-  Math.min(
-    86400000,
-    draft.elapsed_ms +
-      (draft.state === "active"
-        ? Math.max(0, now - (draft.running_since ?? draft.updatedAt))
-        : 0),
-  );
+  draft.elapsed_ms +
+  (draft.state === "active"
+    ? Math.max(0, now - (draft.running_since ?? draft.updatedAt))
+    : 0);
 const format = (s: number) => {
   s = Math.floor(s);
   return `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -114,37 +110,13 @@ export function StudyTimer() {
     const d = current.current;
     if (d?.state !== "active") return;
     const total = elapsed(d);
-    if (total === 86400000) {
-      change({
-        ...d,
-        elapsed_ms: total,
-        state: "review",
-        running_since: undefined,
-        updatedAt: Date.now(),
-      });
-    } else {
-      setDraft((previous) => ({
-        ...d,
-        elapsed_ms: Math.max(
-          total,
-          previous?.id === d.id ? previous.elapsed_ms : 0,
-        ),
-      }));
-    }
-  };
-  // Account changes explicitly pause the previous account's draft.
-  const pause = () => {
-    const d = current.current;
-    if (d?.state === "active") {
-      change({
-        ...d,
-        elapsed_ms: elapsed(d),
-        state: "review",
-        running_since: undefined,
-        updatedAt: Date.now(),
-        recovered: true,
-      });
-    }
+    setDraft((previous) => ({
+      ...d,
+      elapsed_ms: Math.max(
+        total,
+        previous?.id === d.id ? previous.elapsed_ms : 0,
+      ),
+    }));
   };
   useEffect(() => {
     try {
@@ -220,7 +192,6 @@ export function StudyTimer() {
     void load();
   };
   useEffect(() => {
-    if (owner.current !== user) pause();
     generation.current++;
     owner.current = user;
     change(null, false);
@@ -357,9 +328,9 @@ export function StudyTimer() {
       duration.some((n) => !Number.isInteger(n) || n < 0) ||
       duration[1] > 59 ||
       duration[2] > 59 ||
-      seconds > 86400
+      !Number.isSafeInteger(seconds * 1000)
     ) {
-      setError("Enter a duration from 0 to 24 hours.");
+      setError("Enter a valid non-negative duration.");
       return;
     }
     if ("local" in editing && action === "discard") {
@@ -423,6 +394,7 @@ export function StudyTimer() {
       }
     }
   }
+  const shownDraft = owner.current === user ? draft : null;
   return (
     <>
       <section className="timer-bar" aria-label="Study timer">
@@ -431,11 +403,13 @@ export function StudyTimer() {
           <span data-timer-total>
             {data ? `${(data.totalSeconds / 3600).toFixed(2)} hours saved` : ""}
           </span>
-          {draft?.state === "review" && <small>Draft ready to review</small>}
+          {shownDraft?.state === "review" && (
+            <small>Draft ready to review</small>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <span data-timer-clock className="tabular-nums">
-            {draft ? format(draft.elapsed_ms / 1000) : ""}
+            {shownDraft ? format(shownDraft.elapsed_ms / 1000) : ""}
           </span>
           <Button
             data-timer-main
@@ -445,9 +419,9 @@ export function StudyTimer() {
           >
             {!user
               ? "Sign in"
-              : draft?.state === "active"
+              : shownDraft?.state === "active"
                 ? "Stop"
-                : draft?.state === "review"
+                : shownDraft?.state === "review"
                   ? "Review time"
                   : "Start"}
           </Button>
@@ -474,7 +448,7 @@ export function StudyTimer() {
         </p>
       )}
       <Dialog
-        open={!!modal}
+        open={owner.current === user && !!modal}
         onOpenChange={(open) => {
           if (!open && !busy) setModal(null);
         }}
@@ -528,7 +502,7 @@ export function StudyTimer() {
                       <Input
                         type="number"
                         min={0}
-                        max={i ? 59 : 24}
+                        max={i ? 59 : undefined}
                         value={duration[i]}
                         onChange={(e) => {
                           const next = duration.map((n, j) =>
@@ -542,7 +516,9 @@ export function StudyTimer() {
                             next.every((n) => Number.isInteger(n) && n >= 0) &&
                             next[1] < 60 &&
                             next[2] < 60 &&
-                            next[0] * 3600 + next[1] * 60 + next[2] <= 86400
+                            Number.isSafeInteger(
+                              (next[0] * 3600 + next[1] * 60 + next[2]) * 1000,
+                            )
                           )
                             change({
                               ...current.current,
