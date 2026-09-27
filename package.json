@@ -15,7 +15,7 @@
     "start": "next start -H 127.0.0.1 -p 3000",
     "typecheck": "tsc --noEmit",
     "pretest": "npm run content:build",
-    "test:browser": "node tests/browser/desktop.cjs && node tests/browser/mobile.cjs && node tests/browser/background-timer.cjs",
+    "test:browser": "node tests/browser/desktop.cjs && node tests/browser/mobile.cjs && node tests/browser/background-timer.cjs && node tests/browser/revision-cards.cjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,cts,cjs,css}\" scripts/prepare-content.cjs tests/browser/*.cjs",
     "test:ssr": "node --env-file-if-exists=.env.local tests/browser/ssr.cjs"
   },

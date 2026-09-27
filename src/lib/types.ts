@@ -43,7 +43,15 @@ export interface StudyDocument {
   keys: { id: string; anchor: string }[];
   data: LookupData | null;
 }
+export interface RevisionCard {
+  japanese: string;
+  intent: string;
+  prompt: string;
+  answer: string;
+  segments: { text: string; reading: string }[];
+}
 export interface VocabularyItem {
+  card?: RevisionCard | null;
   entry_id: string;
   word: string;
   reading: string;
