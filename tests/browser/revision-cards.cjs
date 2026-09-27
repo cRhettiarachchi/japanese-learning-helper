@@ -132,6 +132,13 @@ const { chromium } = require("playwright"),
         await page.evaluate(() =>
           document.documentElement.classList.add("dark"),
         );
+        await page.waitForTimeout(300);
+        assert.equal(
+          await page
+            .getByRole("dialog")
+            .evaluate((el) => getComputedStyle(el).backgroundColor),
+          "rgb(18, 26, 24)",
+        );
         await page.screenshot({ path: "/tmp/revision-card-preview-dark.png" });
         await page.evaluate(() =>
           document.documentElement.classList.remove("dark"),
