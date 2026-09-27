@@ -293,8 +293,8 @@ test("draft endpoint rejects missing sessions, foreign origins and missing CSRF 
       calls++;
       return { userId, card };
     };
-    delete require.cache[require.resolve("../api/revision-card.js")];
-    const handler = require("../api/revision-card.js");
+    delete require.cache[require.resolve("../server/handlers/revision-card.js")];
+    const handler = require("../server/handlers/revision-card.js");
     async function request(headers, method = "POST") {
       const res = {
         headers: {},
@@ -351,7 +351,7 @@ test("draft endpoint rejects missing sessions, foreign origins and missing CSRF 
     service.createService = originalCreate;
     if (originalOrigin === undefined) delete process.env.APP_ORIGIN;
     else process.env.APP_ORIGIN = originalOrigin;
-    delete require.cache[require.resolve("../api/revision-card.js")];
+    delete require.cache[require.resolve("../server/handlers/revision-card.js")];
   }
 });
 test("unmigrated card generation and approval fail clearly without losing existing vocabulary", () =>

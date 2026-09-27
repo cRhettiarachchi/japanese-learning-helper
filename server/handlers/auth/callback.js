@@ -1,4 +1,4 @@
-const h=require('../../server/http.cjs');const {random,hash,verifyIdentity}=require('../../server/auth.cjs');const {getPool}=require('../../server/db.cjs');
+const h=require('../../http.cjs');const {random,hash,verifyIdentity}=require('../../auth.cjs');const {getPool}=require('../../db.cjs');
 module.exports=h.wrap(async(req,res)=>{
  if(req.method!=='GET')throw h.error(405,'Method not allowed');
  const url=new URL(req.url,h.origin()),state=url.searchParams.get('state'),code=url.searchParams.get('code');

@@ -277,8 +277,8 @@ test("notes endpoint requires a session, same origin and CSRF before any save", 
       writes++;
       return { userId: "A", available: true, items: [] };
     };
-    delete require.cache[require.resolve("../api/video-notes.js")];
-    const handler = require("../api/video-notes.js");
+    delete require.cache[require.resolve("../server/handlers/video-notes.js")];
+    const handler = require("../server/handlers/video-notes.js");
     async function request(headers) {
       const res = {
         headers: {},
@@ -334,7 +334,7 @@ test("notes endpoint requires a session, same origin and CSRF before any save", 
     notes.save = oldSave;
     if (oldOrigin === undefined) delete process.env.APP_ORIGIN;
     else process.env.APP_ORIGIN = oldOrigin;
-    delete require.cache[require.resolve("../api/video-notes.js")];
+    delete require.cache[require.resolve("../server/handlers/video-notes.js")];
   }
 });
 
