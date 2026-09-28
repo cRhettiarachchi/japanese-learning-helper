@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-09-29",
+    "url": "/readings/2026-09-29.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+        "title": "<ruby>朝市<rt>あさいち</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+        "title": "<ruby>聖地巡礼<rt>せいちじゅんれい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+        "title": "お<ruby>寺<rt>てら</rt></ruby>の<ruby>建築<rt>けんちく</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+        "title": "<ruby>小学校<rt>しょうがっこう</rt></ruby>の<ruby>音楽<rt>おんがく</rt></ruby>の<ruby>授業<rt>じゅぎょう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html",
+        "title": "コーヒー<ruby>豆<rt>まめ</rt></ruby>の<ruby>店<rt>みせ</rt></ruby>"
+      }
+    ]
+  },
+  {
     "date": "2026-09-28",
     "url": "/readings/2026-09-28.html",
     "articles": [

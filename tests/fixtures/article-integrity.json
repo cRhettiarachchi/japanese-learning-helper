@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "48fd86f882a77284d99afbeaeb60e85bb2e4dbc975da95c36178cadec142746a",
-    "ruby": "aea3399e19d61e445365a1ae94d0d9fbd685f14afe0fe22fb175709335525910",
+    "articleText": "63c62bc44442ac29a6b9eaaefabe72bef6a6dd916af21e616c9f2240bc874dae",
+    "ruby": "e0874a6cd8c37ef66816cd3f0477a972cefc5e648a068ed2a8f0cf14d47ee29a",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
-      "#rakkan",
-      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
-      "#okashikoojoo",
-      "#same",
-      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
-      "#rakkan",
-      "#nihonhoshi",
-      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
-      "#same",
-      "#tako",
-      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html",
-      "#nihonhoshi"
+      "https://www.hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+      "#seechijunree",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+      "#asaichi",
+      "#terakenchiku",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+      "#seechijunree",
+      "#music_class",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+      "#terakenchiku",
+      "#koohiimamenomise",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html",
+      "#music_class"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -224,6 +224,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html"
+    ]
+  },
+  "readings/2026-09-29.html": {
+    "articleText": "63c62bc44442ac29a6b9eaaefabe72bef6a6dd916af21e616c9f2240bc874dae",
+    "ruby": "e0874a6cd8c37ef66816cd3f0477a972cefc5e648a068ed2a8f0cf14d47ee29a",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+      "#seechijunree",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+      "#asaichi",
+      "#terakenchiku",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+      "#seechijunree",
+      "#music_class",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+      "#terakenchiku",
+      "#koohiimamenomise",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html",
+      "#music_class"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html"
     ]
   }
 }
