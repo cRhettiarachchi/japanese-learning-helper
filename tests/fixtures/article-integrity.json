@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "63c62bc44442ac29a6b9eaaefabe72bef6a6dd916af21e616c9f2240bc874dae",
-    "ruby": "e0874a6cd8c37ef66816cd3f0477a972cefc5e648a068ed2a8f0cf14d47ee29a",
+    "articleText": "db6da30470cb3fe101a86e28ecacedbe51f481528e5283580b33cfab8aeeb6e7",
+    "ruby": "4412fef803549eea1cfe0bd393a182a3b4b5a9c6355474c28a43bd088dfb7c7a",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
-      "#seechijunree",
-      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
-      "#asaichi",
-      "#terakenchiku",
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
-      "#seechijunree",
-      "#music_class",
-      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
-      "#terakenchiku",
-      "#koohiimamenomise",
-      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html",
-      "#music_class"
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+      "#shisho",
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+      "#mounten",
+      "#iaidoobu",
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+      "#shisho",
+      "#mukashikaranosenden",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+      "#iaidoobu",
+      "#uekara",
+      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html",
+      "#mukashikaranosenden"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -250,6 +250,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html"
+    ]
+  },
+  "readings/2026-09-30.html": {
+    "articleText": "db6da30470cb3fe101a86e28ecacedbe51f481528e5283580b33cfab8aeeb6e7",
+    "ruby": "4412fef803549eea1cfe0bd393a182a3b4b5a9c6355474c28a43bd088dfb7c7a",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+      "#shisho",
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+      "#mounten",
+      "#iaidoobu",
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+      "#shisho",
+      "#mukashikaranosenden",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+      "#iaidoobu",
+      "#uekara",
+      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html",
+      "#mukashikaranosenden"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html"
     ]
   }
 }

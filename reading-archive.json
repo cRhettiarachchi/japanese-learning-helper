@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-09-30",
+    "url": "/readings/2026-09-30.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+        "title": "<ruby>石鎚山<rt>いしづちさん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+        "title": "<ruby>司書<rt>ししょ</rt></ruby>の<ruby>仕事<rt>しごと</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+        "title": "<ruby>大学<rt>だいがく</rt></ruby>の<ruby>居合道部<rt>いあいどうぶ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+        "title": "<ruby>昔<rt>むかし</rt></ruby>からの<ruby>宣伝方法<rt>せんでんほうほう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html",
+        "title": "<ruby>水槽<rt>すいそう</rt></ruby>を<ruby>上<rt>うえ</rt></ruby>から<ruby>見<rt>み</rt></ruby>ました"
+      }
+    ]
+  },
+  {
     "date": "2026-09-29",
     "url": "/readings/2026-09-29.html",
     "articles": [
