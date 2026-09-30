@@ -1,5 +1,25 @@
 {
   "article": {
+    "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html": {},
+    "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html": {},
     "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/tanabata/index.html": {},
     "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/yachoo/index.html": {},
     "https://hirogaru-nihongo.jpf.go.jp/sweets/article/natsuokashi/index.html": {},
@@ -161,6 +181,9 @@
     },
     "yuyu-get-better-slowly": {
       "duration": 1032.800375
+    },
+    "yuyu-fluent-japanese": {
+      "duration": 2207.274667
     }
   }
 }

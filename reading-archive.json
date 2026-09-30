@@ -1,5 +1,109 @@
 [
   {
+    "date": "2026-09-30",
+    "url": "/readings/2026-09-30.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
+        "title": "<ruby>石鎚山<rt>いしづちさん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
+        "title": "<ruby>司書<rt>ししょ</rt></ruby>の<ruby>仕事<rt>しごと</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
+        "title": "<ruby>大学<rt>だいがく</rt></ruby>の<ruby>居合道部<rt>いあいどうぶ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
+        "title": "<ruby>昔<rt>むかし</rt></ruby>からの<ruby>宣伝方法<rt>せんでんほうほう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html",
+        "title": "<ruby>水槽<rt>すいそう</rt></ruby>を<ruby>上<rt>うえ</rt></ruby>から<ruby>見<rt>み</rt></ruby>ました"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-29",
+    "url": "/readings/2026-09-29.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/market/article/asaichi/index.html",
+        "title": "<ruby>朝市<rt>あさいち</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/seechijunree/index.html",
+        "title": "<ruby>聖地巡礼<rt>せいちじゅんれい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/terakenchiku/index.html",
+        "title": "お<ruby>寺<rt>てら</rt></ruby>の<ruby>建築<rt>けんちく</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/music_class/index.html",
+        "title": "<ruby>小学校<rt>しょうがっこう</rt></ruby>の<ruby>音楽<rt>おんがく</rt></ruby>の<ruby>授業<rt>じゅぎょう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koohiimamenomise/index.html",
+        "title": "コーヒー<ruby>豆<rt>まめ</rt></ruby>の<ruby>店<rt>みせ</rt></ruby>"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-28",
+    "url": "/readings/2026-09-28.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashikoojoo/index.html",
+        "title": "お<ruby>菓子<rt>かし</rt></ruby>の<ruby>工場<rt>こうじょう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/rakkan/index.html",
+        "title": "<ruby>落款<rt>らっかん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/same/index.html",
+        "title": "サメ"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/nihonhoshi/index.html",
+        "title": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>星座<rt>せいざ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/tako/index.html",
+        "title": "タコ<ruby>釣<rt>つ</rt></ruby>り"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-27",
+    "url": "/readings/2026-09-27.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/kodomonokarate/index.html",
+        "title": "<ruby>子<rt>こ</rt></ruby>どもの<ruby>空手<rt>からて</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shotai/index.html",
+        "title": "いろいろな<ruby>書体<rt>しょたい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/mamehon/index.html",
+        "title": "<ruby>豆本作<rt>まめほんづく</rt></ruby>り"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochanokakigoori/index.html",
+        "title": "お<ruby>茶<rt>ちゃ</rt></ruby>のかき<ruby>氷<rt>ごおり</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/hitorikaraoke/index.html",
+        "title": "ひとりでカラオケ"
+      }
+    ]
+  },
+  {
     "date": "2026-09-24",
     "url": "/readings/2026-09-24.html",
     "articles": [
