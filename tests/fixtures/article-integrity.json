@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "db6da30470cb3fe101a86e28ecacedbe51f481528e5283580b33cfab8aeeb6e7",
-    "ruby": "4412fef803549eea1cfe0bd393a182a3b4b5a9c6355474c28a43bd088dfb7c7a",
+    "articleText": "3a987769f8685983eb9540c1abe91f7cd36356fefcad20c10e3e5ef3205f10d2",
+    "ruby": "c96ec1e28a957b444b663c1c20a51b93503ff490b9cb8bbb5e5bd9a93024b53e",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
-      "#shisho",
-      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
-      "#mounten",
-      "#iaidoobu",
-      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
-      "#shisho",
-      "#mukashikaranosenden",
-      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
-      "#iaidoobu",
-      "#uekara",
-      "https://www.hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html",
-      "#mukashikaranosenden"
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+      "#okashinokaisha",
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+      "#puranetariumu",
+      "#koicha",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+      "#okashinokaisha",
+      "#shizenjinja",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+      "#koicha",
+      "#onomatope",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html",
+      "#shizenjinja"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/mounten/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/book/article/shisho/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -276,6 +276,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/budo/article/iaidoobu/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/shodo/article/mukashikaranosenden/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/suizokukan/article/uekara/index.html"
+    ]
+  },
+  "readings/2026-10-01.html": {
+    "articleText": "3a987769f8685983eb9540c1abe91f7cd36356fefcad20c10e3e5ef3205f10d2",
+    "ruby": "c96ec1e28a957b444b663c1c20a51b93503ff490b9cb8bbb5e5bd9a93024b53e",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+      "#okashinokaisha",
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+      "#puranetariumu",
+      "#koicha",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+      "#okashinokaisha",
+      "#shizenjinja",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+      "#koicha",
+      "#onomatope",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html",
+      "#shizenjinja"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html"
     ]
   }
 }

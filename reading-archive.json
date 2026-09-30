@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-10-01",
+    "url": "/readings/2026-10-01.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+        "title": "プラネタリウム"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+        "title": "お<ruby>菓子<rt>かし</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>聞<rt>き</rt></ruby>きました"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+        "title": "<ruby>濃茶<rt>こいちゃ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+        "title": "<ruby>自然<rt>しぜん</rt></ruby>と<ruby>神社<rt>じんじゃ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html",
+        "title": "オノマトペを<ruby>描<rt>か</rt></ruby>きます"
+      }
+    ]
+  },
+  {
     "date": "2026-09-30",
     "url": "/readings/2026-09-30.html",
     "articles": [
