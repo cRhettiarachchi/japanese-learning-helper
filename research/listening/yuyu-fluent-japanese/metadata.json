@@ -1,0 +1,28 @@
+{
+  "video_id": "KJblreFQ2R8",
+  "title": "日本語は「ペラペラ」なほどいい？言語ルッキズムについて考える / Is Fluent Japanese Better? The Problem with “Native-Like” Japanese",
+  "title_ja": "日本語は「ペラペラ」なほどいい？言語ルッキズムについて考える",
+  "publisher": "YUYUの日本語Podcast",
+  "source_url": "https://www.youtube.com/watch?v=KJblreFQ2R8",
+  "upload_date": "20260928",
+  "duration": 2207,
+  "audio_duration": 2207.274667,
+  "caption_type": "YouTube auto-generated Japanese",
+  "notice": "YouTube auto-generated Japanese captions, preserved verbatim. Recognition errors remain; hiragana readings are automatic and may be incorrect. Caption timestamps come from the source; no word timings are claimed.",
+  "retrieved_date": "2026-09-30",
+  "caption_sha256": "6c346c3a0a4b4ab846bc387cd58f6f33cbd158ec1d8c809cc81e6710b2b8f1ce",
+  "audio_sha256": "c52501034f29deef9fcc623aee9cea238918832d37f0abd45d28a5d403ac8fd8",
+  "checks": {
+    "tests_passed": 92,
+    "production_build": true,
+    "browser_seek": {
+      "target_seconds": 60.079,
+      "observed_seconds": 61.994623,
+      "playing": true
+    },
+    "lookup_pauses_audio": true,
+    "mobile_viewport": 390,
+    "mobile_document_width": 390,
+    "transcript_ruby_count": 1684
+  }
+}
