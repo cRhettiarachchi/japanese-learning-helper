@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "3a987769f8685983eb9540c1abe91f7cd36356fefcad20c10e3e5ef3205f10d2",
-    "ruby": "c96ec1e28a957b444b663c1c20a51b93503ff490b9cb8bbb5e5bd9a93024b53e",
+    "articleText": "a0e20936e6c4a6a8bbca79c4d1c379b2e23ea5e4e8c0f8bc18bf86b951ab8fdb",
+    "ruby": "03a87e9d911c264bee2b096e9b009437d2f6a18329f85fe018f71dda06fbb13e",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
-      "#okashinokaisha",
-      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
-      "#puranetariumu",
-      "#koicha",
-      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
-      "#okashinokaisha",
-      "#shizenjinja",
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
-      "#koicha",
-      "#onomatope",
-      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html",
-      "#shizenjinja"
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+      "#pensen",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+      "#tenji",
+      "#ochakikai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+      "#pensen",
+      "#twilight",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+      "#ochakikai",
+      "#tsutsuji",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html",
+      "#twilight"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -302,6 +302,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html"
+    ]
+  },
+  "readings/2026-10-02.html": {
+    "articleText": "a0e20936e6c4a6a8bbca79c4d1c379b2e23ea5e4e8c0f8bc18bf86b951ab8fdb",
+    "ruby": "03a87e9d911c264bee2b096e9b009437d2f6a18329f85fe018f71dda06fbb13e",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+      "#pensen",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+      "#tenji",
+      "#ochakikai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+      "#pensen",
+      "#twilight",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+      "#ochakikai",
+      "#tsutsuji",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html",
+      "#twilight"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html"
     ]
   }
 }

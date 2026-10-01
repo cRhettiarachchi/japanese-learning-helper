@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-10-02",
+    "url": "/readings/2026-10-02.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+        "title": "<ruby>図書館<rt>としょかん</rt></ruby>の<ruby>展示<rt>てんじ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+        "title": "ペンと<ruby>線<rt>せん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+        "title": "お<ruby>茶<rt>ちゃ</rt></ruby>の<ruby>機械<rt>きかい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+        "title": "<ruby>夕方<rt>ゆうがた</rt></ruby>の<ruby>空<rt>そら</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html",
+        "title": "つつじの<ruby>寺<rt>てら</rt></ruby>"
+      }
+    ]
+  },
+  {
     "date": "2026-10-01",
     "url": "/readings/2026-10-01.html",
     "articles": [
