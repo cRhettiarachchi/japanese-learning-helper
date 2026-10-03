@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-10-03",
+    "url": "/readings/2026-10-03.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+        "title": "お<ruby>坊<rt>ぼう</rt></ruby>さんになるまで"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+        "title": "コスプレが<ruby>趣味<rt>しゅみ</rt></ruby>です"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+        "title": "<ruby>星空<rt>ほしぞら</rt></ruby>を<ruby>撮影<rt>さつえい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+        "title": "ケーキ<ruby>屋<rt>や</rt></ruby>さんで<ruby>聞<rt>き</rt></ruby>きました"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html",
+        "title": "<ruby>鳥居<rt>とりい</rt></ruby>"
+      }
+    ]
+  },
+  {
     "date": "2026-10-02",
     "url": "/readings/2026-10-02.html",
     "articles": [

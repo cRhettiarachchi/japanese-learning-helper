@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "a0e20936e6c4a6a8bbca79c4d1c379b2e23ea5e4e8c0f8bc18bf86b951ab8fdb",
-    "ruby": "03a87e9d911c264bee2b096e9b009437d2f6a18329f85fe018f71dda06fbb13e",
+    "articleText": "5c5baf8a4ae742319229fb634983eb60800f63d830e01e77c68cd91492320ed2",
+    "ruby": "aa1ea502dd128fa9915ecb6c6a1af3c08d45ba6c107a248d35bb48293ada1308",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
-      "#pensen",
-      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
-      "#tenji",
-      "#ochakikai",
-      "https://www.hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
-      "#pensen",
-      "#twilight",
-      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
-      "#ochakikai",
-      "#tsutsuji",
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html",
-      "#twilight"
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+      "#cosplay2",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+      "#oboosan2",
+      "#hoshizora",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+      "#cosplay2",
+      "#cakekikimashita",
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+      "#hoshizora",
+      "#torii-2",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html",
+      "#cakekikimashita"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -328,6 +328,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html"
+    ]
+  },
+  "readings/2026-10-03.html": {
+    "articleText": "5c5baf8a4ae742319229fb634983eb60800f63d830e01e77c68cd91492320ed2",
+    "ruby": "aa1ea502dd128fa9915ecb6c6a1af3c08d45ba6c107a248d35bb48293ada1308",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+      "#cosplay2",
+      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+      "#oboosan2",
+      "#hoshizora",
+      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+      "#cosplay2",
+      "#cakekikimashita",
+      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+      "#hoshizora",
+      "#torii-2",
+      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html",
+      "#cakekikimashita"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html"
     ]
   }
 }
