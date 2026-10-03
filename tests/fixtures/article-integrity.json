@@ -1,28 +1,28 @@
 {
   "index.html": {
-    "articleText": "5c5baf8a4ae742319229fb634983eb60800f63d830e01e77c68cd91492320ed2",
-    "ruby": "aa1ea502dd128fa9915ecb6c6a1af3c08d45ba6c107a248d35bb48293ada1308",
+    "articleText": "3e4f926e62902bc2bc2300ffe3fa8bd369c9a0e73214256833a753e2f7203a3f",
+    "ruby": "f514d4c4139bc423710136f138ff5c4005e7c5d11f3fb56c1b40694e9654cbd3",
     "links": [
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
-      "#cosplay2",
-      "https://www.hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
-      "#oboosan2",
-      "#hoshizora",
-      "https://www.hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
-      "#cosplay2",
-      "#cakekikimashita",
-      "https://www.hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
-      "#hoshizora",
-      "#torii-2",
-      "https://www.hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html",
-      "#cakekikimashita"
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/sakura/index.html",
+      "#osozai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/market/article/osozai/index.html",
+      "#sakura",
+      "#gakkinomise",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/gakkinomise/index.html",
+      "#osozai",
+      "#shogakkonoshodo",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/shogakkonoshodo/index.html",
+      "#gakkinomise",
+      "#aikijujutsu",
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/aikijujutsu/index.html",
+      "#shogakkonoshodo"
     ],
     "completion": [
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
-      "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html"
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/sakura/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/market/article/osozai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/gakkinomise/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shogakkonoshodo/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/aikijujutsu/index.html"
     ]
   },
   "readings/2026-09-09.html": {
@@ -354,6 +354,32 @@
       "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
       "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html"
+    ]
+  },
+  "readings/2026-10-04.html": {
+    "articleText": "3e4f926e62902bc2bc2300ffe3fa8bd369c9a0e73214256833a753e2f7203a3f",
+    "ruby": "f514d4c4139bc423710136f138ff5c4005e7c5d11f3fb56c1b40694e9654cbd3",
+    "links": [
+      "https://www.hirogaru-nihongo.jpf.go.jp/outdoor/article/sakura/index.html",
+      "#osozai",
+      "https://www.hirogaru-nihongo.jpf.go.jp/market/article/osozai/index.html",
+      "#sakura",
+      "#gakkinomise",
+      "https://www.hirogaru-nihongo.jpf.go.jp/music/article/gakkinomise/index.html",
+      "#osozai",
+      "#shogakkonoshodo",
+      "https://www.hirogaru-nihongo.jpf.go.jp/shodo/article/shogakkonoshodo/index.html",
+      "#gakkinomise",
+      "#aikijujutsu",
+      "https://www.hirogaru-nihongo.jpf.go.jp/budo/article/aikijujutsu/index.html",
+      "#shogakkonoshodo"
+    ],
+    "completion": [
+      "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/sakura/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/market/article/osozai/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/music/article/gakkinomise/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shogakkonoshodo/index.html",
+      "https://hirogaru-nihongo.jpf.go.jp/budo/article/aikijujutsu/index.html"
     ]
   }
 }

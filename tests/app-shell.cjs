@@ -41,8 +41,8 @@ test("React content migration preserves article text, ruby associations, complet
     assert.ok(generated.data.tokens);
     assert.ok(generated.data.dictionary);
   }
-  assert.equal(seen.size, 55);
-  assert.equal(rubies, 2837);
+  assert.equal(seen.size, 60);
+  assert.equal(rubies, 3109);
 });
 test("Next build public allowlist excludes iframe documents, browser bootstraps, server and credentials", () => {
   const walk = (dir) =>
