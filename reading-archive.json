@@ -1,5 +1,109 @@
 [
   {
+    "date": "2026-10-04",
+    "url": "/readings/2026-10-04.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/outdoor/article/sakura/index.html",
+        "title": "<ruby>桜<rt>さくら</rt></ruby>の<ruby>楽<rt>たの</rt></ruby>しみ"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/market/article/osozai/index.html",
+        "title": "お<ruby>惣菜<rt>そうざい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/music/article/gakkinomise/index.html",
+        "title": "<ruby>楽器<rt>がっき</rt></ruby>の<ruby>店<rt>みせ</rt></ruby>で<ruby>聞<rt>き</rt></ruby>きました"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/shodo/article/shogakkonoshodo/index.html",
+        "title": "<ruby>小学校<rt>しょうがっこう</rt></ruby>の<ruby>書道<rt>しょどう</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/budo/article/aikijujutsu/index.html",
+        "title": "<ruby>合気柔術<rt>あいきじゅうじゅつ</rt></ruby>を<ruby>習<rt>なら</rt></ruby>います"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-03",
+    "url": "/readings/2026-10-03.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/oboosan2/index.html",
+        "title": "お<ruby>坊<rt>ぼう</rt></ruby>さんになるまで"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/cosplay2/index.html",
+        "title": "コスプレが<ruby>趣味<rt>しゅみ</rt></ruby>です"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/hoshizora/index.html",
+        "title": "<ruby>星空<rt>ほしぞら</rt></ruby>を<ruby>撮影<rt>さつえい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/cakekikimashita/index.html",
+        "title": "ケーキ<ruby>屋<rt>や</rt></ruby>さんで<ruby>聞<rt>き</rt></ruby>きました"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/torii-2/index.html",
+        "title": "<ruby>鳥居<rt>とりい</rt></ruby>"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-02",
+    "url": "/readings/2026-10-02.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/book/article/tenji/index.html",
+        "title": "<ruby>図書館<rt>としょかん</rt></ruby>の<ruby>展示<rt>てんじ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/pensen/index.html",
+        "title": "ペンと<ruby>線<rt>せん</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/ochakikai/index.html",
+        "title": "お<ruby>茶<rt>ちゃ</rt></ruby>の<ruby>機械<rt>きかい</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/twilight/index.html",
+        "title": "<ruby>夕方<rt>ゆうがた</rt></ruby>の<ruby>空<rt>そら</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/tsutsuji/index.html",
+        "title": "つつじの<ruby>寺<rt>てら</rt></ruby>"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-01",
+    "url": "/readings/2026-10-01.html",
+    "articles": [
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/hoshi/article/puranetariumu/index.html",
+        "title": "プラネタリウム"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/sweets/article/okashinokaisha/index.html",
+        "title": "お<ruby>菓子<rt>かし</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>聞<rt>き</rt></ruby>きました"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/cafe/article/koicha/index.html",
+        "title": "<ruby>濃茶<rt>こいちゃ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/tera-jinja/article/shizenjinja/index.html",
+        "title": "<ruby>自然<rt>しぜん</rt></ruby>と<ruby>神社<rt>じんじゃ</rt></ruby>"
+      },
+      {
+        "key": "https://hirogaru-nihongo.jpf.go.jp/anime/article/onomatope/index.html",
+        "title": "オノマトペを<ruby>描<rt>か</rt></ruby>きます"
+      }
+    ]
+  },
+  {
     "date": "2026-09-30",
     "url": "/readings/2026-09-30.html",
     "articles": [
