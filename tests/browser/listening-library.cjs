@@ -94,6 +94,34 @@ const { randomBytes, createHash } = require("node:crypto");
         .querySelector('[aria-current="true"]')
         ?.textContent.includes("日本語を勉強します"),
     );
+    await page.evaluate(() => window.__setTime(1.5));
+    await page.waitForFunction(
+      () => !!document.querySelector('ol li[aria-current="true"] ruby'),
+    );
+    for (const mode of ["dark", "light"]) {
+      await page.emulateMedia({ colorScheme: mode });
+      await page.waitForFunction(
+        (mode) =>
+          document.documentElement.classList.contains("dark") ===
+          (mode === "dark"),
+        mode,
+      );
+      const colors = await page
+        .locator('ol li[aria-current="true"]')
+        .evaluate((el) => ({
+          base: getComputedStyle(el.querySelector("ruby")).color,
+          ruby: getComputedStyle(el.querySelector("rt")).color,
+        }));
+      assert.equal(
+        colors.ruby,
+        colors.base,
+        mode + " highlighted ruby must match base text",
+      );
+      await page.screenshot({
+        path: "/tmp/hirogaru-ruby-active-" + mode + ".png",
+        fullPage: true,
+      });
+    }
     const word = page.getByRole("button", {
       name: "Look up 日本",
       exact: true,
