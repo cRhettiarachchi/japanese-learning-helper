@@ -22,7 +22,7 @@ export function Chrome() {
   const links = [
     ["/index.html", "Reading"],
     ["/grammar.html", "Grammar"],
-    ["/listening/teppei-1586.html", "Listening"],
+    ["/listening/library", "Listening"],
     ["/vocabulary.html", "Vocabulary"],
   ];
   return (

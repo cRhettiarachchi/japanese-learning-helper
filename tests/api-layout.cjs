@@ -16,7 +16,7 @@ test("Vercel discovers only Next API routes, not duplicate standalone root handl
   ].map((match) => path.resolve("src/app/api/[...endpoint]", match[1] + ".js"));
   assert.equal(
     handlers.length,
-    11,
+    12,
     "Keep every existing endpoint reachable through the Next catch-all route.",
   );
   for (const handler of handlers)

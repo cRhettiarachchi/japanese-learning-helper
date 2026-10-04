@@ -1,3 +1,4 @@
+import listening from "../../../../server/handlers/listening";
 import { NextRequest } from "next/server";
 import videoNotes from "../../../../server/handlers/video-notes";
 import account from "../../../../server/handlers/account";
@@ -14,6 +15,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 const handlers: Record<string, Function> = {
+  listening,
   account,
   "video-notes": videoNotes,
   "revision-card": revisionCard,
@@ -46,7 +48,7 @@ async function handle(
         const { value, done } = await reader.read();
         if (done) break;
         size += value.byteLength;
-        if (size > 65536) {
+        if (size > (endpoint.join("/") === "listening" ? 1048576 : 65536)) {
           await reader.cancel();
           return Response.json(
             { error: "Request too large" },

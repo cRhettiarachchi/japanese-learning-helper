@@ -15,10 +15,10 @@ function equal(a,b){if(typeof a!=='string'||typeof b!=='string')return false;con
 function sameOrigin(req){if(req.headers.origin!==origin())throw error(403,'Request origin rejected');}
 function json(res,status,value){res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.statusCode=status;res.setHeader('Content-Type','application/json');res.end(JSON.stringify(value));}
 function wrap(handler){return async(req,res)=>{res.setHeader('Cache-Control','no-store');try {await handler(req,res);}catch(e){json(res,e.status||500,{error:e.status?e.message:'Request failed. Please retry.'});}};}
-async function body(req){
+async function body(req,limit=65536){
  if(!String(req.headers['content-type']||'').startsWith('application/json'))throw error(415,'JSON required');
- if(req.body!==undefined){let b;try{b=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{throw error(400,'Invalid JSON');}if(JSON.stringify(b).length>65536)throw error(413,'Request too large');return b;}
- let text='';for await(const chunk of req){text+=chunk;if(text.length>65536)throw error(413,'Request too large');}
+ if(req.body!==undefined){let b;try{b=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{throw error(400,'Invalid JSON');}if(Buffer.byteLength(JSON.stringify(b))>limit)throw error(413,'Request too large');return b;}
+ let text='';for await(const chunk of req){text+=chunk;if(Buffer.byteLength(text)>limit)throw error(413,'Request too large');}
  try{return JSON.parse(text);}catch{throw error(400,'Invalid JSON');}
 }
 module.exports={error,origin,secure,cookieName,cookies,setCookie,equal,sameOrigin,json,wrap,body};
