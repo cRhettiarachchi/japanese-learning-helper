@@ -109,3 +109,93 @@ test("dynamic library persists, prevents duplicate/stale writes and isolates use
     await db.close();
   }
 });
+
+test("VTT ruby keeps base text and readings, ignores attributes and active markup", () => {
+  const source =
+    'WEBVTT\n\n00:01.250 --> 00:04.500\n<ruby class="x" onclick="alert(1)">日本<rt onmouseover="alert(2)">にほん</rt></ruby>の<ruby>漢<rt>かん</rt>字<rt>じ</rt></ruby> &amp; &#x672C;<script>alert(3)</script><img src=x onerror=alert(4)><svg><script>alert(5)</script></svg>';
+  assert.deepEqual(parseSubtitles(source), [
+    {
+      start: 1.25,
+      end: 4.5,
+      text: "日本の漢字 & 本",
+      parts: [
+        { text: "日本", reading: "にほん" },
+        { text: "の" },
+        { text: "漢", reading: "かん" },
+        { text: "字", reading: "じ" },
+        { text: " & 本" },
+      ],
+    },
+  ]);
+  const wrapped =
+    "1\n00:00:00,000 --> 00:00:02,000\n<c.red><ruby><rb>学校</rb><rp>(</rp><rt>がっこう</rt><rp>)</rp></ruby></c>";
+  assert.deepEqual(parseSubtitles(wrapped)[0].parts, [
+    { text: "学校", reading: "がっこう" },
+  ]);
+  const encoded =
+    "1\n00:00:00,000 --> 00:00:02,000\n&lt;img src=x onerror=alert(1)&gt;<ruby>本<rt>&lt;script&gt;</rt></ruby>";
+  assert.equal(
+    parseSubtitles(encoded)[0].parts[0].text,
+    "<img src=x onerror=alert(1)>",
+  );
+  assert.equal(parseSubtitles(encoded)[0].parts[1].reading, "<script>");
+  assert.throws(
+    () =>
+      parseSubtitles(
+        "1\n00:00:00,000 --> 00:00:02,000\n" +
+          "<b>".repeat(40) +
+          "text" +
+          "</b>".repeat(40),
+      ),
+    { status: 400 },
+  );
+});
+test("ruby survives database roundtrip and title edits; legacy captions remain readable", async () => {
+  const db = new PGlite();
+  try {
+    await db.exec(fs.readFileSync("db/listening.sql", "utf8"));
+    const subtitles =
+      "WEBVTT\n\n00:01.000 --> 00:03.000\n<ruby>日本語<rt>にほんご</rt></ruby>です";
+    await save(db, "ruby-user", { ...base, subtitles });
+    await save(db, "ruby-user", {
+      url: base.url,
+      title: "Renamed",
+      expectedRevision: 1,
+    });
+    const cues = (await snapshot(db, "ruby-user")).items[0].cues;
+    assert.deepEqual(cues, parseSubtitles(subtitles));
+    await save(db, "legacy-user", {
+      ...base,
+      subtitles: "1\n00:00:01,000 --> 00:00:02,000\n普通の字幕",
+    });
+    assert.deepEqual((await snapshot(db, "legacy-user")).items[0].cues, [
+      { start: 1, end: 2, text: "普通の字幕" },
+    ]);
+  } finally {
+    await db.close();
+  }
+});
+
+test("lookup uses the existing dictionary without modifying ruby or stored legacy text", () => {
+  const { annotate } = require("../server/listening-lookup.cjs");
+  const item = {
+    cues: [
+      {
+        start: 1,
+        end: 2,
+        text: "日本です。",
+        parts: [{ text: "日本", reading: "にほん" }, { text: "です。" }],
+      },
+      { start: 2, end: 3, text: "日本語" },
+    ],
+  };
+  const annotated = annotate(item);
+  assert.deepEqual(annotated.cues, item.cues);
+  const word = annotated.lookup.rows[0][0];
+  assert.equal(word.text, "日本");
+  assert.equal(word.reading, "にほん");
+  assert.ok(word.entries.length);
+  assert.ok(word.entries.every((id) => annotated.lookup.dictionary[id]));
+  assert.deepEqual(annotated.lookup.rows[0].at(-1), { text: "。" });
+  assert.ok(annotated.lookup.rows[1].some((part) => part.entries?.length));
+});

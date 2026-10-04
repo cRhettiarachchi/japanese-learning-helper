@@ -26,6 +26,80 @@ function timestamp(s) {
     throw error(400, "Invalid subtitle timestamp.");
   return +(m[1] || 0) * 3600 + +m[2] * 60 + +m[3] + +m[4] / 1000;
 }
+// Parse uploaded markup into data, never HTML to execute or inject into the page.
+function captionParts(source) {
+  if (source.length > 32000) throw error(400, "Subtitle cue is too long.");
+  const { htmlToDOM } = require("html-react-parser");
+  const blocked = new Set([
+    "script",
+    "style",
+    "iframe",
+    "object",
+    "embed",
+    "template",
+    "noscript",
+    "svg",
+    "math",
+    "rp",
+  ]);
+  const nodes = htmlToDOM(
+    source.replace(/<(?:(?:\d{2,}):)?\d{2}:\d{2}\.\d{3}>/g, ""),
+  );
+  function plain(nodes, depth = 0) {
+    if (depth > 32) throw error(400, "Subtitle markup is nested too deeply.");
+    return nodes
+      .map((node) => {
+        if (node.type === "text") return node.data;
+        if (blocked.has(node.name) || node.name === "rt") return "";
+        if (node.name === "br") return "\n";
+        return node.children ? plain(node.children, depth + 1) : "";
+      })
+      .join("");
+  }
+  const parts = [];
+  function add(text, reading) {
+    if (!text) return;
+    const last = parts[parts.length - 1];
+    if (!reading && last && !last.reading) last.text += text;
+    else parts.push(reading ? { text, reading } : { text });
+  }
+  function visit(nodes, depth = 0) {
+    if (depth > 32) throw error(400, "Subtitle markup is nested too deeply.");
+    for (const node of nodes) {
+      if (node.type === "text") {
+        add(node.data);
+        continue;
+      }
+      if (blocked.has(node.name) || node.name === "rt") continue;
+      if (node.name === "br") {
+        add("\n");
+        continue;
+      }
+      if (node.name === "ruby") {
+        let base = "";
+        for (const child of node.children || []) {
+          if (child.name === "rt") {
+            add(base, plain(child.children || [], depth + 1));
+            base = "";
+          } else base += plain([child], depth + 1);
+        }
+        add(base);
+      } else if (node.children) visit(node.children, depth + 1);
+    }
+  }
+  visit(nodes);
+  if (parts.length) {
+    parts[0].text = parts[0].text.trimStart();
+    parts[parts.length - 1].text = parts[parts.length - 1].text.trimEnd();
+  }
+  const kept = parts.filter((p) => p.text);
+  if (
+    kept.reduce((n, p) => n + p.text.length + (p.reading?.length || 0), 0) >
+    4000
+  )
+    throw error(400, "Subtitle cue is too long.");
+  return kept;
+}
 function parseSubtitles(source) {
   if (typeof source !== "string" || Buffer.byteLength(source) > 500000)
     throw error(400, "Subtitles must be under 500 KB.");
@@ -51,20 +125,16 @@ function parseSubtitles(source) {
         400,
         "Subtitle times must be within 24 hours, with end after start.",
       );
-    // Store only text, never subtitle markup; React renders it as text.
-    const text = lines
-      .slice(i + 1)
-      .join("\n")
-      .replace(/<[^>]*>/g, "")
-      .replace(
-        /&(amp|lt|gt|quot|apos|nbsp);/g,
-        (_, x) =>
-          ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " })[x],
-      )
-      .trim();
+    const parts = captionParts(lines.slice(i + 1).join("\n"));
+    const text = parts.map((part) => part.text).join("");
     if (!text || text.length > 4000)
       throw error(400, "Subtitle cue is empty or too long.");
-    cues.push({ start, end, text });
+    cues.push({
+      start,
+      end,
+      text,
+      ...(parts.some((part) => part.reading) ? { parts } : {}),
+    });
   }
   if (!cues.length || cues.length > 10000)
     throw error(400, "Upload subtitles containing 1–10,000 timed lines.");
@@ -120,7 +190,7 @@ async function snapshot(db, userId) {
         "SELECT video_id,title,cues,revision FROM learner_listening WHERE user_id=$1 ORDER BY updated_at DESC",
         [userId],
       )
-    ).rows,
+    ).rows.map(require("./listening-lookup.cjs").annotate),
   };
 }
 async function save(db, userId, input) {

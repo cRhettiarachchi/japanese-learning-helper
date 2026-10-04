@@ -6,8 +6,22 @@ import { useAccount } from "./account-provider";
 import { request } from "../lib/request";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-type Cue = { start: number; end: number; text: string };
-type Item = { video_id: string; title: string; cues: Cue[]; revision: number };
+import { DictionaryPanel } from "./dictionary-panel";
+import type { Token, DictionaryEntry } from "../lib/types";
+type WordPart = { text: string; reading?: string; entries?: string[] };
+type Cue = {
+  start: number;
+  end: number;
+  text: string;
+  parts?: { text: string; reading?: string }[];
+};
+type Item = {
+  video_id: string;
+  title: string;
+  cues: Cue[];
+  revision: number;
+  lookup?: { rows: WordPart[][]; dictionary: Record<string, DictionaryEntry> };
+};
 type Library = { userId: string; available: boolean; items: Item[] };
 let apiPromise: Promise<any> | undefined;
 function youtube() {
@@ -49,6 +63,34 @@ function youtube() {
   return apiPromise;
 }
 function Video({ item }: { item: Item }) {
+  const [lookup, setLookup] = useState<Token | null>(null);
+  const lookupRef = useRef(false),
+    resume = useRef(false),
+    trigger = useRef<HTMLButtonElement | null>(null);
+  function closeLookup() {
+    setLookup(null);
+    lookupRef.current = false;
+    const shouldResume = resume.current;
+    resume.current = false;
+    requestAnimationFrame(() =>
+      trigger.current?.focus({ preventScroll: true }),
+    );
+    if (shouldResume) player.current?.playVideo();
+  }
+  function openLookup(part: WordPart, element: HTMLButtonElement) {
+    resume.current = player.current?.getPlayerState?.() === 1;
+    lookupRef.current = true;
+    player.current?.pauseVideo();
+    trigger.current = element;
+    setLookup({ surface: part.text, entries: part.entries || [] });
+  }
+  function seek(seconds: number) {
+    if (lookupRef.current) return;
+    player.current?.seekTo(seconds, true);
+    player.current?.playVideo();
+    setTime(seconds);
+  }
+
   const host = useRef<HTMLDivElement>(null),
     player = useRef<any>(null);
   const [time, setTime] = useState(-1),
@@ -81,8 +123,10 @@ function Video({ item }: { item: Item }) {
             },
             onStateChange: (e: any) => {
               cancelAnimationFrame(frame);
-              if (e.data === YT.PlayerState.PLAYING) clock();
-              else if (!disposed)
+              if (e.data === YT.PlayerState.PLAYING) {
+                if (lookupRef.current) player.current?.pauseVideo();
+                else clock();
+              } else if (!disposed)
                 setTime(player.current?.getCurrentTime() ?? -1);
             },
             onError: () => {
@@ -132,36 +176,81 @@ function Video({ item }: { item: Item }) {
       ) : (
         <>
           <p className="text-sm text-muted-foreground">
-            Tap a line to seek. Highlighting follows subtitle timing; accuracy
-            depends on your file. Text is preserved without generated readings.
+            Tap a word for its meaning; tap the timestamp or the rest of a line
+            to seek. Highlighting follows subtitle timing; accuracy depends on
+            your file. Uploaded ruby readings are preserved; no readings are
+            generated.
           </p>
           <ol
             className="max-h-[32rem] space-y-2 overflow-y-auto rounded-xl border p-3"
             aria-label="Timed transcript"
           >
-            {item.cues.map((cue, i) => (
-              <li key={i}>
-                <button
-                  disabled={!ready}
+            {item.cues.map((cue, i) => {
+              const stamp = `${Math.floor(cue.start / 60)}:${String(Math.floor(cue.start % 60)).padStart(2, "0")}`;
+              const parts = item.lookup?.rows[i] ||
+                cue.parts || [{ text: cue.text }];
+              return (
+                <li
+                  key={i}
                   aria-current={active === i ? "true" : undefined}
-                  className={`w-full rounded-lg p-3 text-left whitespace-pre-wrap ${active === i ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
-                  onClick={() => {
-                    player.current?.seekTo(cue.start, true);
-                    player.current?.playVideo();
-                    setTime(cue.start);
-                  }}
+                  className={`rounded-lg p-3 whitespace-pre-wrap ${active === i ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
+                  onClick={() => ready && seek(cue.start)}
                 >
-                  <span className="mr-3 font-mono text-xs">
-                    {Math.floor(cue.start / 60)}:
-                    {String(Math.floor(cue.start % 60)).padStart(2, "0")}
+                  <button
+                    type="button"
+                    disabled={!ready}
+                    aria-label={`Seek to ${stamp}`}
+                    className="mr-3 rounded px-1 font-mono text-xs underline focus-visible:outline-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      seek(cue.start);
+                    }}
+                  >
+                    {stamp}
+                  </button>
+                  <span lang="ja">
+                    {parts.map((part: WordPart, j: number) => {
+                      const content = part.reading ? (
+                        <ruby>
+                          {part.text}
+                          <rt>{part.reading}</rt>
+                        </ruby>
+                      ) : (
+                        part.text
+                      );
+                      return part.entries ? (
+                        <button
+                          key={j}
+                          type="button"
+                          className="word rounded px-0.5 focus-visible:outline-2"
+                          aria-label={`Look up ${part.text}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openLookup(part, e.currentTarget);
+                          }}
+                        >
+                          {content}
+                        </button>
+                      ) : (
+                        <span key={j}>{content}</span>
+                      );
+                    })}
                   </span>
-                  <span lang="ja">{cue.text}</span>
-                </button>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ol>
         </>
       )}
+      <DictionaryPanel
+        token={lookup}
+        data={{
+          tokens: {},
+          sentences: [],
+          dictionary: item.lookup?.dictionary || {},
+        }}
+        onClose={closeLookup}
+      />
     </section>
   );
 }

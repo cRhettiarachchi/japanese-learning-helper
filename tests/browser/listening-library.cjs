@@ -34,7 +34,18 @@ const { randomBytes, createHash } = require("node:crypto");
             t = x;
             window.__seek = x;
           };
-          this.playVideo = () => opts.events.onStateChange({ data: 1 });
+          let state = 0;
+          this.getPlayerState = () => state;
+          this.playVideo = () => {
+            state = 1;
+            window.__paused = false;
+            opts.events.onStateChange({ data: 1 });
+          };
+          this.pauseVideo = () => {
+            state = 2;
+            window.__paused = true;
+            opts.events.onStateChange({ data: 2 });
+          };
           this.destroy = () => {};
           window.__player = this;
           window.__setTime = (x) => (t = x);
@@ -57,27 +68,73 @@ const { randomBytes, createHash } = require("node:crypto");
     await page
       .getByRole("button", { name: "Edit title or upload subtitles" })
       .click();
-    await page
-      .getByLabel("Subtitles (optional)")
-      .setInputFiles({
-        name: "sample.vtt",
-        mimeType: "text/vtt",
-        buffer: Buffer.from(
-          "WEBVTT\n\n00:01.000 --> 00:03.000\nこんにちは\n\n00:04.000 --> 00:06.000\n日本語を勉強します",
-        ),
-      });
+    await page.getByLabel("Subtitles (optional)").setInputFiles({
+      name: "sample.vtt",
+      mimeType: "text/vtt",
+      buffer: Buffer.from(
+        "WEBVTT\n\n00:01.000 --> 00:03.000\n<ruby onclick='alert(1)'>日本<rt>にほん</rt></ruby>こんにちは<img src=x onerror='alert(2)'><script>alert(3)</script>\n\n00:04.000 --> 00:06.000\n日本語を勉強します。",
+      ),
+    });
     await page
       .getByRole("button", { name: "Save changes", exact: true })
       .click();
     await page.getByRole("list", { name: "Timed transcript" }).waitFor();
+    assert.equal(await page.locator("ol ruby").count(), 1);
+    assert.equal(await page.locator("ol ruby rt").innerText(), "にほん");
+    assert.equal(
+      await page.locator("ol script, ol img, ol [onclick]").count(),
+      0,
+    );
     await page
-      .getByRole("button", { name: /0:04.*日本語を勉強します/ })
+      .getByRole("button", { name: "Seek to 0:04", exact: true })
       .click();
     assert.equal(await page.evaluate(() => window.__seek), 4);
     await page.waitForFunction(() =>
       document
         .querySelector('[aria-current="true"]')
         ?.textContent.includes("日本語を勉強します"),
+    );
+    const word = page.getByRole("button", {
+      name: "Look up 日本",
+      exact: true,
+    });
+    await word.click();
+    await page.getByRole("dialog").waitFor();
+    assert.match(await page.getByRole("dialog").innerText(), /Japan/);
+    assert.equal(
+      await page.evaluate(() => window.__seek),
+      4,
+      "Dictionary click must not seek",
+    );
+    assert.equal(
+      await page.evaluate(() => window.__paused),
+      true,
+      "Dictionary pauses playback",
+    );
+    await page.keyboard.press("Escape");
+    await page.getByRole("dialog").waitFor({ state: "hidden" });
+    await word.press("Enter");
+    await page.getByRole("dialog").waitFor();
+    assert.equal(
+      await page.evaluate(() => window.__seek),
+      4,
+      "Keyboard lookup must not seek",
+    );
+    await page.keyboard.press("Escape");
+    await page.getByRole("dialog").waitFor({ state: "hidden" });
+    await page
+      .getByRole("button", { name: "Seek to 0:01", exact: true })
+      .press("Enter");
+    assert.equal(
+      await page.evaluate(() => window.__seek),
+      1,
+      "Timestamp keyboard activation seeks",
+    );
+    await page.getByText("。", { exact: true }).click();
+    assert.equal(
+      await page.evaluate(() => window.__seek),
+      4,
+      "Non-word caption area still seeks",
     );
     await page.evaluate(() => window.__setTime(3.5));
     await page.waitForFunction(
@@ -101,7 +158,10 @@ const { randomBytes, createHash } = require("node:crypto");
     const html = await (
       await page.request.get("http://127.0.0.1:3010/listening/library")
     ).text();
-    assert.ok(html.includes("こんにちは"), "Transcript present in server HTML");
+    assert.ok(
+      html.includes("<ruby>日本<rt>にほん</rt></ruby>"),
+      "Transcript present in server HTML",
+    );
     await page.screenshot({
       path: "/tmp/hirogaru-listening-library-mobile.png",
       fullPage: true,
@@ -161,7 +221,7 @@ const { randomBytes, createHash } = require("node:crypto");
       400,
     );
     console.log(
-      "PASS: create, subtitle replacement, persistence, SSR, seek/highlight/gap, idle network, mobile layout, unauthenticated access, account isolation and CSRF. Player timing uses a deterministic YouTube API test double.",
+      "PASS: create, ruby/unsafe markup, subtitle replacement, persistence, SSR, dictionary pointer/keyboard without seeking, pause/resume, timestamp and non-word seek, highlight/gap, idle network, mobile layout, account isolation and CSRF. Player timing uses a deterministic YouTube API test double.",
     );
   } finally {
     await browser.close();
