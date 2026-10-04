@@ -213,7 +213,13 @@ function Video({ item }: { item: Item }) {
                       const content = part.reading ? (
                         <ruby>
                           {part.text}
-                          <rt>{part.reading}</rt>
+                          <rt
+                            style={{
+                              color: active === i ? "inherit" : undefined,
+                            }}
+                          >
+                            {part.reading}
+                          </rt>
                         </ruby>
                       ) : (
                         part.text

@@ -1,0 +1,9 @@
+.git
+.env*
+.vercel
+node_modules
+.next
+*.log
+*.tsbuildinfo
+.DS_Store
+__pycache__
